@@ -1,10 +1,10 @@
 UCSC Mobile Dining App
 ======================
 
-1. First get setup with yo, grunt, bower. http://yeoman.io/gettingstarted.html
-2. Second, get git installed on your local machine. 
-3. Second, clone this repo to your local machine.
-4. Third, run the commands:
+1. Get setup with yo, grunt, bower. http://yeoman.io/gettingstarted.html
+2. Get git installed on your local machine. You may need to get Homebrew installed first. http://brew.sh
+3. Clone this repo to your local machine. <code>git clone http://yeoman.io/gettingstarted.html</code>
+4. Run the commands:
 <code>npm install</code>
  then run
  <code>bower update</code>
