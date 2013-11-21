@@ -5,13 +5,11 @@ UCSC Mobile Dining App
 2. Second, get git installed on your local machine. 
 3. Second, clone this repo to your local machine.
 4. Third, run the commands:
- npm install
+<code>npm install</code>
  then run
- bower update
-
-Fourth, you should now have all the files. Run
-grunt server to get a local copy running.
-
-Make changes to our html files and commit your changes.
+ <code>bower update</code>
+5. You should now have all the files and dependencies we'll need to run a dev copy.
+6. Run <code>grunt server</code> to get a local copy running.
+7. Make changes to our html files and commit your changes.
 
 Peter
