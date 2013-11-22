@@ -7,7 +7,8 @@
     "modernizr": "~2.6.2",
     "jquery": "~1.10.2",
     "leaflet": "~0.6.4",
-    "leaflet-hash": "*"
+    "leaflet-hash": "*",
+    "leaflet-locatecontrol": "https://github.com/domoritz/leaflet-locatecontrol.git#~0.20.0"
   },
   "devDependencies": {}
 }
