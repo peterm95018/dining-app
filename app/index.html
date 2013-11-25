@@ -13,12 +13,10 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
+        <!-- build:js scripts/vendor/modernizr.js --> 
         <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
 		<script src="scripts/modernizr.custom.24514.js"></script>
-		
         <!-- endbuild -->
-		<script>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -83,5 +81,19 @@
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
+		<script>
+		Modernizr.load({
+			test: Modernizr.touch,
+			yep: 'bower_components/jquery-touchswipe/jquery.touchSwipe.js',
+		});
+		</script>
+		
+		<script>
+		if (Modernizr.touch) {
+			alert('touch screen');
+		} else {
+			alert('no touch screen');
+		}
+		</script>
 </body>
 </html>
