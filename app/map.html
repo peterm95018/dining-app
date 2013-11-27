@@ -24,7 +24,8 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-<!--[if lte IE 8]><link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.ie.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.ie.css" />
+			<link rel="stylesheet" href="bower_components/leaflet/dist/L.Control.Locate.ie.css />"<![endif]-->
 
 		    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 		      <div class="container">
@@ -74,10 +75,11 @@
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="bower_components/leaflet/dist/leaflet.js"></script>
+		<script src="bower_components/leaflet/dist/Leaflet.js"></script>
+		<script src="scripts/ucsc_map_uri.js"></script>
 		<script src="bower_components/leaflet-hash/leaflet-hash.js"></script>
 		<script src="bower_components/leaflet-locatecontrol/src/L.Control.Locate.js"></script>
-		<script src="scripts/ucsc_map_uri.js"></script>
+
         <!-- endbower -->
         <!-- endbuild -->
 		
@@ -98,7 +100,6 @@
         var hash = new L.Hash(map);
 		/*psm added leaflet-locatecontrol */
 		L.control.locate().addTo(map);
-		
                         L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
                                 maxZoom: 18,
                                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
