@@ -25,7 +25,7 @@ module.exports = function (grunt) {
                 tasks: ['compass:server', 'autoprefixer']
             },
             styles: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+                files: ['<%= yeoman.app %>/styles/{,*/}*.css' ],
                 tasks: ['copy:styles', 'autoprefixer']
             },
             livereload: {
@@ -117,7 +117,7 @@ module.exports = function (grunt) {
                 httpGeneratedImagesPath: '/images/generated',
                 httpFontsPath: '/styles/fonts',
                 relativeAssets: false,
-                assetCacheBuster: false
+                assetCacheBuster: false,
             },
             dist: {
                 options: {
@@ -250,6 +250,7 @@ module.exports = function (grunt) {
             }
         },
         // Put files not handled in other tasks here
+        // PSM added leaflet, leaflet-hash, leaflet-locatecontrol, bootstrap.min.css
         copy: {
             dist: {
                 files: [{
@@ -262,7 +263,13 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
-                        'bower_components/sass-bootstrap/fonts/*.*'
+                        'bower_components/sass-bootstrap/fonts/*.*',
+                        'bower_components/sass-bootstrap/dist/css/bootstrap.min.css',
+                        'bower_components/leaflet/dist/*',
+                        'bower_components/leaflet/dist/images/*',
+                        'bower_components/leaflet-hash/leaflet-hash.js',
+                        'bower_components/leaflet-locatecontrol/src/images/*',
+                        'bower_components/leaflet-locatecontrol/src/*'
                     ]
                 }]
             },

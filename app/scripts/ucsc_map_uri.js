@@ -17,3 +17,4 @@ var query = parser.hash; // returns "#17/36.999998/-122.05443"
 var pairs = query.split("/"); // Split at "/", ["#15", "36.9991", "-122.0549"]
 var lat = pairs[1];
 var lng = pairs[2];
+var title = pairs[3];
