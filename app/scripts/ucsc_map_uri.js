@@ -23,9 +23,13 @@ var lat = pairs[1];
 var lng = pairs[2];
 var diningTitle = pairs[3];
 
+/*
+		
+		var theData = new Object();
+		theData.diningTitle = diningTitle;
 
-var theData = {diningTitle: diningTitle};
-var theTemplateScript = $("#header").html();
-var theTemplate = Handlebars.compile(theTemplateScript);
-$(document.body).append(theTemplate(theData));
+		var theTemplateScript = $("#header").html();
+		var theTemplate = Handlebars.compile(theTemplateScript);
 
+		$(.header).append(theTemplate(theData));
+*/

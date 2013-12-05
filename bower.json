@@ -10,7 +10,8 @@
     "leaflet-hash": "*",
     "leaflet-locatecontrol": "https://github.com/domoritz/leaflet-locatecontrol.git#~0.20.0",
     "jquery-touchswipe": "~1.6.4",
-    "yepnope": "~1.5.4"
+    "yepnope": "~1.5.4",
+    "handlebars": "~1.1.2"
   },
   "devDependencies": {}
 }
