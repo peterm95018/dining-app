@@ -17,3 +17,14 @@ var query = parser.hash; // returns "#17/36.999998/-122.05443"
 var pairs = query.split("/"); // Split at "/", ["#15", "36.9991", "-122.0549"]
 var lat = pairs[1];
 var lng = pairs[2];
+var tmpZoom = pairs[0]; // gives us #17, need to parse out the hash here
+var ourZoom = tmpZoom.substring(1); // returns 17
+var lat = pairs[1];
+var lng = pairs[2];
+var diningTitle = pairs[3];
+
+
+var theData = {diningTitle: diningTitle};
+var theTemplateScript = $("#header").html();
+var theTemplate = Handlebars.compile(theTemplateScript);
+$(document.body).append(theTemplate(theData));
