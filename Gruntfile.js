@@ -12,14 +12,42 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
+	
+	grunt.loadNpmTasks('grunt-contrib-handlebars');
 
     grunt.initConfig({
+		handlebars: {
+		      compile: {
+		        files: {
+		          "temp/modules/compiled-templates.js": [
+		            "app/modules/*/templates/**/*.hbs"
+		          ]
+		        },
+		        options: {
+		          namespace: 'MyApp.Templates',
+		          wrapped: true, 
+		          processName: function(filename) {
+		            // funky name processing here
+		            return filename
+		                    .replace(/^app\/modules\//, '')
+		                    .replace(/\.hbs$/, '');
+		          }
+		        }
+		      }
+		    },
+			
         // configurable paths
         yeoman: {
             app: 'app',
             dist: 'dist'
         },
         watch: {
+			handlebars: {
+			        files: [
+			          'app/modules/*/templates/*.hbs'
+			        ],
+			        tasks: 'handlebars reload'
+			      },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
@@ -315,7 +343,8 @@ module.exports = function (grunt) {
                 rjsConfig: '<%= yeoman.app %>/scripts/main.js'
             }
         }
-    });
+			
+    }); // end initConfig
 
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
@@ -359,4 +388,16 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+	
+	// for handlebars
+	grunt.registerTask('clean', [
+	'original-clean'
+	]);
+	
+
+	// override built-in yeoman clean task to include handlebars
+	grunt.registerTask('clean', [
+	'original-clean handlebars'
+	]);
+	
 };
