@@ -389,15 +389,5 @@ module.exports = function (grunt) {
         'build'
     ]);
 	
-	// for handlebars
-	grunt.registerTask('clean', [
-	'original-clean'
-	]);
-	
-
-	// override built-in yeoman clean task to include handlebars
-	grunt.registerTask('clean', [
-	'original-clean handlebars'
-	]);
 	
 };
