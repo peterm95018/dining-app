@@ -58,11 +58,11 @@
     <div class="container">
 		<div id="" class="row">
         <div class="col-lg-12">
-			<h1 class="page-header">Map<small></small></h1>
+			<h1 class="page-header">Map for {{diningHall}}<small></small></h1>
         </div>
     </div>
   
-	<div id="map" style="width: auto; height: 400px;"></div>
+	<div id="map" style="width: auto; height: 500px;"></div>
 	
 </div> <!-- /.container -->
 
@@ -80,6 +80,7 @@
 		<script src="bower_components/leaflet-hash/leaflet-hash.js"></script>
 		<script src="bower_components/leaflet-locatecontrol/src/L.Control.Locate.js"></script>
 		<script src="scripts/ucsc_map_uri.js"></script>
+		<script src="bower_components/handlebars/handlebars.js"></script>
 		
 		<script>
 		// we should probably do a try/catch conditional to see if we've got a value in lat,lng
@@ -130,6 +131,10 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
+		
+		<script>
+		console.log(diningHall);
+		</script>
 		
        <!-- build:js scripts/main.js -->
         <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
