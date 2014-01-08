@@ -55,16 +55,15 @@
     <div class="container">
 		
 		<div id="" class="row">
-			
-        <div class="col-lg-12">
-			 <script id="quickstart" type="template/handlebars"> 
-			<h1 class="page-header">Map for {{name}}</h1>
-			</script>
+        	<div class="col-lg-12">
+				<!--<script id="map-title" type="template/handlebars"> -->
+					<h1 class="page-header">{{name}}</h1>
+				<!--$</script> -->
 			<div>
         </div>
     </div>
 	
-	
+
 	
 	
     
@@ -108,57 +107,52 @@
        <!-- build:js scripts/main.js -->
         <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
+
+<script>
+$(document).ready(function() {
+// handlebars block
+var src = $('h1').html();
+var template = Handlebars.compile(src);
+var data = {
+	name: decodeURIComponent(diningTitle)
+};
+//$("#map-title").append(template(data));
+$('h1').text(template(data));
+
+
+// we should probably do a try/catch conditional to see if we've got a value in lat,lng
+// if not, we fall back to a default lat,lng,zoom for the campus
+//var map = L.map('map').setView([36.99333, -122.05931], 15); // default UCSC
+var map = L.map('map').setView([lat, lng], ourZoom);
+var hash = new L.Hash(map); // leaflet hash plugin
+L.control.locate().addTo(map); // leaflet locate control plugin
+mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '&copy; ' + mapLink + ' Contributors',
+maxZoom: 18,
+}).addTo(map);
+map.invalidateSize();
+
+
+var marker = L.marker([lat,lng], {
+title: diningTitle,
+})
+.addTo(map) // lat, lng come from uri.js parsing
+.bindPopup(decodeURIComponent(diningTitle)) //diningTitle comes from uri.js parsing
+.openPopup();
+// the setTimeout function guarantees invalidateSize runs after everything is loaded.
+  
+console.log("maps are ready to display");
+
+
+});
+
+</script>
+
+
+
 		
-		<script>
-		$(document).ready(function() {
 
-	//diningTitle = decodeURIComponent(diningTitle);
-	
 
-			// we should probably do a try/catch conditional to see if we've got a value in lat,lng
-			// if not, we fall back to a default lat,lng,zoom for the campus
-			//var map = L.map('map').setView([36.99333, -122.05931], 15); // default UCSC
-			var map = L.map('map').setView([lat, lng], ourZoom);
-			var hash = new L.Hash(map); // leaflet hash plugin
-			L.control.locate().addTo(map); // leaflet locate control plugin
-			mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; ' + mapLink + ' Contributors',
-			maxZoom: 18,
-			}).addTo(map);
-			map.invalidateSize();
-			
-	
-			var marker = L.marker([lat,lng], {
-			title: diningTitle,
-			})
-			.addTo(map) // lat, lng come from uri.js parsing
-			.bindPopup(decodeURIComponent(diningTitle)) //diningTitle comes from uri.js parsing
-			.openPopup();
-		    // the setTimeout function guarantees invalidateSize runs after everything is loaded.
-		      
-			console.log("maps are ready to display");
-		});
-		
-		// handlebars block
-		var src = document.getElementById('quickstart').innerHTML;
-		var template = Handlebars.compile(src);
-
-		var output = template({
-			//name: "Tom",
-			name: decodeURIComponent(diningTitle),
-			
-
-			messages: [
-				{ from: "John", text: "Demo Message" },
-				{ from: "Bob", text: "Somethig Else" },
-				{ from: "John", text: "Second Post" }
-			]
-		});
-		document.body.innerHTML += output;
-		console.log("handlebars is ready");
-	
-
-	</script>
 </body>
 </html>
