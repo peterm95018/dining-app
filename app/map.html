@@ -56,9 +56,10 @@
 		
 		<div id="" class="row">
         	<div class="col-lg-12">
-				<!--<script id="map-title" type="template/handlebars"> -->
-					<h1 class="page-header">{{name}}</h1>
-				<!--$</script> -->
+        	<div id="header-placeholder"></div>
+				<script id="map-title" type="template/handlebars">
+					<h1 class="page-header">Map for {{name}}</h1>
+				</script>
 			<div>
         </div>
     </div>
@@ -111,13 +112,32 @@
 <script>
 $(document).ready(function() {
 // handlebars block
+/*
+ //var src = $('h1').html();
 var src = $('h1').html();
+
 var template = Handlebars.compile(src);
 var data = {
 	name: decodeURIComponent(diningTitle)
 };
 //$("#map-title").append(template(data));
 $('h1').text(template(data));
+*/
+
+// note the hidden div of header-placeholder that will be overwritten with handlebars
+// grab the HTML source that needs to be compiled
+var headerSource = document.getElementById('map-title').innerHTML;
+
+// compile the source
+var headerTemplate = Handlebars.compile(headerSource);
+
+// create our data
+var data = {
+	name: decodeURIComponent(diningTitle)
+}
+
+//Process the template with data
+document.getElementById('header-placeholder').innerHTML = headerTemplate(data);
 
 
 // we should probably do a try/catch conditional to see if we've got a value in lat,lng
