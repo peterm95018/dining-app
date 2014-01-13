@@ -1,4 +1,198 @@
 {
+  "Perk Coffee @ Earth & Marine Sciences": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:30am-4:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:30am-2:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Perk Coffee @ Physical Sciences Building": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:30am-4:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:30am-2:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Perk Coffee @ Baskin Engineering": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:30am-6:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:30am-2:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Perk Coffee @ University Center": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "8:00am-4:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "8:00am-2:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Perk Coffee @ Science Library": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "8:00am-4:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "8:00am-2:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Porter Slug Grill": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:00am-11:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:00am-4:00pm",
+      "Day": "Fri"
+    },
+    "NewKey 3": {
+      "Meal": "Open",
+      "Time": "3:00pm-10:00pm",
+      "Day": "Sat-Sun"
+    }
+  },
+  "College Eight Café": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "8:00am-10:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "8:00am-5:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Owl's Nest Restaurant": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:30am-8:30pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:30am-5:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Oakes Café": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "8:30am-11:00pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "8:30am-5:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Cowell Coffee Shop": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:45am-11:30pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:45am-4:00pm",
+      "Day": "Fri"
+    }
+  },
+  "Terra Fresca Restaurant": {
+    "Lunch": {
+      "Meal": "Lunch",
+      "Time": "11:30am-2:00pm",
+      "Day": "M-F"
+    }
+  },
+  "Stevenson Coffee House": {
+    "NewKey": {
+      "Meal": "Open",
+      "Time": "7:30am-11:30pm",
+      "Day": "M-Th"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "Time": "7:30am-5:00pm",
+      "Day": "Fri"
+    },
+    "NewKey 2 2": {
+      "Meal": "Open",
+      "Time": "8:00pm-11:30pm",
+      "Day": "Fri"
+    }
+  },
+  "Joe's Pizza & Subs": {
+    "NewKey": {
+      "Meal": "Open",
+      "TIme": "9:00am-7:30pm",
+      "Day": "M-F"
+    },
+    "NewKey 2": {
+      "Meal": "Open",
+      "TIme": "11:00am-4:00pm",
+      "Day": "Sat"
+    }
+  },
+  "Cruz N Gourmet": {
+    "NewKey": {
+      "Meal": "Lunch",
+      "Time": "11:00am-2:15pm",
+      "Day": "M-F"
+    }
+  },
+  "Raymond's Catering": {
+    "NewKey": {
+      "Meal": "Lunch",
+      "Time": "12:00pm-2:00pm",
+      "Day": "M-F"
+    }
+  },
+  "Zameen Mediterranean Cuisine": {
+    "NewKey": {
+      "Meal": "Lunch",
+      "Time": "11:30am-2:00pm",
+      "Day": "M-F"
+    }
+  },
+  "Bay Tree Express Store": [
+    {
+      "Meal": "Hours",
+      "Time": "7:30am-6:30pm",
+      "Day": "M-F"
+    },
+    {
+      "Meal": "Hours",
+      "Time": "10:00am-4:00pm",
+      "Day": "Sat"
+    }
+  ],
   "Colleges Nine/Ten": [
     {
       "Meal": "Hot Breakfast",
@@ -41,7 +235,7 @@
       "Day": "Sat-Sun"
     }
   ],
-  "Porter-Kresge": [
+  "Porter/Kresge": [
     {
       "Meal": "Hot Breakfast",
       "Time": "7:15am-11:00am",
@@ -147,7 +341,7 @@
       "Day": "Sat-Sun"
     }
   ],
-  "Cowell-Stevenson": [
+  "Cowell/Stevenson": [
     {
       "Meal": "Hot Breakfast",
       "Time": "7:15am-11:00am",

@@ -12,7 +12,8 @@
     "jquery-touchswipe": "~1.6.4",
     "yepnope": "~1.5.4",
     "handlebars": "~1.1.2",
-    "components-font-awesome": "~4.0.3"
+    "components-font-awesome": "~4.0.3",
+    "momentjs": "~2.5.0"
   },
   "devDependencies": {}
 }
