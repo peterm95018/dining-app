@@ -55,22 +55,24 @@
 	        </div>
 	      </div>
 
-	      <div class="row">
-	        <div class="col-lg-7 col-md-7">
-	          <a href="cafe_list.html"><img class="img-responsive" src="http://placehold.it/700x300"></a>
-	        </div>
+	    <div class="row">
+            <div class="col-lg-7 col-md-7">
+              <a href="cafe_list.html"><img class="img-responsive" src="http://placehold.it/700x300"></a>
+            </div>
 
-	        <div class="col-lg-5 col-md-5">
-	          <h3>What's Open</h3>
-	          
-	          <p>List or table of open locations.</p>
-	        </div><!-- /.col-lg5 col-md-5 -->
-	      </div> <!-- /.row -->
+            <div class="col-lg-5 col-md-5">
+              <h3>What's Open</h3>
+              
+              <div id="open-closed-locs"></div> <!-- empty div to update later -->
 
-	      <hr>
+            </div><!-- /.col-lg5 col-md-5 -->
+          </div> <!-- /.row -->
+
+          <hr>
 
 
-	      </div> <!-- /.container -->
+          </div> <!-- /.container -->
+
 
 
         <!-- build:js scripts/vendor.js -->
@@ -80,27 +82,63 @@
 		<script src="bower_components/momentjs/moment.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
-        <script type="text/javascript">
+
+<script type="text/javascript">
 
         var openTime = moment('07:15', 'HH:mm') // 
         var closedTime = moment('13:10', 'HH:mm');
 
         var currentTime = moment(); // create moment object
         var currentDay = moment().format('dddd'); // Monday
-
+/*
         if (currentTime > closedTime) {
-        	alert("closed");
+            alert("closed");
         } else {
-        	alert("open");
+            alert("open");
         }
-
+*/
         console.log(currentDay);
         console.log(moment().hour()); // 11
         console.log(moment().minute());
 
+$.getJSON('../data/hours.json', function(data) {
+        /*optional stuff to do after success */
+        var items = '';
+        var openClosed = '';
+        var ourTableHead = '<table class=\'table table-striped\'><tr><th>Location</th><th>Open</th><th>Closed</th></tr>';
+        var ourTableTail = '</table>';
+        var currentDay = moment().format('dddd');
+        items += ourTableHead;
 
+       $.each(data, function(index, val) {
+            /* iterate through array or object */
+            locationName = index;
+            items += '<tr class="">';
+            items += '<td>' + locationName + '</td>';
+            
+            /*
+            $.each(this, function(k, v) {
+                /* iterate through array or object
+                items += '<td>' + v + '</td>';
+            }); // inner loop
+       */
+
+       /*
+I think we need a recursion function to help. Somehting like we're using in myModalInfo 
+- get json
+- run $,each() over the returned data object
+- koop over the JSON data and recurse if we've got nested data. output values
+- as we recurse down the object, set the openTime, closeTime for later evaluation
+- use a class to highligh open/closed times
+       */
+
+       //console.log( items );
+$('#open-closed-locs').append(items);
+});
 
         </script>
+
+      
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
