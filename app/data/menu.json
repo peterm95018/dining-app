@@ -1,0 +1,33 @@
+{
+  "Breakfast": {
+    "NewKey": "Hard Cooked Cage Free Eggs",
+    "NewKey 2": "Sausage Links",
+    "NewKey 3": "Belgian Waffles",
+    "NewKey 4": "Cage Free Scrambled Eggs",
+    "NewKey 5": "Eggbeaters Scramble",
+    "NewKey 6": "Natural Bridges Tofu Scramble",
+    "NewKey 7": "Cake Donut",
+    "NewKey 8": "Lemon Poppyseed Muffin",
+    "NewKey 9": "Orange Crunch Muffin",
+    "NewKey 10": "Raspberry Cheese Ring",
+    "NewKey 11": "Cage Free Eggs Omelette Bar"
+  },
+  "Lunch": {
+    "NewKey": "Cajun Lentil Soup",
+    "NewKey 2": "Chicken Tortilla Soup",
+    "NewKey 3": "Baja Burger",
+    "NewKey 4": "Beef Bobotie",
+    "NewKey 5": "Mayzan Sharmoula",
+    "NewKey 6": "Moroccan Chicken Sharmoula",
+    "NewKey 7": "French Rolls",
+    "NewKey 8": "Lemon Bars",
+    "NewKey 9": "Peanut Butter Brownie",
+    "NewKey 10": "Indian Bar #1"
+  },
+  "Dinner": {
+    "NewKey 2": "Cajun Lentil Soup",
+    "NewKey 3": "Chicken Tortilla Soup",
+    "NewKey 4": "Cheese Pizza",
+    "NewKey 5": "Moroccan Olive Chicken Tagine"
+  }
+}

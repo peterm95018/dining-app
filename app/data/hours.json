@@ -1,0 +1,37 @@
+{
+  "Perk Coffee Test": {
+    "Open": "07:30",
+    "Close": "16:00",
+    "Days": "M-Th"
+  },
+  "Perk Coffee Test 2": {
+    "Open": "08:00",
+    "Close": "13:00",
+    "Days": "Fri"
+  },
+  "Cowell/Stevenson": {
+    "Open": "07:00",
+    "Close": "11:00",
+    "Days": "String"
+  },
+  "Crown/Merrill": {
+    "Open": "07:15",
+    "Close": "20:00"
+  },
+  "Porter/Kresge": {
+    "Open": "07:15",
+    "Close": "20:00"
+  },
+  "College Eight/Oakes": {
+    "Open": "07:15",
+    "Close": "20:00"
+  },
+  "Colleges Nine/Ten": {
+    "Open": "07:15",
+    "Close": "20:00"
+  },
+  "Banana Joe's": {
+    "Open": "10:00",
+    "Close": "23:00"
+  }
+}
