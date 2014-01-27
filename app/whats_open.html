@@ -89,21 +89,25 @@
 		<script src="bower_components/momentjs/moment.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
-       <script type="text/javascript">
+<script type="text/javascript">
 
-        // var openTime = moment('07:15', 'HH:mm') // 
+ // var openTime = moment('07:15', 'HH:mm') //
         // var closedTime = moment('13:10', 'HH:mm');
 
         var openTime = '';
-        var closeTime = ''; 
+        var closeTime = '';
         var items = '';
         var ourDiv = '';
+
+        var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        var weekend = ["Saturday", "Sunday"];
 
         var currentTime = moment(); // create moment object
         var currentDay = moment().format('dddd'); // Monday
 
-
-$.getJSON('../data/hours.json', function(data) {
+        if ($.inArray(currentDay, weekdays != -1) {
+            // weekend processing
+            $.getJSON('../data/hours.json', function(data) {
         /* optional stuff to do after success */
        var out = '';
        out += '<div id="open-closed-locs">';
@@ -117,6 +121,27 @@ $.getJSON('../data/hours.json', function(data) {
             out += '<dl class="locIsClosed">';
         }
 
+        out += '<dt>' + key + '</dt>';
+        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
+       });
+       out += '</div>';
+$('#open-closed-locs').append(out);
+}); // end getJSON
+        } else {
+            // weekday processing
+            $.getJSON('../data/hours.json', function(data) {
+        /* optional stuff to do after success */
+       var out = '';
+       out += '<div id="open-closed-locs">';
+
+       $.each(data, function(key, val) {
+        locOpenTime = moment(val.Open, "HH:mm");
+        locCloseTime = moment(val.Close, "HH:mm");
+        if ((currentTime > locOpenTime) && (currentTime < locCloseTime)) {
+            out += '<dl class="locIsOpen">';
+        } else {
+            out += '<dl class="locIsClosed">';
+        }
 
         out += '<dt>' + key + '</dt>';
         out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
@@ -124,6 +149,9 @@ $.getJSON('../data/hours.json', function(data) {
        out += '</div>';
 $('#open-closed-locs').append(out);
 }); // end getJSON
+        }
+
+
 
 </script>
 
