@@ -98,31 +98,78 @@
         var closeTime = ''; 
         var items = '';
         var ourDiv = '';
+        // var mondayThursday = array("Monday", "Tuesday", "Wednesday", "Thursday");
+        // var fri = array("Friday");
+        // var saturdaySunday = array("Saturday", "Sunday");
 
+
+        // var currentTime = moment(); // create moment object
+        // var currentDay = moment().format('dddd'); // Monday
+
+
+$.getJSON('../data/location-hours-revised.json', function(data) {
+        /* optional stuff to do after success */
+        // get currentDay compared to our vars
+        var locWeekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        var locWeekends = ["Saturday", "Sunday"];
         var currentTime = moment(); // create moment object
         var currentDay = moment().format('dddd'); // Monday
+        var showWeekdays = '';
+        var showWeekends = '';
+
+        // if ($.inArray(currentDay, locWeekdays) != -1 ) {
+        //     // current day (today) is not a week day
+        //     showWeekends = TRUE;
+        //     else {
+        //         // current day is a week day
+        //         showWeekdays = TRUE;
+        //     }
+
+        // }
 
 
-$.getJSON('../data/hours.json', function(data) {
-        /* optional stuff to do after success */
        var out = '';
        out += '<div id="open-closed-locs">';
 
        $.each(data, function(key, val) {
+
+       // var tempDays = new Array(val.Day);
+
+        
+
         locOpenTime = moment(val.Open, "HH:mm");
         locCloseTime = moment(val.Close, "HH:mm");
-        if ((currentTime > locOpenTime) && (currentTime < locCloseTime)) {
+
+
+        
+if ((currentTime > locOpenTime) && 
+            (currentTime < locCloseTime))
+        {
             out += '<dl class="locIsOpen">';
         } else {
             out += '<dl class="locIsClosed">';
         }
 
 
+
         out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
-       });
+        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ';
+if ((val.Day === 'Friday') && 
+    (currentDay === 'Friday')) {
+    out += val.Day;
+    } else {
+        out += val.Day;
+    }
+
+        out += '</dd></dl>';
+       }); // end .each()
+
+
        out += '</div>';
 $('#open-closed-locs').append(out);
+
+
+
 }); // end getJSON
 
 </script>
