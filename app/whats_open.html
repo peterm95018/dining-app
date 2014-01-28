@@ -91,7 +91,7 @@
         <!-- endbuild -->
 <script type="text/javascript">
 
- // var openTime = moment('07:15', 'HH:mm') //
+        // var openTime = moment('07:15', 'HH:mm') //
         // var closedTime = moment('13:10', 'HH:mm');
 
         var openTime = '';
@@ -105,9 +105,9 @@
         var currentTime = moment(); // create moment object
         var currentDay = moment().format('dddd'); // Monday
 
-        if ($.inArray(currentDay, weekdays != -1) {
-            // weekend processing
-            $.getJSON('../data/hours.json', function(data) {
+        if ($.inArray(currentDay, weekdays != -1)) {
+     // weekday processing
+            $.getJSON('../data/location-weekday-hours.json', function(data) {
         /* optional stuff to do after success */
        var out = '';
        out += '<div id="open-closed-locs">';
@@ -127,9 +127,11 @@
        out += '</div>';
 $('#open-closed-locs').append(out);
 }); // end getJSON
-        } else {
+        }
+
+        if ($.inArray(currentDay, weekend) != -1) {
             // weekday processing
-            $.getJSON('../data/hours.json', function(data) {
+            $.getJSON('../data/location-weekend-hours.json', function(data) {
         /* optional stuff to do after success */
        var out = '';
        out += '<div id="open-closed-locs">';
@@ -150,6 +152,7 @@ $('#open-closed-locs').append(out);
 $('#open-closed-locs').append(out);
 }); // end getJSON
         }
+
 
 
 
