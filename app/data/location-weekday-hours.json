@@ -1,0 +1,189 @@
+{
+  "Perk Coffee @ Earth & Marine Sciences": {
+    "Friday Hours": true,
+    "Open": "07:30",
+    "Close": "14:00",
+    "Day": "Friday"
+  },
+  "Perk Coffee @ Earth & Marine Sciences": {
+    "Open": "07:30",
+    "Close": "16:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Perk Coffee @ Physical Sciences Building": {
+    "Open": "07:30",
+    "Close": "16:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Perk Coffee @ Physical Sciences Building": {
+    "Friday Hours": true,
+    "Open": "07:30",
+    "Close": "14:00",
+    "Day": "Friday"
+  },
+  "Perk Coffee @ Baskin Engineering": {
+    "Open": "07:30",
+    "Close": "18:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Perk Coffee @ Baskin Engineering": {
+    "Friday Hours": true,
+    "Open": "07:30",
+    "Close": "14:00",
+    "Day": "Friday"
+  },
+  "Perk Coffee @ University Center": {
+    "Open": "08:00",
+    "Close": "16:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Perk Coffee @ University Center": {
+    "Friday Hours": true,
+    "Open": "08:00",
+    "Close": "14:00",
+    "Day": "Friday"
+  },
+  "Perk Coffee @ Science Library": {
+    "Open": "08:00",
+    "Close": "16:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Perk Coffee @ Science Library": {
+    "Friday Hours": true,
+    "Open": "08:00",
+    "Close": "14:00",
+    "Day": "Friday"
+  },
+  "Porter Slug Grill": {
+    "Open": "07:00",
+    "Close": "23:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Porter Slug Grill": {
+    "Friday Hours": true,
+    "Open": "07:00",
+    "Close": "16:00",
+    "Day": "Friday"
+  },
+  "College Eight Café": {
+    "Open": "08:00",
+    "Close": "22:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "College Eight Café": {
+    "Friday Hours": true,
+    "Open": "08:00",
+    "Close": "17:00",
+    "Day": "Friday"
+  },
+  "Owl's Nest Restaurant": {
+    "Open": "07:30",
+    "Close": "20:30",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Owl's Nest Restaurant": {
+    "Friday Hours": true,
+    "Open": "07:30",
+    "Close": "17:00",
+    "Day": "Friday"
+  },
+  "Oakes Café": {
+    "Open": "08:30",
+    "Close": "23:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Oakes Café": {
+    "Friday Hours": true,
+    "Open": "08:30",
+    "Close": "17:00",
+    "Day": "Friday"
+  },
+  "Cowell Coffee Shop": {
+    "Open": "07:45",
+    "Close": "23:30",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Cowell Coffee Shop": {
+    "Friday Hours": true,
+    "Open": "07:45",
+    "Close": "16:00",
+    "Day": "Friday"
+  },
+  "Terra Fresca Restaurant": {
+    "Open": "11:30",
+    "Close": "14:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Stevenson Coffee House": {
+    "Open": "07:30",
+    "Close": "23:30",
+    "Day": "Monday, Tuesday, Wednesday, Thursday"
+  },
+  "Stevenson Coffee House": {
+    "Friday Hours": true,
+    "Open": "07:30",
+    "Close": "17:00",
+    "Day": "Friday"
+  },
+  "Stevenson Coffee House": {
+    "Friday Hours": true,
+    "Open": "08:00",
+    "Close": "23:00",
+    "Day": "Friday"
+  },
+  "Joe's Pizza & Subs": {
+    "Open": "09:00",
+    "Close": "19:30",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Cruz N Gourmet": {
+    "Open": "11:00",
+    "Close": "14:15",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Raymond's Catering": {
+    "Open": "12:00",
+    "Close": "14:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Zameen Mediterranean Cuisine": {
+    "Open": "11:30",
+    "Close": "14:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Bay Tree Express Store": {
+    "Open": "07:30",
+    "Close": "18:30",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Colleges Nine/Ten": {
+    "Open": "07:15",
+    "Close": "20:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Porter/Kresge": {
+    "Open": "07:15",
+    "Close": "20:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "College Eight/Oakes": {
+    "Open": "07:15",
+    "Close": "20:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Crown/Merrill": {
+    "Open": "07:15",
+    "Close": "20:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Cowell/Stevenson": {
+    "Open": "07:15",
+    "Close": "20:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  },
+  "Banana Joe's Café": {
+    "Open": "10:00",
+    "Close": "23:00",
+    "Day": "Monday, Tuesday, Wednesday, Thursday, Friday"
+  }
+}

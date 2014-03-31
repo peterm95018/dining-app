@@ -1,0 +1,32 @@
+{
+  "Porter Slug Grill": {
+    "Open": "15:00",
+    "Close": "22:00",
+    "Day": "Saturday, Sunday"
+  },
+  "Joe's Pizza & Subs": {
+    "Open": "11:00",
+    "Close": "16:00",
+    "Day": "Saturday"
+  },
+  "Bay Tree Express Store": {
+    "Open": "10:00",
+    "Close": "16:00",
+    "Day": "Saturday"
+  },
+  "Colleges Nine/Ten Weekend": {
+    "Open": "10:00",
+    "Close": "20:00",
+    "Day": "Saturday, Sunday"
+  },
+  "College Eight/Oakes Weekend": {
+    "Open": "10:00",
+    "Close": "20:00",
+    "Day": "Saturday, Sunday"
+  },
+  "Cowell/Stevenson Weekend": {
+    "Open": "10:00",
+    "Close": "20:00",
+    "Day": "Saturday, Sunday"
+  }
+}

@@ -13,7 +13,8 @@
     "yepnope": "~1.5.4",
     "handlebars": "~1.1.2",
     "components-font-awesome": "~4.0.3",
-    "momentjs": "~2.5.0"
+    "momentjs": "~2.5.0",
+    "bootstrap-datepicker": "~1.3.0"
   },
   "devDependencies": {}
 }
