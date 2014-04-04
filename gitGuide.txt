@@ -1,0 +1,97 @@
+A git guide
+
+
+After you have made the changes you would like to push:
+
+
+
+cheat sheet:
+
+git add .
+git commit -m "Message goes here"
+git push origin development
+
+
+
+Detailed break down:
+
+1) If you aren't on the development branch, go there
+	You$ git checkout development
+	
+2) Look at all of the files you changed
+	You$ git status
+
+	# On branch development
+	# Your branch is ahead of 'origin/development' by 2 commits.
+	#
+	# Untracked files:
+	#   (use "git add <file>..." to include in what will be committed)
+	#
+	#	This.txt
+	#	is.txt
+	#	a.txt
+	#	list.txt
+	#	of.txt
+	#	all.txt
+	#	the.txt
+	#	changed.txt
+	#	files.txt
+
+3) Decide which files you want to push
+	You$ git add This.txt all.txt
+	
+   or to add all of them, just type
+	You$ git add .
+
+4) Commit your changes and add a comment
+	You$ git commit -m "I just made some changes"
+	
+5) Pull from the remote repository before pushing
+	You$ git pull origin development
+	
+6) Finally, push onto development
+	You$ git push origin development
+	
+	
+Potential errors:
+
+On 1) There is no development branch
+	To fix this problem, simply type
+		You$ git branch development
+	to create the branch.
+
+On 2) There are no changed files
+	That means you didn't change anything. 
+	Probably caused from not saving.
+	
+On 4) or 5) Merge conflict
+	Merging with git is a doozy. If you want an in-depth breakdown
+	of how to merge, then visit this webpage:
+	http://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging
+	Whenever you pull or commit in git, it will try to merge all of the 
+	changed	files so that all changes are kept. Whenever a file can't 
+	merge properly, or if there are competing changes in the file, then
+	you run into issue where you have to manually merge. If you run
+		You$ git status
+	then it will list all of the unmerged files. You must open those 
+	files with the text editor of your choice to fix the conflicts. Git
+	will flag the places where it finds the conflicts with flags that
+	look like this
+		<<<<<<< HEAD
+			var foo = 8;
+			foo++;
+		=======
+			var foo = 9;
+			foo--;
+		>>>>>>> iss53
+	The first chunk of code is from the original commit, the second 
+	chunk is from the new commit. Delete whichever chunk of code you
+	don't want and all of the flags surrounding it. Save your changes.
+	When you are done merging all of files you need to merge, just run
+		You$ git add .
+		You$ git commit -m "Fixed merge conflict such and so"
+	If you want to push your merge, resume to step 6.
+	
+On 5) or 6) origin not found
+	Your origin variable hasn't been set yet. Type this command:
+		You$ git remote add origin https://github.com/peterm95018/dining-app
