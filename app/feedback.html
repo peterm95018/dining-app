@@ -88,7 +88,7 @@
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="option3">
+                         <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
                             Needs Improvement
                          </label>
                       </div>
@@ -96,7 +96,7 @@
 
                    <div class="form-group">
                       <label for="exampleInputEmail1">Your Comment</label>
-                         <textarea class="form-control" rows="5"></textarea>
+                         <textarea class="form-control" rows="5" id="commentInput"></textarea>
                    </div>
 
                    <div class="form-group">
@@ -104,7 +104,8 @@
                       <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                    </div>
 
-                   <button type="submit" class="btn btn-default">Submit</button>
+                   <button type="submit" class="btn btn-default" form="commentInput","exampleInputEmail1", 
+                   "optionsRadios1", "optionsRadios2", "optionsRadios3" formaction="FormSubmission.asp">Submit</button>
                   </form>
 	        </div><!-- /.col-lg5 col-md-5 -->
 	      </div> <!-- /.row -->
