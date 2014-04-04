@@ -3,7 +3,7 @@
 
 $navBarColor: #92b44f;
 /*Better color: #023613*/
-$navBarFontColor: #ff0000;
+$navBarFontColor: #000000;
 
 @media only screen and (min-width: 1290px){
 /*Custom navbar settings*/
@@ -23,6 +23,7 @@ $navBarFontColor: #ff0000;
 .navbar-custom .navbar-brand{
 		color: $navBarFontColor;
 		padding-top: 35px;
+		font-size: 30px;
 }
 
 /*The other buttons*/
