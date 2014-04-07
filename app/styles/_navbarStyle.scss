@@ -105,16 +105,13 @@ $navBarFontColor: #ffffff;
 @media only screen and (max-width: 601px){
 	/*Custom navbar settings*/
 	.navbar-custom{
-	    background-color: $navBarColor;
+       background-color: $navBarColor;
 	    color: $navBarColor;
-	   	border-radius: 0;
+	    border-radius: 0;
 	}
 
-	.navbar .container{
-	  margin-left:0;
-	  margin-right:0;
-	  padding-left:0;
-	  padding-right:0;
+   .navbar .container{
+	  margin-left:15px;
 	}
 
 	/*This was the only way to clean the border*/
@@ -125,27 +122,13 @@ $navBarFontColor: #ffffff;
 	/*This is the logo*/
 	.navbar-custom .navbar-logo{
 		img{
-			max-height: 72px;
-			padding-top: 0; 
-			padding-left: 11px;
+			max-height: 48px;
 		}
 	}
 
 	/*The other buttons*/
-	.navbar-custom .navbar-nav > li > a {
+	.navbar-custom .navbar-nav > li {
 	    color: $navBarFontColor;
 	}
 
-	/*When you mouse over the button, the text is supposed to change color
-	 *It doesn't right now because the font color is the same as the highlight color
-	 *I like the feature so I hope we change it*/
-	.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
-	    color: #ffffff;
-	    background-color:transparent;
-	}
-
-	/*Pad the body to fit the new navbar size*/
-	body{
-		padding-top: 45px;
-	}
 }
