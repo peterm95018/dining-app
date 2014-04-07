@@ -14,8 +14,17 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 	
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
+	
+	grunt.loadNpmTasks('grunt-iisexpress');
 
     grunt.initConfig({
+		iisexpress: {
+			server: {
+				options: {
+					port: 8000
+				}
+			}
+		}, 
 		handlebars: {
 		      compile: {
 		        files: {
