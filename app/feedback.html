@@ -64,7 +64,18 @@
 	          <a href="locations_list.html"><img class="img-responsive" src="images/porter-dining-hall.jpg"></a>
 	        </div>
               </div>
- 
+			
+			
+			<!--This block of code is pulled almost directly from We3 -->
+			<form action="FormSubmission.asp" autocomplete="on" method="post">
+				First name:<input type="text" name="commentInput"><br>
+				Email: <input type="text" name="inputEmail"><br>
+				<input type="submit">
+			</form> 
+			<!--It seems to work better than the code below, but grunt still doesn't seem -->
+			<!--to run asp files -->
+			<!--Delete/Integrate into code below when problem is fixed.-->
+			
               <div class="row">
 	        <div class="col-lg-5 col-md-5">
 	          <form role="form">
@@ -74,21 +85,21 @@
                    <br>
                       <div class="radio">
                       <label>
-                         <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                         <input type="radio" name="optionsRadios1" id="optionsRadios1" value="option1">
                             Excellent
                          </label>
                       </div>
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                         <input type="radio" name="optionsRadios2" id="optionsRadios2" value="option2">
                             Good
                          </label>
                       </div>
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                         <input type="radio" name="optionsRadios3" id="optionsRadios3" value="option3">
                             Needs Improvement
                          </label>
                       </div>
@@ -96,15 +107,15 @@
 
                    <div class="form-group">
                       <label for="exampleInputEmail1">Your Comment</label>
-                         <textarea class="form-control" rows="5" id="commentInput"></textarea>
+                         <textarea class="form-control" rows="5" id="commentInput" name="commentInput"></textarea>
                    </div>
 
                    <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                      <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Enter email">
                    </div>
 
-                   <button type="submit" class="btn btn-default" form="commentInput","exampleInputEmail1", 
+                   <button type="submit" class="btn btn-default" form="commentInput","inputEmail", 
                    "optionsRadios1", "optionsRadios2", "optionsRadios3" formaction="FormSubmission.asp">Submit</button>
                   </form>
 	        </div><!-- /.col-lg5 col-md-5 -->

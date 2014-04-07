@@ -2,13 +2,18 @@
 <html>
 <body>
 <%
-Set mail=CreateObject("CDO.Message")
-mail.Subject="Dining Feedback"
-mail.From=Request.Form("ExampleInputEmail1")
-mail.To="towenmil@ucsc.edu"
-mail.TextBody=Request.Form("commentInput")
-mail.Send
-set mail=nothing
+dim from
+from = Request.Form("inputEmail")
+dim comment
+comment = Request.Form("commentInput")
+Set eMail=CreateObject("CDO.Message")
+eMail.Subject="Dining Feedback"
+eMail.From=from
+eMail.To="towenmil@ucsc.edu"
+eMail.TextBody=comment
+eMail.Send
+set eMail=nothing
+Response.Write("How are you today?")
 %>
 </body>
 </html>
