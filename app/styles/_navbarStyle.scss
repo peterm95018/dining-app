@@ -4,17 +4,21 @@
 $navBarColor: #92b44f;
 /*Better color: #023613*/
 $navBarFontColor: #ffffff;
-$navBarFontactive: #202020;
+$navBarFontactive: #3F3F3F;
 $navBarBackgroundActive: #023613;
+
+
+$navBarFontSize: 20px;
+
+$navBarTopPadding: 25px;
+$bodyPadding: 45px;
 
 @media only screen and (min-width: 1290px){
 	/*Custom navbar settings*/
 	.navbar-custom{
 	    background-color: $navBarColor;
-	    height:100px;
 	    color: $navBarColor;
 	   	border-radius: 0;
-	   	margin-left: 0px;
 	}
 
 	.navbar .container{
@@ -22,6 +26,7 @@ $navBarBackgroundActive: #023613;
 	  margin-right:0;
 	  padding-left:0;
 	  padding-right:0;
+	  padding-bottom:0;
 	}
 
 	/*This was the only way to clean the border*/
@@ -32,24 +37,17 @@ $navBarBackgroundActive: #023613;
 	/*This is the logo*/
 	.navbar-custom .navbar-logo{
 		img{
-			max-height: 90px;
-			padding-top: 0; 
+			max-height: 70px;
+			padding-top: 0;
+			padding-bottom: 0; 
 		}
 	}
 
-	/*This is the Home button*/
-	.navbar-custom .navbar-brand {
-		color: $navBarFontColor;
-	}
-
-	.navbar-custom .navbar-brand:hover {
-		color: $navBarFontactive;
-	}
-
-
 	/*The other buttons*/
 	.navbar-custom .navbar-nav > li a{
-	    color: $navBarFontColor;
+	    padding-top: $navBarTopPadding;
+		color: $navBarFontColor;
+		font-size: $navBarFontSize;
 	}
 
 	.navbar-custom .navbar-nav > li a:hover {
@@ -59,7 +57,7 @@ $navBarBackgroundActive: #023613;
 
 	/*Pad the body to fit the new navbar size*/
 	body{
-		padding-top: 60px;
+		padding-top: $bodyPadding;
 	}
 }
 
@@ -76,6 +74,7 @@ $navBarBackgroundActive: #023613;
 	  margin-right:0;
 	  padding-left:0;
 	  padding-right:0;
+	  padding-bottom:0;
 	}
 
 	/*This was the only way to clean the border*/
@@ -86,23 +85,17 @@ $navBarBackgroundActive: #023613;
 	/*This is the logo*/
 	.navbar-custom .navbar-logo{
 		img{
-			max-height: 72px;
-			padding-top: 0; 
+			max-height: 70px;
+			padding-top: 0;
+			padding-bottom: 0; 
 		}
 	}
 
-	/*This is the Home Button*/
-	.navbar-custom .navbar-brand {
+	/*The other buttons*/
+	.navbar-custom .navbar-nav > li a{
+	    padding-top: $navBarTopPadding;
 		color: $navBarFontColor;
-	}
-
-	.navbar-custom .navbar-brand:hover {
-		color: $navBarFontactive;
-	}
-
-	/*The Other buttons*/
-	.navbar-custom .navbar-nav > li a {
-	    color: $navBarFontColor;
+		font-size: $navBarFontSize;
 	}
 
 	.navbar-custom .navbar-nav > li a:hover {
@@ -110,10 +103,9 @@ $navBarBackgroundActive: #023613;
 	    background-color: transparent;
 	}
 
-
 	/*Pad the body to fit the new navbar size*/
 	body{
-		padding-top: 45px;
+		padding-top: $bodyPadding;
 	}
 }
 
@@ -161,5 +153,17 @@ $navBarBackgroundActive: #023613;
 		background-color: $navBarBackgroundActive;
 	}
 
+.navbar-custom{
+	.btn-custom{
+		border-color: $navBarColor;
+	}
+	.btn-custom:hover,
+	.btn-custom:focus,
+	.btn-custom:active,
+	.btn-custom.active {
+		background-color: $navBarColor;
+		border-color: $navBarColor;
+	}
+}
 
 }
