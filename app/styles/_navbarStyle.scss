@@ -31,7 +31,7 @@ $bodyPadding: 45px;
 
 	/*This was the only way to clean the border*/
 	.navbar{
-		border-color: $navBarColor;
+		border-color: #000000;
 	}
 
 	/*This is the logo*/
@@ -54,6 +54,7 @@ $bodyPadding: 45px;
 	    color: $navBarFontactive;
 	    background-color: transparent;
 	}
+
 
 	/*Pad the body to fit the new navbar size*/
 	body{
@@ -79,7 +80,7 @@ $bodyPadding: 45px;
 
 	/*This was the only way to clean the border*/
 	.navbar{
-		border-color: $navBarColor;
+		border-color: #000000;
 	}
 
 	/*This is the logo*/
@@ -103,6 +104,20 @@ $bodyPadding: 45px;
 	    background-color: transparent;
 	}
 
+	.navbar-custom{
+		.btn-custom{
+			border-color: $navBarColor;
+		}
+		.btn-custom:hover,
+		.btn-custom:focus,
+		.btn-custom:active,
+		.btn-custom.active {
+			background-color: $navBarColor;
+			border-color: $navBarColor;
+		}
+	}	
+
+
 	/*Pad the body to fit the new navbar size*/
 	body{
 		padding-top: $bodyPadding;
@@ -124,7 +139,7 @@ $bodyPadding: 45px;
 
 	/*This was the only way to clean the border*/
 	.navbar{
-		border-color: $navBarColor;
+		border-color: #000000;
 	}
 
 	/*This is the logo*/
@@ -137,6 +152,8 @@ $bodyPadding: 45px;
 	/*This is the Home Button*/
 	.navbar-custom .navbar-brand {
 		color: $navBarFontColor;
+		font-size: $navBarFontSize + 8;
+		padding-left: 20;
 	}
 
 	.navbar-custom .navbar-brand:hover {
@@ -153,17 +170,17 @@ $bodyPadding: 45px;
 		background-color: $navBarBackgroundActive;
 	}
 
-.navbar-custom{
-	.btn-custom{
-		border-color: $navBarColor;
+	.navbar-custom{
+		.btn-custom{
+			border-color: $navBarColor;
+		}
+		.btn-custom:hover,
+		.btn-custom:focus,
+		.btn-custom:active,
+		.btn-custom.active {
+			background-color: $navBarColor;
+			border-color: $navBarColor;
+		}
 	}
-	.btn-custom:hover,
-	.btn-custom:focus,
-	.btn-custom:active,
-	.btn-custom.active {
-		background-color: $navBarColor;
-		border-color: $navBarColor;
-	}
-}
 
 }
