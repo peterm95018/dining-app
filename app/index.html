@@ -11,44 +11,53 @@
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+           <link rel="stylesheet" href="styles/main.css">
+           <link rel="stylesheet" href="styles/customMain.css">
+           <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
         <!-- endbuild -->
-		<!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
+		  <!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
         <!-- build:js scripts/vendor/modernizr.js --> 
         <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
-		<script src="scripts/modernizr.custom.24514.js"></script>
+		     <script src="scripts/modernizr.custom.24514.js"></script>
         <!-- endbuild -->
+   		
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-		    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-		      <div class="container">
-		        <div class="navbar-header">
+         <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+          <div class="navbar-custom">
+          	
+          	<!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
+          	<a class="navbar-logo pull-left" href="index.html"><img src="images/nav_logo.png"></a> 
 
-		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <a class="navbar-brand visible-xs glyphicon glyphicon-home" href="index.html"></a>
+
+		      <div class="container">
+		        <div class="navbar-header"> 
+                  <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
+		   	        <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
 		          </button>
 
-		          <a class="navbar-brand" href="index.html">Dining Services</a>
-		        </div>
-
+			                 		          
+             </div><!-- /.navbar-header -->
 		        <!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse navbar-ex1-collapse">
-		          <ul class="nav navbar-nav">
-		            <li><a href="feedback.html">Feedback</a></li>
+                 <ul class="nav navbar-nav">
+                 	<li><a class ="hidden-xs" href="index.html">Home</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
 		            <li><a href="#dininghome">Dining Home</a></li>
 		            <li><a href="#webportal">Web Portal</a></li>
 		          </ul>
 		        </div><!-- /.navbar-collapse -->
 		      </div><!-- /.container -->
-		    </nav>
+          </div><!-- /.navbar-custom -->
+		   </nav>
 		
 	    <div class="container">
 
@@ -75,7 +84,7 @@
 
 	      <div class="row">
 	        <div class="col-lg-7 col-md-7">
-	          <a href="#"><img class="img-responsive" src="images/crown-dining-hall.jpg"></a>
+	          <a href="whats_open.html"><img class="img-responsive" src="images/crown-dining-hall.jpg"></a>
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
@@ -101,23 +110,7 @@
         </div><!-- /.col-lg5 col-md-5 -->
       </div> <!-- /.row -->
 
-	      <hr>
-
-
-	      <div class="row">
-	        <div class="col-lg-7 col-md-7">
-	  
-	         </div>
-
-	        <div class="col-lg-5 col-md-5">
-	              <div class="btn-group btn-group-justified">
-	          
-	       
-	         </div>
-	          
-        </div><!-- /.col-lg5 col-md-5 -->
-      </div> <!-- /.row -->
-	      <hr>
+      <hr>
 	 
 	<!--Taylor (2/24/14) -->      
 	<!--Added footer class, with new sections for About and Feedback. -->
