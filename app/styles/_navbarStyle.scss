@@ -1,0 +1,186 @@
+
+/*Navbar Sass*/
+
+$navBarColor: #92b44f;
+/*Better color: #023613*/
+$navBarFontColor: white;
+$navBarFontactive: white;
+$navBarBackgroundActive: #6A911D;
+
+
+$navBarFontSize: 20px;
+
+$navBarTopPadding: 25px;
+$bodyPadding: 45px;
+
+@media only screen and (min-width: 1290px){
+	/*Custom navbar settings*/
+	.navbar-custom{
+	    background-color: $navBarColor;
+	    color: $navBarColor;
+	   	border-radius: 0;
+	}
+
+	.navbar .container{
+	  margin-left:0;
+	  margin-right:0;
+	  padding-left:0;
+	  padding-right:0;
+	  padding-bottom:0;
+	}
+
+	/*This was the only way to clean the border*/
+	.navbar{
+		border-color: #000000;
+	}
+
+	/*This is the logo*/
+	.navbar-custom .navbar-logo{
+		img{
+			max-height: 70px;
+			padding-top: 0;
+			padding-bottom: 0; 
+		}
+	}
+
+	/*The other buttons*/
+	.navbar-custom .navbar-nav > li a{
+	    padding-top: $navBarTopPadding;
+		color: $navBarFontColor;
+		font-size: $navBarFontSize;
+	}
+
+	.navbar-custom .navbar-nav > li a:hover {
+	    color: $navBarFontactive;
+	    background-color: transparent;
+	}
+
+
+	/*Pad the body to fit the new navbar size*/
+	body{
+		padding-top: $bodyPadding;
+	}
+}
+
+@media only screen and (max-width: 1289px) and (min-width: 601px){
+	/*Custom navbar settings*/
+	.navbar-custom{
+	    background-color: $navBarColor;
+	    color: $navBarColor;
+	   	border-radius: 0;
+	}
+
+	.navbar .container{
+	  margin-left:0;
+	  margin-right:0;
+	  padding-left:0;
+	  padding-right:0;
+	  padding-bottom:0;
+	}
+
+	/*This was the only way to clean the border*/
+	.navbar{
+		border-color: #000000;
+	}
+
+	/*This is the logo*/
+	.navbar-custom .navbar-logo{
+		img{
+			max-height: 70px;
+			padding-top: 0;
+			padding-bottom: 0; 
+		}
+	}
+
+	/*The other buttons*/
+	.navbar-custom .navbar-nav > li a{
+	    padding-top: $navBarTopPadding;
+		color: $navBarFontColor;
+		font-size: $navBarFontSize;
+	}
+
+	.navbar-custom .navbar-nav > li a:hover {
+	    color: $navBarFontactive;
+	    background-color: transparent;
+	}
+
+	.navbar-custom{
+		.btn-custom{
+			border-color: $navBarColor;
+		}
+		.btn-custom:hover,
+		.btn-custom:focus,
+		.btn-custom:active,
+		.btn-custom.active {
+			background-color: $navBarColor;
+			border-color: $navBarColor;
+		}
+	}	
+
+
+	/*Pad the body to fit the new navbar size*/
+	body{
+		padding-top: $bodyPadding;
+	}
+}
+
+
+@media only screen and (max-width: 601px){
+	/*Custom navbar settings*/
+	.navbar-custom{
+       background-color: $navBarColor;
+	    color: $navBarColor;
+	    border-radius: 0;
+	}
+
+   .navbar .container{
+	  margin-left:15px;
+	}
+
+	/*This was the only way to clean the border*/
+	.navbar{
+		border-color: #000000;
+	}
+
+	/*This is the logo*/
+	.navbar-custom .navbar-logo{
+		img{
+			max-height: 48px;
+		}
+	}
+
+	/*This is the Home Button*/
+	.navbar-custom .navbar-brand {
+		color: $navBarFontColor;
+		font-size: $navBarFontSize + 8;
+		padding-left: 20;
+	}
+
+	.navbar-custom .navbar-brand:hover {
+		color: $navBarFontactive;
+	}
+
+	/*The other buttons*/
+	.navbar-custom .navbar-nav > li a {
+	    color: $navBarFontColor;
+	}
+
+	.navbar-custom .navbar-nav > li a:hover {
+	    color: $navBarFontactive;
+		background-color: $navBarBackgroundActive;
+	}
+
+	.navbar-custom{
+		.btn-custom{
+			border-color: $navBarColor;
+		}
+		.btn-custom:hover,
+		.btn-custom:focus,
+		.btn-custom:active,
+		.btn-custom.active {
+			background-color: $navBarColor;
+			border-color: $navBarColor;
+		}
+	}
+
+}

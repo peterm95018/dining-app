@@ -12,6 +12,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/customMain.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
         <!-- endbuild -->
 		<!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
@@ -27,31 +28,38 @@
         <![endif]-->
 
 		    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-		      <div class="container">
-		        <div class="navbar-header">
+          <div class="navbar-custom">
+            
+            <!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
+            <a class="navbar-logo pull-left" href="index.html"><img src="images/nav_logo.png"></a> 
 
-		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		          </button>
+            <a class="navbar-brand visible-xs glyphicon glyphicon-home" href="index.html"></a>
 
-		          <a class="navbar-brand" href="index.html">Dining Services</a>
-		        </div>
+          <div class="container">
+            <div class="navbar-header"> 
+                  <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
 
-		        <!-- Collect the nav links, forms, and other content for toggling -->
-		        <div class="collapse navbar-collapse navbar-ex1-collapse">
-		          <ul class="nav navbar-nav">
-		            <li><a href="feedback.html">Feedback</a></li>
-		            <li><a href="#dininghome">Dining Home</a></li>
-		            <li><a href="#webportal">Web Portal</a></li>
-		          </ul>
-		        </div><!-- /.navbar-collapse -->
-		      </div><!-- /.container -->
-		    </nav>
+                                    
+             </div><!-- /.navbar-header -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                 <ul class="nav navbar-nav">
+                  <li><a class ="hidden-xs" href="index.html">Home</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="#dininghome">Dining Home</a></li>
+                <li><a href="#webportal">Web Portal</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container -->
+          </div><!-- /.navbar-custom -->
+       </nav>
 
-<div class="container">
+           <div class="container">
 
 	      <div class="row">
 	        <div class="col-lg-12">
@@ -63,53 +71,93 @@
 	        <div class="col-lg-7 col-md-7">
 	          <a href="locations_list.html"><img class="img-responsive" src="images/porter-dining-hall.jpg"></a>
 	        </div>
-
+          </div>
+			
+		
+			<!--This block of code is pulled almost directly from We3 -->
+<!--			<form action="FormSubmission.asp" autocomplete="on" method="post"> 
+				First name:<input type="text" name="commentInput"><br>
+				Email: <input type="text" name="inputEmail"><br>
+				<input type="submit">
+				</form> -->
+			<!--It seems to work better than the code below, but grunt still doesn't seem -->
+			<!--to run asp files -->
+			<!--Delete/Integrate into code below when problem is fixed.-->
+			
+<!--              <div class="row">
 	        <div class="col-lg-5 col-md-5">
 	          <form role="form">
-	
+                   <br>
+                   <div class="form-group">
+                   <label for="exampleInputEmail1">How was your meal?</label>
+                   <br>
+                      <div class="radio">
+                      <label>
+                         <input type="radio" name="optionsRadios1" id="optionsRadios1" value="option1">
+                            Excellent
+                         </label>
+                      </div>
 
-<br>
-<div class="form-group">
-  <label for="exampleInputEmail1">How was your meal?</label>
-<br>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-    Excellent
-  </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-    Good
-  </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option3">
-    Needs Improvement
-  </label>
-</div>
-</div>
+                      <div class="radio">
+                         <label>
+                         <input type="radio" name="optionsRadios2" id="optionsRadios2" value="option2">
+                            Good
+                         </label>
+                      </div>
 
+                      <div class="radio">
+                         <label>
+                         <input type="radio" name="optionsRadios3" id="optionsRadios3" value="option3">
+                            Needs Improvement
+                         </label>
+                      </div>
+                   </div>
 
+                   <div class="form-group">
+                      <label for="exampleInputEmail1">Your Comment</label>
+                         <textarea class="form-control" rows="5" id="commentInput" name="commentInput"></textarea>
+                   </div>
 
- <div class="form-group">
-    <label for="exampleInputEmail1">Your Comment</label>
-    <textarea class="form-control" rows="5"></textarea>
-  </div>
+                   <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Enter email">
+                   </div>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-  </div>
-
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+                   <button type="submit" class="btn btn-default" form="commentInput","inputEmail", 
+                   "optionsRadios1", "optionsRadios2", "optionsRadios3" formaction="FormSubmission.asp">Submit</button>
+                  </form>
 	        </div><!-- /.col-lg5 col-md-5 -->
-	      </div> <!-- /.row -->
+<!--	      </div>  <!-- /.row -->
 
-	      <hr>
+<!--	      <hr> -->
+
+<!--Chunk of code exported from EmailMeForms.com  -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><form id="emf-form" target="_self" enctype="multipart/form-data" method="post" action="http://www.emailmeform.com/builder/form/05ycitQ3fd">
+<table style="text-align:left;" cellpadding="2" cellspacing="0" border="0" bgcolor="#FFFFFF">
+<tr>
+<td style="" colspan="2">
+<font face="Verdana" size="2" color="#000000"></label><br /></font>
+</td>
+</tr><tr valign="top" ><td id="td_element_label_0" style="" align=""><font face="Verdana" size="2" color="#000000"><b>How was your meal?</b></font>
+<span style="color:red;"><small></small></span>
+</td></tr><tr><td id="td_element_field_0" style=""><div style="width:100%;padding-bottom:5px;"><input id="element_0_0" name="element_0" value="Excellent" class="validate[optional]"  type="radio" /><font face="Verdana" size="2" color="#000000">&nbsp;Excellent&nbsp;</font></div><div style="width:100%;padding-bottom:5px;"><input id="element_0_1" name="element_0" value="Good" class="validate[optional]"  type="radio" /><font face="Verdana" size="2" color="#000000">&nbsp;Good&nbsp;</font></div><div style="width:100%;padding-bottom:5px;"><input id="element_0_2" name="element_0" value="Needs Improvement" class="validate[optional]"  type="radio" /><font face="Verdana" size="2" color="#000000">&nbsp;Needs Improvement&nbsp;</font></div><div style="clear:both;"></div><div style="padding-bottom:8px;color:#000000;"><small><font face="Verdana"></font></small></div>
+</td>
+</tr><tr valign="top" ><td id="td_element_label_1" style="" align=""><font face="Verdana" size="2" color="#000000"><b>Your comment</b></font>
+<span style="color:red;"><small></small></span>
+</td></tr><tr><td id="td_element_field_1" style=""><textarea id="element_1" name="element_1" cols="28" rows="8"
+					class="validate[optional] "></textarea><div style="padding-bottom:8px;color:#000000;"><small><font face="Verdana"></font></small></div>
+</td>
+</tr><tr valign="top" ><td id="td_element_label_2" style="" align=""><font face="Verdana" size="2" color="#000000"><b>Email</b></font>
+<span style="color:red;"><small></small></span>
+</td></tr><tr><td id="td_element_field_2" style=""><input id="element_2" name="element_2"
+				class="validate[optional,custom[email]]"
+				value="" size="28" type="text" /><div style="padding-bottom:8px;color:#000000;"><small><font face="Verdana"></font></small></div>
+</td>
+</tr><tr><td colspan="2" align="left">
+<input name="element_counts" value="3" type="hidden" />
+<button name="embed" value="forms" type="hidden" class="btn btn-default" > Submit </button>
+</td></tr></table></form>
+
 
 <!--Taylor (2/24/14) -->      
 	<!--Added footer class, with new sections for About and Feedback. -->
