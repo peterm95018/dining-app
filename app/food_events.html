@@ -75,7 +75,7 @@
 	          <h3>What's Happening</h3>
 	          <p>Proposed: let's run a query of the UCSC Dining Calendar for the next 14 days and output the results in a list format using Titles and short descriptions of each event</p>
               <p>We may want a food image to replace the 700x300 placeholder here (or not).</p>
-              <p>We can use a similar design pattern that is used in the other pages by 
+              <p>We are querying the UCSC Dining Calendar and taking the next 10 items. We then format them and display below.</p>
 
             <ul id="gcal-events">
                 <li>no events listed</li>
@@ -106,6 +106,7 @@
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/Autolinker.js/dist/Autolinker.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -130,7 +131,12 @@
                 
                 // event contents
                 var event_contents = $.trim(item.content.$t);
+
+                // psm addition
+                var event_contents = Autolinker.link(event_contents);
+
                 // make each separate line a new list item
+                // psm change below don't need new lines turning into li's
                 //event_contents = event_contents.replace(/\n/g,"</li><li>");
 
                 // event start date/time
