@@ -129,9 +129,9 @@
                 var event_title = item.title.$t;
                 
                 // event contents
-                var event_contents = jQuery.trim(item.content.$t);
+                var event_contents = $.trim(item.content.$t);
                 // make each separate line a new list item
-                event_contents = event_contents.replace(/\n/g,"</li><li>");
+                //event_contents = event_contents.replace(/\n/g,"</li><li>");
 
                 // event start date/time
                 var event_start_date = new Date(item.gd$when[0].startTime);
@@ -152,12 +152,11 @@
                 
                 // Render the event
                 $("#gcal-events li").last().before(
-                    "<li>" + event_title
-                    + "<ul>"
-                    + "<li>" + event_contents + "</li>"
-                    + "<li>" + event_start_str + event_loc + "</li>"
-                    + "</ul>"
-                    + "</li>"
+                    "<dl>"
+                    + "<dt>" + event_title + "</dt>"
+                    + "<dd>" + event_start_str + event_loc + "</dd>"
+                    + "<dd>" + event_contents + "</dd>"
+                    + "</dl>"
                 );
             });
         });
