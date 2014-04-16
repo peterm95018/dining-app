@@ -132,6 +132,7 @@
      // weekday processing
             $.getJSON('../data/location-weekday-hours.json', function(data) {
         /* optional stuff to do after success */
+
        var out = '';
        out += '<div id="open-closed-locs">';
 
@@ -145,7 +146,7 @@
         }
 
         out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
+        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
        });
        out += '</div>';
 $('#open-closed-locs').append(out);
@@ -169,7 +170,7 @@ $('#open-closed-locs').append(out);
         }
 
         out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
+        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
        });
        out += '</div>';
 $('#open-closed-locs').append(out);
