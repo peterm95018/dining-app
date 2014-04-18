@@ -1,6 +1,6 @@
 <?php
  
-if(isset($_POST['email'])) {
+if(isset($_POST['inputEmail'])) {
  
      
      //Data to be captured
@@ -13,9 +13,9 @@ if(isset($_POST['email'])) {
  
     // EDIT THE 2 LINES BELOW AS REQUIRED
  
-    $email_to = "towenmil@ucsc.edu";
+    $email_to = "towenmil@ucsc.edu, peterm@ucsc.edu";
  
-    $email_subject = "Dining Feedback";
+    $email_subject = "Mobile Dining Feedback";
  
      
  
@@ -41,7 +41,7 @@ if(isset($_POST['email'])) {
  
     // validation expected data exists
  
-    if(!isset($_POST['radio']) ||
+    if(!isset($_POST['meal']) ||
  
         !isset($_POST['commentInput']) ||
  
@@ -51,9 +51,9 @@ if(isset($_POST['email'])) {
  
     }
  
-     
+
  
-    $radio = $_POST['radio']; // required
+    $radio = $_POST['meal']; // required
  
     $comments = $_POST['commentInput']; // not required
  

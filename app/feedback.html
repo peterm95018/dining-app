@@ -83,31 +83,33 @@
 			<!--It seems to work better than the code below, but grunt still doesn't seem -->
 			<!--to run asp files -->
 			<!--Delete/Integrate into code below when problem is fixed.-->
+
+
 			
            <div class="row">
 	        <div class="col-lg-5 col-md-5">
-	          <form role="form" name="contactform" method="post" action="send_form_email.php">
+	          <form role="form" name="contactform" method="post" action="./send_form_email.php">
                    <br>
                    <div class="form-group" name="radio">
-                   <label for="exampleInputEmail1">How was your meal?</label>
+                   <label for="meal">How was your meal?</label>
                    <br>
 					  <div class="radio">
                       <label>
-                         <input type="radio" name="optionsRadios1" id="optionsRadios1" value="option1">
+                         <input type="radio" name="meal" id="optionsRadios1" value="excellent">
                             Excellent
                          </label>
                       </div>
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios2" id="optionsRadios2" value="option2">
+                         <input type="radio" name="meal" id="optionsRadios2" value="good">
                             Good
                          </label>
                       </div>
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios3" id="optionsRadios3" value="option3">
+                         <input type="radio" name="meal" id="optionsRadios3" value="needs improvement">
                             Needs Improvement
                          </label>
                       </div>
