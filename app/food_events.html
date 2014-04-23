@@ -115,7 +115,10 @@
         <script>
   
       //get UCSC Dining Calendar data for future events sorted returned to us in JSON
-        gcal_json_url = 'data/gcal.json';
+        //gcal_json_url = 'data/gcal.json';
+
+            // use this URL for live ajax calls. gets next 10 food events from the calendar
+    gcal_json_url = 'http://www.google.com/calendar/feeds/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&futureevents=true&max-results=10&alt=json';
 
         // Get list of upcoming iCal events formatted in JSON
         $.getJSON(gcal_json_url, function(data){
