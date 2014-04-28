@@ -11,14 +11,16 @@
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
+           <link rel="stylesheet" href="styles/main.css">
+           <link rel="stylesheet" href="styles/customMain.css">
+           <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
         <!-- endbuild -->
-		<!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
+		  <!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
         <!-- build:js scripts/vendor/modernizr.js --> 
         <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
-		<script src="scripts/modernizr.custom.24514.js"></script>
-                <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+		     <script src="scripts/modernizr.custom.24514.js"></script>
         <!-- endbuild -->
+
         <style type="text/css">
         .locIsOpen dd {
             background-color: green;
@@ -33,31 +35,35 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-		    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+       <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+         <div class="navbar-custom">
+       	<!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
+         	<a class="navbar-logo pull-left" href="index.html"><img src="images/nav_logo.png"></a> 
+            <a class="navbar-brand visible-xs glyphicon glyphicon-home" href="index.html"></a>
+
 		      <div class="container">
-		        <div class="navbar-header">
-
-		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
+		        <div class="navbar-header"> 
+                <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		          <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+		          <span class="icon-bar"></span>
+		          <span class="icon-bar"></span>
 		          </button>
-
-		          <a class="navbar-brand" href="index.html">Dining Services</a>
-		        </div>
-
+			                 		          
+              </div><!-- /.navbar-header -->
 		        <!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse navbar-ex1-collapse">
-		          <ul class="nav navbar-nav">
-		            <li><a href="feedback.html">Feedback</a></li>
-		            <li><a href="#dininghome">Dining Home</a></li>
-		            <li><a href="#webportal">Web Portal</a></li>
-		          </ul>
+                 <ul class="nav navbar-nav">
+                 	 <li><a class ="hidden-xs" href="index.html">Home</a></li>
+                   <li><a href="feedback.html">Feedback</a></li>
+		             <li><a href="#dininghome">Dining Home</a></li>
+		             <li><a href="#webportal">Web Portal</a></li>
+		           </ul>
 		        </div><!-- /.navbar-collapse -->
 		      </div><!-- /.container -->
-		    </nav>
-		
+         </div><!-- /.navbar-custom -->
+		 </nav>
+
 	    <div class="container">
 
 	      <div class="row">
@@ -67,29 +73,31 @@
 	      </div>
 
 	      <div class="row">
-	        <div class="col-lg-7 col-md-7">
+	        <div class="col-lg-12 col-md-8">
 	          <a href="cafe_list.html"><img class="img-responsive" src="http://placehold.it/700x300"></a>
 	        </div>
+         </div>
 
-	        <div class="col-lg-5 col-md-5">
-	          <h3>What's Happening</h3>
+	      <div class="col-lg-12 col-md-8">
+	        <h3>What's Happening</h3>
 	          <p>Proposed: let's run a query of the UCSC Dining Calendar for the next 14 days and output the results in a list format using Titles and short descriptions of each event</p>
-              <p>We may want a food image to replace the 700x300 placeholder here (or not).</p>
-              <p>We are querying the UCSC Dining Calendar and taking the next 10 items. We then format them and display below.</p>
+             <p>We may want a food image to replace the 700x300 placeholder here (or not).</p>
+             <p>We are querying the UCSC Dining Calendar and taking the next 10 items. We then format them and display below.</p>
+             <hr>
 
-            <ul id="gcal-events">
-                <li>no events listed</li>
-            </ul>
+             <div id="gcal-events"> <!-- This is where all the dynamic event data is shoved into -->
+             </div>
 
-	        </div><!-- /.col-lg5 col-md-5 -->
+	        </div><!-- /.col-lg-12 col-md-8 -->
 	      </div> <!-- /.row -->
 
-	      <hr>
+         <hr>
+
     <footer>
        <div class="row">
           <div class="col-lg-12">
             <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; Google+</p> -->
-            <p class=""><span class="small">&copy; 2014 Regents of the University of California </span>
+            <p class="text-center"><span class="small">&copy; 2014 Regents of the University of California </span>
             &nbsp;
             <a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
             &middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
@@ -99,20 +107,20 @@
         </div>
      </footer>
 
-	      </div> <!-- /.container -->
+</div> <!-- /.container -->
 
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
-		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+		  <script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="bower_components/Autolinker.js/dist/Autolinker.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
-<script type='text/javascript' src='http://datejs.googlecode.com/files/date.js'></script>
+        <script type='text/javascript' src='http://datejs.googlecode.com/files/date.js'></script>
 
-        <script>
+   <script>
   
       //get UCSC Dining Calendar data for future events sorted returned to us in JSON
         gcal_json_url = 'data/gcal.json';
@@ -122,9 +130,9 @@
 
             // Parse and render each event
             $.each(data.feed.entry, function(i, item){
-                if(i == 0) {
-                    jQuery("#gcal-events li").first().hide();
-                };
+                /*if(i == 0) {
+                    jQuery("#gcal-events").first().hide();
+                };*/
                 
                 // event title
                 var event_title = item.title.$t;
@@ -157,19 +165,20 @@
                 };
                 
                 // Render the event
-                $("#gcal-events li").last().before(
-                    "<dl>"
+                $("#gcal-events").append(
+                "<div><dl>"
                     + "<dt>" + event_title + "</dt>"
                     + "<dd>" + event_start_str + event_loc + "</dd>"
                     + "<dd>" + event_contents + "</dd>"
-                    + "</dl>"
-                );
+                    + "</dl></div>" + "<hr>"
+                 );
             });
+
+            $("#gcal-events hr:last").remove();//Removes the ugly last <hr> in the list of events
+
         });
     
-        
-        </script>
-
+   </script>
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

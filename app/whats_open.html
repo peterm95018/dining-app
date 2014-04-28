@@ -92,7 +92,7 @@
        <div class="row">
           <div class="col-lg-12">
             <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; Google+</p> -->
-            <p class=""><span class="small">&copy; 2014 Regents of the University of California </span>
+            <p class="text-centered"><span class="small">&copy; 2014 Regents of the University of California </span>
             &nbsp;
             <a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
             &middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
@@ -132,6 +132,7 @@
      // weekday processing
             $.getJSON('../data/location-weekday-hours.json', function(data) {
         /* optional stuff to do after success */
+
        var out = '';
        out += '<div id="open-closed-locs">';
 
@@ -145,7 +146,7 @@
         }
 
         out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
+        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
        });
        out += '</div>';
 $('#open-closed-locs').append(out);
@@ -169,7 +170,7 @@ $('#open-closed-locs').append(out);
         }
 
         out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Days + '</dd></dl>'
+        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
        });
        out += '</div>';
 $('#open-closed-locs').append(out);

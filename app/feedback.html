@@ -21,7 +21,7 @@
 		<script src="scripts/modernizr.custom.24514.js"></script>
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
         <!-- endbuild -->
-    </head>
+     </head>
     <body> 
 <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -83,31 +83,33 @@
 			<!--It seems to work better than the code below, but grunt still doesn't seem -->
 			<!--to run asp files -->
 			<!--Delete/Integrate into code below when problem is fixed.-->
+
+
 			
            <div class="row">
 	        <div class="col-lg-5 col-md-5">
-	          <form role="form" name="contactform" method="post" action="send_form_email.php">
+	          <form role="form" name="contactform" method="post" action="./send_form_email.php">
                    <br>
                    <div class="form-group" name="radio">
-                   <label for="exampleInputEmail1">How was your meal?</label>
+                   <label for="meal">How was your meal?</label>
                    <br>
 					  <div class="radio">
                       <label>
-                         <input type="radio" name="optionsRadios1" id="optionsRadios1" value="option1">
+                         <input type="radio" name="meal" id="optionsRadios1" value="excellent">
                             Excellent
                          </label>
                       </div>
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios2" id="optionsRadios2" value="option2">
+                         <input type="radio" name="meal" id="optionsRadios2" value="good">
                             Good
                          </label>
                       </div>
 
                       <div class="radio">
                          <label>
-                         <input type="radio" name="optionsRadios3" id="optionsRadios3" value="option3">
+                         <input type="radio" name="meal" id="optionsRadios3" value="needs improvement">
                             Needs Improvement
                          </label>
                       </div>
@@ -166,7 +168,7 @@
        <div class="row">
           <div class="col-lg-12">
             <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; Google+</p> -->
-            <p class=""><span class="small">&copy; 2014 Regents of the University of California </span>
+            <p class="text-centered"><span class="small">&copy; 2014 Regents of the University of California </span>
             &nbsp;
             <a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
             &middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
