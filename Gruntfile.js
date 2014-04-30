@@ -15,11 +15,12 @@ module.exports = function (grunt) {
 	
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
 	
-
+	
     grunt.initConfig({
+		
 		handlebars: {
-		      compile: {
-		        files: {
+			compile: {
+			files: {
 		          "temp/modules/compiled-templates.js": [
 		            "app/modules/*/templates/**/*.hbs"
 		          ]
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
 		          }
 		        }
 		      }
-		    },
+		 },
 			
         // configurable paths
         yeoman: {
@@ -370,7 +371,8 @@ module.exports = function (grunt) {
         }
 			
     }); // end initConfig
-
+	
+	
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);

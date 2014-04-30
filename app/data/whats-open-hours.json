@@ -1,0 +1,705 @@
+{
+	"Dining Halls" : {
+		"Colleges Nine/Ten": {
+			"Monday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Thursday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Friday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Saturday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			},
+			"Sunday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			}		
+		},
+		"Porter/Kresge": {
+			"Monday" : {
+				"Open" : "07:15",
+				"Close" : "19:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:15",
+				"Close" : "19:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:15",
+				"Close" : "19:00"
+			},
+			"Thursday" : {
+				"Open" : "07:15",
+				"Close" : "19:00"
+			},
+			"Friday" : {
+				"Open" : "07:15",
+				"Close" : "19:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"College Eight/Oakes": {
+			"Monday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Thursday" : {
+				"Open" : "07:15",
+				"Close" : "23:00"
+			},
+			"Friday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Saturday" : {
+				"Open" : "10:00",
+				"Close" : "20:00"
+			},
+			"Sunday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			}
+		},
+		"Crown/Merrill": {
+			"Monday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Thursday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Friday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Cowell/Stevenson": {
+			"Monday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Thursday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Friday" : {
+				"Open" : "07:15",
+				"Close" : "20:00"
+			},
+			"Saturday" : {
+				"Open" : "10:00",
+				"Close" : "14:00",
+				"Open2" : "17:00",
+				"Close2" : "20:00"
+			},
+			"Sunday" : {
+				"Open" : "10:00",
+				"Close" : "14:00",
+				"Open2" : "17:00",
+				"Close2" : "20:00"
+			}
+		}	
+	},
+	"Coffee Carts" : {
+		"Perk Coffee @ Earth & Marine Sciences": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Perk Coffee @ Physical Sciences Building": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Perk Coffee @ Baskin Engineering": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "18:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "18:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "18:00"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "18:00"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Perk Coffee @ University Center": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Perk Coffee @ Science Library": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "16:00"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		}
+	
+	},
+	"Cafes & Restaurants" : {
+		"Porter Slug Grill": {
+			"Monday" : {
+				"Open" : "07:00",
+				"Close" : "23:00"
+			},
+			"Tuesday" : {
+				"Open" : "07:00",
+				"Close" : "23:00"
+			},
+			"Wednesday" : {
+				"Open" : "07:00",
+				"Close" : "23:00"
+			},
+			"Thursday" : {
+				"Open" : "07:00",
+				"Close" : "23:00"
+			},
+			"Friday" : {
+				"Open" : "07:00",
+				"Close" : "16:00"
+			},
+			"Saturday" : {
+				"Open" : "15:00",
+				"Close" : "22:00"
+			},
+			"Sunday" : {
+				"Open" : "15:00",
+				"Close" : "22:00"
+			}
+		 },
+		 "College Eight Café": {
+			"Monday" : {
+				"Open" : "08:00",
+				"Close" : "22:00"
+			},
+			"Tuesday" : {
+				"Open" : "08:00",
+				"Close" : "22:00"
+			},
+			"Wednesday" : {
+				"Open" : "08:00",
+				"Close" : "22:00"
+			},
+			"Thursday" : {
+				"Open" : "08:00",
+				"Close" : "22:00"
+			},
+			"Friday" : {
+				"Open" : "08:00",
+				"Close" : "17:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },	
+		 "Owl's Nest Restaurant": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "20:30"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "20:30"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "20:30"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "20:30"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "17:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },
+		 "Oakes Café": {
+			"Monday" : {
+				"Open" : "08:30",
+				"Close" : "23:00"
+			},
+			"Tuesday" : {
+				"Open" : "08:30",
+				"Close" : "23:00"
+			},
+			"Wednesday" : {
+				"Open" : "08:30",
+				"Close" : "23:00"
+			},
+			"Thursday" : {
+				"Open" : "08:30",
+				"Close" : "23:00"
+			},
+			"Friday" : {
+				"Open" : "08:30",
+				"Close" : "17:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },
+		 "Cowell Coffee Shop": {
+			"Monday" : {
+				"Open" : "07:45",
+				"Close" : "23:30"
+			},
+			"Tuesday" : {
+				"Open" : "07:45",
+				"Close" : "23:30"
+			},
+			"Wednesday" : {
+				"Open" : "07:45",
+				"Close" : "23:30"
+			},
+			"Thursday" : {
+				"Open" : "07:45",
+				"Close" : "23:30"
+			},
+			"Friday" : {
+				"Open" : "07:45",
+				"Close" : "16:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },
+		 "Terra Fresca Restaurant": {
+			"Monday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Tuesday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Wednesday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Thursday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Friday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },
+		 "Stevenson Coffee House": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "23:30"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "23:30"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "23:30"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "23:30"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "17:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "08:00",
+				"Close" : "23:30"
+			}
+		 },
+		 "Joe's Pizza & Subs": {
+			"Monday" : {
+				"Open" : "09:00",
+				"Close" : "19:30"
+			},
+			"Tuesday" : {
+				"Open" : "09:00",
+				"Close" : "19:30"
+			},
+			"Wednesday" : {
+				"Open" : "09:00",
+				"Close" : "19:30"
+			},
+			"Thursday" : {
+				"Open" : "09:00",
+				"Close" : "19:30"
+			},
+			"Friday" : {
+				"Open" : "09:00",
+				"Close" : "19:30"
+			},
+			"Saturday" : {
+				"Open" : "11:00",
+				"Close" : "16:00"
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },
+		 "Bay Tree Express Store": {
+			"Monday" : {
+				"Open" : "07:30",
+				"Close" : "18:30"
+			},
+			"Tuesday" : {
+				"Open" : "07:30",
+				"Close" : "18:30"
+			},
+			"Wednesday" : {
+				"Open" : "07:30",
+				"Close" : "18:30"
+			},
+			"Thursday" : {
+				"Open" : "07:30",
+				"Close" : "18:30"
+			},
+			"Friday" : {
+				"Open" : "07:30",
+				"Close" : "18:30"
+			},
+			"Saturday" : {
+				"Open" : "10:00",
+				"Close" : "16:00"
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 },
+		 "Banana Joe's Café": {
+			"Monday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			},
+			"Tuesday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			},
+			"Wednesday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			},
+			"Thursday" : {
+				"Open" : "10:00",
+				"Close" : "23:00"
+			},
+			"Friday" : {
+				"Open" : "10:00",
+				"Close" : "15:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		 }
+	},
+	"Food Trucks" : {
+		"Cruz N Gourmet": {
+			"Monday" : {
+				"Open" : "11:00",
+				"Close" : "14:15"
+			},
+			"Tuesday" : {
+				"Open" : "11:00",
+				"Close" : "14:15"
+			},
+			"Wednesday" : {
+				"Open" : "11:00",
+				"Close" : "14:15"
+			},
+			"Thursday" : {
+				"Open" : "11:00",
+				"Close" : "14:15"
+			},
+			"Friday" : {
+				"Open" : "11:00",
+				"Close" : "14:15"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Raymond's Catering": {
+			"Monday" : {
+				"Open" : "12:00",
+				"Close" : "14:00"
+			},
+			"Tuesday" : {
+				"Open" : "12:00",
+				"Close" : "14:00"
+			},
+			"Wednesday" : {
+				"Open" : "12:00",
+				"Close" : "14:00"
+			},
+			"Thursday" : {
+				"Open" : "12:00",
+				"Close" : "14:00"
+			},
+			"Friday" : {
+				"Open" : "12:00",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		},
+		"Zameen Mediterranean Cuisine": {
+			"Monday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Tuesday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Wednesday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Thursday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Friday" : {
+				"Open" : "11:30",
+				"Close" : "14:00"
+			},
+			"Saturday" : {
+				"Open" : "",
+				"Close" : ""
+			},
+			"Sunday" : {
+				"Open" : "",
+				"Close" : ""
+			}
+		}
+	}
+}
