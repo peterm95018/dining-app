@@ -204,8 +204,25 @@
                   }
                   else{
                      out += '<dl class="locIsClosed">';
-                  }
-                  out+= '<dd>On ' + dayofweek + " open from " + time.Open + " to  " + time.Close +  '</dd></dl>';
+                     }
+                  var open = time.Open.split(":");
+                  var close = time.Close.split(":");
+                  var hour = close[0];
+                  var min  = close[1];
+
+                  if( hour > 12 ){//This formats the close time
+                     close = (hour - 12) + ":" + min + "pm";}
+                  else if( hour == 0 ){
+                     close = "12:" + min + "pm";}
+                  else if( hour == 12){
+                     close = time.Close + "pm";}
+                  else{
+                     close = time.Close + "am";}
+
+                  if(open[0] < 12){//Write AM after opening time if it's before 12
+                     out+= '<dd>On ' + dayofweek + " open from " + time.Open + "am to  " + close + '</dd></dl>';}
+                  else{
+                     out+= '<dd>On ' + dayofweek + " open from " + time.Open + "pm to  " + close + '</dd></dl>';}
                   return false;//This is like a "break;" statement, it cancels the foreach loop.
                }
             })
