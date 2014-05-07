@@ -22,10 +22,10 @@
         <!-- endbuild -->
         <style type="text/css">
         .locIsOpen dd {
-            background-color: green;
+            background-color: #65BF0B;
         }
         .locIsClosed dd {
-            background-color: red;
+            background-color: #F73838;
         }
         </style>
     </head>
@@ -75,19 +75,22 @@
 	      </div>
 
 	      <div class="row">
-	        <div class="col-lg-7 col-md-7">
-	          <a href="cafe_list.html"><img class="img-responsive" src="http://placehold.it/700x300"></a>
+	        <div class="col-lg-12 col-md-8">
+	          <a href="#cafe_list.html"><img class="img-responsive" src="http://placehold.it/700x300"></a>
 	        </div>
 
-	        <div class="col-lg-5 col-md-5">
-	          <h3>What's Open</h3>
-	          
-	          <div id="open-closed-locs"></div> <!-- empty div to update later -->
-
+           <div class="col-lg-12 col-md-8">
+              <h3>Locations sorted by type</h3> 
+	           <p>Green locations are open. Red locations are closed. Uses military 24 hour time.</p>
+	           <!--  <div id="open-closed-locs"></div>  empty div to update later -->
 	        </div><!-- /.col-lg5 col-md-5 -->
 	      </div> <!-- /.row -->
 
-	      <hr>
+         <hr>
+
+         <div class="aidentest">
+         </div>
+
     <footer>
        <div class="row">
           <div class="col-lg-12">
@@ -112,6 +115,7 @@
 		<script src="bower_components/momentjs/moment.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+
 <script type="text/javascript">
 		
 		/*
@@ -127,7 +131,7 @@
 		
 		
 		
-		
+
         // var openTime = moment('07:15', 'HH:mm') //
         // var closedTime = moment('13:10', 'HH:mm');
 
@@ -143,58 +147,107 @@
         var currentDay = moment().format('dddd'); // Monday
 
         if ($.inArray(currentDay, weekdays != -1)) {
-     // weekday processing
+        // weekday processing
             $.getJSON('../data/location-weekday-hours.json', function(data) {
-        /* optional stuff to do after success */
+            /* optional stuff to do after success */
 
-       var out = '';
-       out += '<div id="open-closed-locs">';
+            var out = '';
+            out += '<div id="open-closed-locs">';
 
-       $.each(data, function(key, val) {
-        locOpenTime = moment(val.Open, "HH:mm");
-        locCloseTime = moment(val.Close, "HH:mm");
-        if ((currentTime > locOpenTime) && (currentTime < locCloseTime)) {
-            out += '<dl class="locIsOpen">';
-        } else {
-            out += '<dl class="locIsClosed">';
-        }
+            $.each(data, function(key, val) {
+               locOpenTime = moment(val.Open, "HH:mm");
+               locCloseTime = moment(val.Close, "HH:mm");
+               if ((currentTime > locOpenTime) && (currentTime < locCloseTime)) {
+                  out += '<dl class="locIsOpen">';
+               } else {
+                  out += '<dl class="locIsClosed">';
+               } 
 
-        out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
-       });
-       out += '</div>';
-$('#open-closed-locs').append(out);
-}); // end getJSON
+               out += '<dt>' + key + '</dt>';
+               out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
+           });
+            
+           out += '</div>';
+           $('#open-closed-locs').append(out);
+           }); // end getJSON
         }
 
         if ($.inArray(currentDay, weekend) != -1) {
-            // weekday processing
-            $.getJSON('../data/location-weekend-hours.json', function(data) {
-        /* optional stuff to do after success */
-       var out = '';
-       out += '<div id="open-closed-locs">';
+        // weekend processing
+           $.getJSON('../data/location-weekend-hours.json', function(data) {
+           /* optional stuff to do after success */
+           var out = '';
+           out += '<div id="open-closed-locs">';
 
-       $.each(data, function(key, val) {
-        locOpenTime = moment(val.Open, "HH:mm");
-        locCloseTime = moment(val.Close, "HH:mm");
-        if ((currentTime > locOpenTime) && (currentTime < locCloseTime)) {
-            out += '<dl class="locIsOpen">';
-        } else {
-            out += '<dl class="locIsClosed">';
+           $.each(data, function(key, val) {
+              locOpenTime = moment(val.Open, "HH:mm");
+              locCloseTime = moment(val.Close, "HH:mm");
+              if ((currentTime > locOpenTime) && (currentTime < locCloseTime)) {
+                 out += '<dl class="locIsOpen">';
+              } else {
+                 out += '<dl class="locIsClosed">';
+              }
+
+              out += '<dt>' + key + '</dt>';
+              out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
+           });
+           out += '</div>';
+           $('#open-closed-locs').append(out);
+           }); // end getJSON
         }
+</script> -->
 
-        out += '<dt>' + key + '</dt>';
-        out += '<dd>' + val.Open + ' - ' + val.Close + ' / ' + val.Day + '</dd></dl>'
-       });
-       out += '</div>';
-$('#open-closed-locs').append(out);
-}); // end getJSON
-        }
+<script> // Aiden's test script
+   var out = '';
+   var currentTime = moment();//This is the exact current time.
+   var currentDay = moment().format('dddd'); //This is the day's full name. E.g. Monday, Tuesday...
+   var thejson    = '../data/whats-open-hours.json';
 
+   $.getJSON(thejson, function(data) {
+      $.each(data, function(type, place) {//type = dining_halls, cafes, coffee carts...
+         out += '<dt><h1>' + type + '</h1></dt>';
 
+         $.each(place, function(name, day) {//Name = porter, kresge, College 8... 
+            out += '<dd><strong>' + name + '</strong></dd>';
 
+            $.each(day, function(dayofweek, time) {
+               if (dayofweek == currentDay){
+                  var OpenTime = moment(time.Open, "HH:mm");
+                  var CloseTime= moment(time.Close,"HH:mm");
+                  if( (currentTime > OpenTime) && (currentTime < CloseTime) ){
+                     out += '<dl class="locIsOpen">';
+                  }
+                  else{
+                     out += '<dl class="locIsClosed">';
+                     }
+                  var open = time.Open.split(":");
+                  var close = time.Close.split(":");
+                  var hour = close[0];
+                  var min  = close[1];
 
+                  if( hour > 12 ){//This formats the close time
+                     close = (hour - 12) + ":" + min + "pm";}
+                  else if( hour == 0 ){
+                     close = "12:" + min + "pm";}
+                  else if( hour == 12){
+                     close = time.Close + "pm";}
+                  else{
+                     close = time.Close + "am";}
+
+                  if(open[0] < 12){//Write AM after opening time if it's before 12
+                     out+= '<dd>On ' + dayofweek + " open from " + time.Open + "am to  " + close + '</dd></dl>';}
+                  else{
+                     out+= '<dd>On ' + dayofweek + " open from " + time.Open + "pm to  " + close + '</dd></dl>';}
+                  return false;//This is like a "break;" statement, it cancels the foreach loop.
+               }
+            })
+         })
+         out += '<hr>';
+      })
+      $(".aidentest").append(out);
+   })
 </script>
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
