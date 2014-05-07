@@ -40,8 +40,6 @@
             <!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
             <a class="navbar-logo pull-left" href="index.html"><img src="images/nav_logo.png"></a> 
 
-            <a class="navbar-brand visible-xs glyphicon glyphicon-home" href="index.html"></a>
-
           <div class="container">
             <div class="navbar-header"> 
                   <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -56,7 +54,6 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                  <ul class="nav navbar-nav">
-                  <li><a class ="hidden-xs" href="index.html">Home</a></li>
                     <li><a href="feedback.html">Feedback</a></li>
                 <li><a href="#dininghome">Dining Home</a></li>
                 <li><a href="#webportal">Web Portal</a></li>
@@ -115,7 +112,22 @@
 		<script src="bower_components/momentjs/moment.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
-<!-- <script type="text/javascript">
+
+<script type="text/javascript">
+		
+		/*
+		For the new algorithm, remember to add an exception for Cowell/Stevenson dining hours. 
+		On weekends, they're open from 10:00-2:00, and then from 5:00-8:00. They are closed between
+		2:00 and 5:00. To compensate, I added Open2, and Close2 fields in the json. All locations with
+		Open2 and Close2 fields are listed below:
+		-Cowell/Stevenson Dining Hall
+		
+		*/
+		
+		
+		
+		
+		
 
         // var openTime = moment('07:15', 'HH:mm') //
         // var closedTime = moment('13:10', 'HH:mm');
