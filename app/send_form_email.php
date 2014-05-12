@@ -13,7 +13,7 @@ if(isset($_POST['email'])) {
  
     // EDIT THE 2 LINES BELOW AS REQUIRED
  
-    $email_to = "towenmil@ucsc.edu";
+    $email_to = "resnet_programmers-group@ucsc.edu";
  
     $email_subject = "Dining Feedback";
  

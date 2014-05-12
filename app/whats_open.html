@@ -194,6 +194,64 @@
         }
 </script> 
 
+<script> //Taylor's Location Script
+  
+    var location;
+	function getLocation(){
+		if (navigator.geolocation){
+			var position = navigator.geolocation.getCurrentPosition(showPosition);
+		}
+		else{
+			console.log("Geolocation is not supported by this browser.");
+		}
+	}
+	function showPosition(position){
+		location["latitude"] = position.coords.latitude;
+		location["longitude"] = position.coords.longitude;
+	}
+	
+	//Function which asks for and saves gps coordinates to location
+	getLocation();
+	
+	
+	var locationSorted = false;
+	function updateForLocation(){
+		
+		if(location["latitude"] != undefined && location["longitude"] != undefined){
+			reSort();
+			locationSorted = true;
+		}
+		else console.log("checked for location.");
+		
+		
+		if(!locationSorted) setTimeout(updateForLocation, 3000);
+	}
+
+	//Function which loops every 3 seconds until the location is collected, then reSort() is called
+	updateForLocation();
+	
+	
+	
+	function reSort(){
+		//First, delete all of the elements from Aiden's sort
+		
+		//Next, convert the locations.json into an object with "var obj = jQuery.parseJSON( jsonString );"
+		//      Remember to put this in a try/catch block to handle exceptions
+		
+		//Next, Re-read the whats-open.json, and dynamically sort based on the distance
+		//      between open locations and the user. There are a few ways to do this: 
+		//      1) an Array or List of Strings dynamically formatted for output
+		//      2) An Array or List of Objects with the name, hours, open/closed status, and the distance from the user. Format and output this at the end.
+		//      Method 1 is probably the least amount of code, but it gets messy. You would have to index a lot of html tags within strings in order to get the content.
+		//      Method 2 is more organized, but for some reasons whenever I make objects the browser throws an error
+		
+		console.log("latitude: " + location["latitude"]);
+		console.log("longitude: " + location["longitude"]);
+		
+	}
+
+</script>
+
 <script> // Aiden's test script
    var out = '';
    var currentTime = moment();//This is the exact current time.
