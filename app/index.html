@@ -14,13 +14,34 @@
            <link rel="stylesheet" href="styles/main.css">
            <link rel="stylesheet" href="styles/customMain.css">
            <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+           <link rel="stylesheet" href="bower_components/add-to-homescreen/style/addtohomescreen.css">
         <!-- endbuild -->
 		  <!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
         <!-- build:js scripts/vendor/modernizr.js --> 
         <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
 		     <script src="scripts/modernizr.custom.24514.js"></script>
         <!-- endbuild -->
-   		
+
+   		<!-- psm mods -->
+  		<!-- set a web app capable website -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-title" content="Dining App" />
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="/images/AppIcon29x29.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon29x29@2x.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon40x40.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon40x40@2x.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon50x50.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon50x50@2x.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon60x60.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon60x60@2x.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon72x72.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon72x72@2x.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon76x76.png" />
+		<link rel="apple-touch-icon" href="/images/AppIcon76x76@2x.png" />
+
+
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -141,7 +162,10 @@
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/add-to-homescreen/src/addtohomescreen.min.js"></script>
+ 
         <!-- endbower -->
+        <script> addToHomescreen();</script>
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
