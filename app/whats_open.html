@@ -4,6 +4,8 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>dining test</title>
@@ -24,11 +26,205 @@
         body {font: 10pt arial;}
     </style>
 
+	<script src="bower_components/momentjs/moment.js"></script>
+	<script src="bower_components/jquery/jquery.js"></script>
+
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="/scripts/timeline/timeline.js"></script>
     <link rel="stylesheet" type="text/css" href="/scripts/timeline/timeline.css">
-
+    
+    
+    <!--Made Mes's code more scalable-->
     <script type="text/javascript">
+		var timeline;
+		
+		
+		//Load json with location info
+		var masterCalendar;
+		$.getJSON("../data/whats-open-hours.json", function (data) {
+			masterCalendar = data;
+		});
+		
+
+			/*
+			The MasterCalendar object should be formatted this way
+			
+			class MasterCalander:
+				class DiningHalls:
+					class CrownMerrill(Location) //inherits Location
+					class CollegeEightOakes(Location)
+					...
+				class CoffeeCarts:
+					class Baskin(Location)
+					class EarthMarine(Location)
+					...
+				class CafesRestaurants:
+					class Bananajoes(Location)
+					class TerraFresca(Location)
+					...
+				class FoodTrucks:
+					class CruzNGourmet(Location)
+					...
+			
+			//base class for each location, not explicitly defined, the sub-objects
+			//in MasterCalendar just take this form
+			class Location:
+				string name //the name (with spaces and special characters) of the location
+				
+				class location: //contains the lat, long coordinates of the location, not to be confused with the parent class
+					string latitude //is a double, but because of JSON, lat and long is saved as a string
+					string longitude
+					
+				class Monday:
+					string open //time the location opens on that day
+					string close //time the location closes on that day
+				class Tuesday:
+					string open
+					string close
+				class Wednesday:
+					string open
+					string close
+				class Thursday:
+					string open
+					string close
+				class Friday:
+					string open
+					string close
+			
+			*/
+		
+
+        google.load("visualization", "1");
+        
+        // Set callback to run when API is loaded
+        google.setOnLoadCallback(drawVisualization);
+        
+        // Called when the Visualization API is loaded.
+        function drawVisualization()
+		{
+			
+			//If the calendar hasn't loaded yet, call the func in 100 ms
+			if(masterCalendar == undefined){
+				window.setTimeout(drawVisualization, 100);
+				return;
+			}
+			
+			// Create and populate a data table.
+			var data = [];
+
+			// place images here
+			var dining_img = '<img src="images/dining.png" style="width:15px; height:15px">';
+			var bananaJoes_img = '<img src="images/banana_joes.png" style="width:15px; height:15px">';
+			var oakesCafe_img = '<img src="images/oakes_cafe.png" style="width:15px; height:15px">';
+			var owlsNest_img = '<img src="images/owls_nest.png" style="width:15px; height:15px">';
+			var perkCoffee_img = '<img src="images/perk_coffee_bar.png" style="width:15px; height:15px">';
+			
+			//Using moment js to get the current date and time
+			var now = moment();
+			var day_str = now.format("dddd");
+			
+			
+			for(var type_name in masterCalendar){   //eg DiningHalls, CoffeeCarts
+				var type = masterCalendar[type_name]; //the actual object
+				for(var location_name in type){  //loop through locations
+					var location = type[location_name]; //the location object
+					
+					//use the day_str to get the Weekday object
+					var hours = location[day_str];
+					
+					var _now = moment();
+					var s, f;
+					for(i = 0; i < 7; i++) {
+						
+						var year = parseInt(_now.format("YYYY"));
+						var month = parseInt(_now.format("MM"));
+						var day = parseInt(_now.format("DD"));
+						
+						//If the place isn't open, continue the loop
+						if(hours.Open == ""){
+							continue;
+						}
+						
+						var open = hours.Open.split(":");
+						var close = hours.Close.split(":");
+						
+						s = new Date(year, month - 1, day, parseInt(open[0]), parseInt(open[1]), 0);
+						f = new Date(year, month - 1, day, parseInt(close[0]), parseInt(open[1]), 0);
+						
+						var content = '';
+						
+						
+						if(type_name == "DiningHalls" ){
+							content += dining_img;
+						}
+						if(type_name == "CoffeeCarts" ){
+							content += perkCoffee_img;
+						}
+						
+						if(location_name == "BananaJoes"){
+							content += bananaJoes_img;
+						}
+						if(location_name == "OakesCafe"){
+							content += oakesCafe_img;
+						}
+						if(location_name == "OwlsNestRestaurant"){
+							content += owlsNest_img;
+						}
+						
+						content += location.name;
+						
+				
+						
+						var tmp = {
+  							'start': s,
+  							'end':   f,  // end is optional
+  							'content': content
+					 	};
+						data.push(tmp);
+						
+						
+						
+						_now.add("days", 1);
+					}
+					
+					_now = null;
+
+
+				}
+			}
+			
+			
+			// specify options
+			var s2 = new Date();
+			var f2 = new Date();
+			s2.setHours(5);
+			s2.setMinutes(0);
+			f2.setHours(23);
+			f2.setMinutes(59);
+            var options = {
+                "width":  "100%",
+                "height": "100%",//previous value: "300px"
+                "style": "box",
+				'cluster': true,
+				"animateZoom": true,
+				height: "auto",
+				start: s2,
+                end: f2
+            };
+
+            // Instantiate our timeline object.
+            timeline = new links.Timeline(document.getElementById('mytimeline'));
+
+            // Draw our timeline with the created data and options
+            timeline.draw(data, options);
+			
+		}
+    
+    
+    </script>
+<!--
+    <script type="text/javascript">
+		
         var timeline;
 
         google.load("visualization", "1");
@@ -48,6 +244,8 @@
 			var oakesCafe_img = '<img src="images/oakes_cafe.png" style="width:15px; height:15px">';
 			var owlsNest_img = '<img src="images/owls_nest.png" style="width:15px; height:15px">';
 			var perkCoffee_img = '<img src="images/perk_coffee_bar.png" style="width:15px; height:15px">';
+			
+			
 			
 			
 			//time veriables
@@ -867,7 +1065,7 @@
             timeline.draw(data, options);
         }
     </script>
-        
+-->
         
         
   
