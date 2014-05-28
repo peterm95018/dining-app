@@ -34,22 +34,29 @@
     <link rel="stylesheet" type="text/css" href="/scripts/timeline/timeline.css">
     
     
-    <script type="text/css">
-    open {
+    <style type="text/css">
+	div.timeline-event {
+        color: white;
+        border-radius: 5px;
+    }
+    div.timeline-event-content {
+        padding: 5px;
+    }
+    div.closed {
         background-color: #F03030; /* red */
         border-color: #bd2828;     /* red */
     }
-    closed {
+    div.open {
         background-color: #1AA11A; /* green */
         border-color: #136e13;     /* green */
     }
-    neither {
+    div.neither {
 		background-color: #add8e6; /* blue */
-        border-color: #000080;     /* blue */
+        border-color: ##97B0F8;     /* blue */
 	}
     
     
-    </script>
+    </style>
 
     
     <!--Made Mes's code more scalable-->
@@ -103,9 +110,7 @@
 			timeline.deleteAllItems(); 
 			drawVisualization();
 
-
-			console.log("latitude: " + myLocation["latitude"]);
-			console.log("longitude: " + myLocation["longitude"]);
+			document.getElementById("changeThis").innerHTML = "Locations closest to you are at the top of the time line";			
 
 		}
 		
@@ -249,7 +254,7 @@
 							content += owlsNest_img;
 						}
 						
-						content += location.name;
+						content += " " + location.name;
 
 						
 						var distance;
@@ -259,9 +264,15 @@
 							distance = 0;
 						}
 						
-						var availability = "<div style='background-color: #1AA11A;border-color: #136e13;'></div>";
+						var availability = "neither";
 						if(i === 0){
-							availability = "<div style='background-color: #1AA11A;border-color: #136e13;'></div>";
+							if(new Date() > s && new Date() < f){
+								availability = "open";
+							}
+							else{
+								availability = "closed";
+							}
+							
 						}
 				
 						
@@ -269,7 +280,8 @@
   							'start': s,
   							'end':   f,  // end is optional
   							'content': content,
-  							'distance' : distance
+  							'distance' : distance,
+  							'className': availability
 					 	};
 						
 						
@@ -303,6 +315,11 @@
 				"animateZoom": false,
 				zoomable: false,
 				height: "auto",
+				axisOnTop: true,
+				selectable: true, 
+				customStackOrder: myStackOrder,
+				animate: false,
+				groupsOrder: false,
 				start: s2,
                 end: f2
             };
@@ -311,21 +328,43 @@
             // Instantiate our timeline object.
             timeline = new links.Timeline(document.getElementById('mytimeline'));
             
+            links.events.addListener(timeline, 'select', onSelect);
+            
+            
+
+            
             
             //reSort data object if geolocated, someone should make this sort happen
             if(geolocationFlag){
 				
+				var newDataTable = [];
 				for(var i = 0; i < data.length; i++){
-					console.log(data[i].distance); // <--This is how you access the distance
+					var array = [data[i], data[i].distance];
+					newDataTable.push(array);
+				}
+				newDataTable.sort(function(a, b) {return a[1] - b[1]});	
+				
+				data = [];
+				
+				for(var i = 0; i < newDataTable.length; i++){
+					data.push(newDataTable[i][0]);
+					//console.log(newDataTable[i][0].content);
+				}
 					
-					
-					
-				}	
-							
 			} 
 
             // Draw our timeline with the created data and options
             timeline.draw(data, options);
+			
+		}
+    
+		function onSelect(){
+			var sel = timeline.getSelection();
+			
+
+		}
+		
+		function myStackOrder(item1, item2){
 			
 		}
     
@@ -375,8 +414,13 @@
 	          <h1 class="page-header">What's Open<small></small></h1>
 	        </div>
 	      </div>
+	      
+	      <h3>Time line Info</h3>
+	      <p><b>green</b> locations are <b>open</b></p>
+	      <p><b>red</b> locations are <b>closed</b></p>
+	      <p id="changeThis">Share your location to find the location closest to you</p>
 
-<div id="mytimeline"></div>
+		  <div id="mytimeline"></div>
 
     <footer>
 	   <div class="row">
