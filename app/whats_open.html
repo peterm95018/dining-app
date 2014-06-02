@@ -281,7 +281,8 @@
   							'end':   f,  // end is optional
   							'content': content,
   							'distance' : distance,
-  							'className': availability
+  							'className': availability,
+  							'name': location.name
 					 	};
 						
 						
@@ -360,6 +361,8 @@
     
 		function onSelect(){
 			var sel = timeline.getSelection();
+			var item = timeline.getItem(sel[0].row);
+			
 			
 
 		}
