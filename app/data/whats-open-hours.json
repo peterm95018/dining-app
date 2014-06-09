@@ -1,6 +1,11 @@
 {
-	"Dining Halls" : {
-                "College Eight/Oakes": {
+	"DiningHalls" : {
+       "CollegeEightOakes": {
+			"name" : "College Eight/Oakes Dining Hall",
+			"location": {
+				"latitude" : "36.99164",
+				"longitude": "-122.06534"
+			},
 			"Monday" : {
 				"Open" : "07:15",
 				"Close" : "23:00"
@@ -30,7 +35,12 @@
 				"Close" : "23:00"
 			}
 		},
-		"Colleges Nine/Ten": {
+		"CollegesNineTen": {
+			"name" : "Colleges Nine & Ten Dining Hall",
+			"location": {
+				"latitude" : "37.00074",
+				"longitude": "-122.05786"
+			}, 
 			"Monday" : {
 				"Open" : "07:15",
 				"Close" : "23:00"
@@ -60,7 +70,12 @@
 				"Close" : "23:00"
 			}		
 		},
-                "Cowell/Stevenson": {
+        "CowellStevenson": {
+			"name" : "Cowell/Stevenson Dining Hall",
+			"location": {
+				"latitude" : "36.99688",
+				"longitude": "-122.05302"
+			},
 			"Monday" : {
 				"Open" : "07:15",
 				"Close" : "20:00"
@@ -94,7 +109,12 @@
 				"Close2" : "20:00"
 			}
                 },
-		"Porter/Kresge": {
+		"PorterKresge": {
+			"name" : "Porter/Kresge Dining Hall",
+			"location": {
+				"latitude" : "36.99419",
+				"longitude": "-122.06585"
+			}, 
 			"Monday" : {
 				"Open" : "07:15",
 				"Close" : "19:00"
@@ -124,7 +144,12 @@
 				"Close" : ""
 			}
 		},
-		"Crown/Merrill": {
+		"CrownMerrill": {
+			"name" : "Crown/Merrill Dining Hall",
+			"location": {
+				"latitude" : "37.00015",
+				"longitude": "-122.05441"
+			},
 			"Monday" : {
 				"Open" : "07:15",
 				"Close" : "20:00"
@@ -155,8 +180,13 @@
 			}
 		}	
 	},
-	"Coffee Carts" : {
-                "Perk Coffee @ Baskin Engineering": {
+	"CoffeeCarts" : {
+		"Baskin": {
+			"name" : "Perk Coffee @ Baskin Engineering",
+			"location": {
+				"latitude" : "37.00042",
+				"longitude": "-122.06301"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "18:00"
@@ -186,7 +216,12 @@
 				"Close" : ""
 			}
 		},
-		"Perk Coffee @ Earth & Marine Sciences": {
+		"EarthMarine": {
+			"name" : "Perk Coffee @ Earth & Marine Sciences",
+			"location": {
+				"latitude" : "36.99775",
+				"longitude": "-122.05991"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "16:00"
@@ -216,7 +251,12 @@
 				"Close" : ""
 			}
 		},
-		"Perk Coffee @ Physical Sciences Building": {
+		"PhysicalSciences": {
+			"name" : "Perk Coffee @ Physical Sciences Building",
+			"location": {
+				"latitude" : "36.99966",
+				"longitude": "-122.06177"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "16:00"
@@ -246,7 +286,12 @@
 				"Close" : ""
 			}
 		},
-		"Perk Coffee @ Science Library": {
+		"ScienceLibrary": {
+			"name" : "Perk Coffee @ Science Library",
+			"location": {
+				"latitude" : "36.99896",
+				"longitude": "-122.06087"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "16:00"
@@ -276,7 +321,12 @@
 				"Close" : ""
 			}
 		}, 
-		"Perk Coffee @ University Center": {
+		"UniversityCenter": {
+			"name" : "Perk Coffee @ University Center",
+			"location": {
+				"latitude" : "37.00074",
+				"longitude": "-122.0579"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "16:00"
@@ -307,8 +357,13 @@
 			}
 		}
 	},
-	"Cafes & Restaurants" : {
-		"Banana Joe's Café": {
+	"CafesRestaurants" : {
+		"BananaJoes": {
+			"name" : "Banana Joe's Café",
+			"location": {
+				"latitude" : "37.0003",
+				"longitude": "-122.05444"
+			},
 			"Monday" : {
 				"Open" : "10:00",
 				"Close" : "23:00"
@@ -338,7 +393,12 @@
 				"Close" : ""
 			}
 		 },
-		"Bay Tree Express Store": {
+		"BayTreeExpressStore": {
+			"name" : "Bay Tree Express Store",
+			"location": {
+				"latitude" : "36.99775",
+				"longitude": "-122.05564"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "18:30"
@@ -368,7 +428,12 @@
 				"Close" : ""
 			}
 		 },
-		"College Eight Café": {
+		"CollegeEightCafe": {
+			"name" : "College Eight Café",
+			"location": {
+				"latitude" : "36.9916",
+				"longitude": "-122.0643"
+			},
 			"Monday" : {
 				"Open" : "08:00",
 				"Close" : "22:00"
@@ -398,7 +463,12 @@
 				"Close" : ""
 			}
 		 },
-		"Cowell Coffee Shop": {
+		"CowellCoffeeShop": {
+			"name" : "Cowell Coffee Shop",
+			"location": {
+				"latitude" : "36.99727",
+				"longitude": "-122.05314"
+			},
 			"Monday" : {
 				"Open" : "07:45",
 				"Close" : "23:30"
@@ -428,7 +498,12 @@
 				"Close" : ""
 			}
 		 },
-		"Global Village Café": {
+		"GlobalVillageCafe": {
+			"name" : "Global Village Café",
+			"location": {
+				"latitude" : "36.99541",
+				"longitude": "-122.05928"
+			},
 			"Monday" : {
 				"Open" : "08:00",
 				"Close" : "21:00"
@@ -458,7 +533,12 @@
 				"Close" : "20:00"
 			}
 		 },
-		"Joe's Pizza & Subs": {
+		"JoesPizzaSubs": {
+			"name" : "Joe's Pizza & Subs",
+			"location": {
+				"latitude" : "36.99808",
+				"longitude": "-122.0558"
+			},
 			"Monday" : {
 				"Open" : "09:00",
 				"Close" : "19:30"
@@ -488,7 +568,12 @@
 				"Close" : ""
 			}
 		 },
-		"Oakes Café": {
+		"OakesCafe": {
+			"name" : "Oakes Café",
+			"location": {
+				"latitude" : "36.98934",
+				"longitude": "-122.0633"
+			},
 			"Monday" : {
 				"Open" : "08:30",
 				"Close" : "23:00"
@@ -518,7 +603,12 @@
 				"Close" : ""
 			}
 		 },	
-		 "Owl's Nest Restaurant": {
+		 "OwlsNestRestaurant": {
+			"name" : "Owl's Nest Restaurant",
+			"location": {
+				"latitude" : "36.99881",
+				"longitude": "-122.06607"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "20:30"
@@ -548,7 +638,12 @@
 				"Close" : ""
 			}
 		 },
-		"Porter Slug Grill": {
+		"PorterSlugGrill": {
+			"name" : "Porter Slug Grill",
+			"location": {
+				"latitude" : "36.99421",
+				"longitude": "-122.06581"
+			},
 			"Monday" : {
 				"Open" : "07:00",
 				"Close" : "23:00"
@@ -578,7 +673,12 @@
 				"Close" : "22:00"
 			}
 		 },
-		 "Stevenson Coffee House": {
+		 "StevensonCoffeeHouse": {
+			"name" : "Stevenson Coffee House",
+			"location": {
+				"latitude" : "36.99732",
+				"longitude": "-122.05233"
+			},
 			"Monday" : {
 				"Open" : "07:30",
 				"Close" : "23:30"
@@ -608,7 +708,12 @@
 				"Close" : "23:30"
 			}
 		 },
-		"Terra Fresca Restaurant": {
+		"TerraFrescaRestaurant": {
+			"name" : "Terra Fresca Restaurant",
+			"location": {
+				"latitude" : "37.00074",
+				"longitude": "-122.0579"
+			},
 			"Monday" : {
 				"Open" : "11:30",
 				"Close" : "14:00"
@@ -639,8 +744,13 @@
 			}
 		 }	  
 	},
-	"Food Trucks" : {
-		"Cruz N Gourmet": {
+	"FoodTrucks" : {
+		"CruzNGourmet": {
+			"name" : "Cruz N Gourmet Food Truck",
+			"location": {
+				"latitude" : "37.0007",
+				"longitude": "-122.06235"
+			},
 			"Monday" : {
 				"Open" : "11:00",
 				"Close" : "14:15"
@@ -670,7 +780,12 @@
 				"Close" : ""
 			}
 		},
-		"Raymond's Catering": {
+		"RaymondsCatering": {
+			"name" : "Raymond's Catering Food Truck",
+			"location": {
+				"latitude" : "36.99916",
+				"longitude": "-122.06204"
+			},
 			"Monday" : {
 				"Open" : "12:00",
 				"Close" : "14:00"
@@ -700,7 +815,12 @@
 				"Close" : ""
 			}
 		},
-		"Zameen Mediterranean Cuisine": {
+		"ZameenMediterraneanCuisine": {
+			"name" : "Zameen Mediterranean Cuisine Food Truck",
+			"location": {
+				"latitude" : "36.99359",
+				"longitude": "-122.06054"
+			},
 			"Monday" : {
 				"Open" : "11:30",
 				"Close" : "14:00"
