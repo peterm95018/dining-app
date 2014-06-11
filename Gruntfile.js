@@ -279,30 +279,7 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        // Put files not handled in other tasks here
-        // PSM added leaflet, leaflet-hash, leaflet-locatecontrol, bootstrap.min.css
-        // copy: {
-        //     dist: {
-        //         files: [{
-        //             expand: true,
-        //             dot: true,
-        //             cwd: '<%= yeoman.app %>',
-        //             dest: '<%= yeoman.dist %>',
-        //             src: [
-        //                 '*.{ico,png,txt}',
-        //                 '.htaccess',
-        //                 'images/{,*/}*.{webp,gif}',
-        //                 'styles/fonts/{,*/}*.*',
-        //                 'bower_components/sass-bootstrap/fonts/*.*',
-        //                 'bower_components/sass-bootstrap/dist/css/bootstrap.min.css',
-        //                 'bower_components/leaflet/dist/*',
-        //                 'bower_components/leaflet/dist/images/*',
-        //                 'bower_components/leaflet-hash/leaflet-hash.js',
-        //                 'bower_components/leaflet-locatecontrol/src/images/*',
-        //                 'bower_components/leaflet-locatecontrol/src/*'
-        //             ]
-        //         }]
-        //     },
+       
     copy: {
       dist: {
         files: [{
@@ -311,21 +288,37 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,jpg,gif,txt}',
             '.htaccess',
             '*.html',
             '*.php',
             'views/{,*/}*.html',
-            'bower_components/**/*',
+            'bower_components/{**}',
             'images/{,*/}*.{webp}',
-            'fonts/*'
-          ]
-        }, {
+            'fonts/*',
+          ],        
+        }, 
+        {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }]
+        },
+        // grunt copy:dist copies the data/*.json files
+        {
+            expand: true, 
+            cwd: '<%= yeoman.app %>/data', 
+            dest: '<%= yeoman.dist %>/data', 
+            src: ['**']
+        },
+        // grunt copy:dist copies the bower_components over too
+        {
+            expand: true,
+            cwd: '<%= yeoman.app %>/bower_components',
+            dest: '<%= yeoman.dist %>/bower_components',
+            src: ['**']
+        },
+        ], // end files
       },
             styles: {
                 expand: true,
@@ -333,7 +326,8 @@ module.exports = function (grunt) {
                 cwd: '<%= yeoman.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
-            }
+            },
+            
         },
         modernizr: {
             devFile: '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
