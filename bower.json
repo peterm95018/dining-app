@@ -13,7 +13,8 @@
     "momentjs": "~2.5.0",
     "bootstrap-datepicker": "~1.3.0",
     "Autolinker.js": "~0.6.1",
-    "add-to-homescreen": "~3.0.4"
+    "add-to-homescreen": "~3.0.4",
+    "timeline": "~2.29.1"
   },
   "devDependencies": {}
 }
