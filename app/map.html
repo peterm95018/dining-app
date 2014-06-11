@@ -15,21 +15,23 @@
         <link rel="stylesheet" href="styles/customMain.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <!-- endbuild -->
-        <!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
-        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
-		<link rel="stylesheet" href="bower_components/leaflet-locatecontrol/src/L.Control.Locate.css">
+
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-		<script src="bower_components/handlebars/handlebars.js"></script>
-		        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+
+<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-hash/v0.2.1/leaflet-hash.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
     </head>
     <body>
-        <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<!--[if lt IE 10]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 <!--[if lte IE 8]><link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.ie.css" />
-			<link rel="stylesheet" href="bower_components/leaflet/dist/L.Control.Locate.ie.css />"<![endif]-->
+	<link rel="stylesheet" href="bower_components/leaflet/dist/L.Control.Locate.ie.css />"<![endif]-->
 
 		<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
           <div class="navbar-custom">
@@ -88,9 +90,6 @@
     </div>
 
 
-	
-
-
 
 	<footer>
 	   <div class="row">
@@ -115,11 +114,6 @@
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
-		<script src="bower_components/leaflet/dist/leaflet.js"></script>
-		<script src="bower_components/leaflet-hash/leaflet-hash.js"></script>
-		<script src="bower_components/leaflet-locatecontrol/src/L.Control.Locate.js"></script>
-		<script src="scripts/ucsc_map_uri.js"></script>
-
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -138,57 +132,45 @@
         <!-- endbuild -->
 
 <script>
-$(document).ready(function() {
-// handlebars block
-
-
-// note the hidden div of header-placeholder that will be overwritten with handlebars
-// grab the HTML source that needs to be compiled
-//var headerSource = document.getElementById('map-title').innerHTML;
-
-// compile the source
-//var headerTemplate = Handlebars.compile(headerSource);
-
-// create our data
-//var data = {
-//	name: decodeURIComponent(diningTitle)
-//
-
-//Process the template with data
-//document.getElementById('header-placeholder').innerHTML = headerTemplate(data);
-
-
 // we should probably do a try/catch conditional to see if we've got a value in lat,lng
 // if not, we fall back to a default lat,lng,zoom for the campus
 //var map = L.map('map').setView([36.99333, -122.05931], 15); // default UCSC
-var map = L.map('map').setView([lat, lng], ourZoom);
-var hash = new L.Hash(map); // leaflet hash plugin
-L.control.locate().addTo(map); // leaflet locate control plugin
-mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-attribution: '&copy; ' + mapLink + ' Contributors',
-maxZoom: 18,
-}).addTo(map);
-map.invalidateSize();
 
-
-
-var marker = L.marker([lat,lng], {
-title: diningTitle,
-})
-.addTo(map) // lat, lng come from uri.js parsing
-.bindPopup(decodeURIComponent(diningTitle)) //diningTitle comes from uri.js parsing
-.openPopup();
-// the setTimeout function guarantees invalidateSize runs after everything is loaded.
-
+// Get url parameters
+var params = {};
+window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+  params[key] = value;
 });
 
+var map = L.mapbox.map('map', 'peterm95018.ia5knpbj').setView([params.lat,params.lng], params.zoom);
+
+var hash = new L.Hash(map); // leaflet hash plugin
+L.control.locate().addTo(map); // leaflet locate control plugin
+
+L.mapbox.featureLayer({
+    // this feature is in the GeoJSON format: see geojson.org
+    // for the full specification
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        // coordinates here are in longitude, latitude order because
+        // x, y is the standard for GeoJSON and many formats
+        coordinates: [
+          params.lng,
+          params.lat
+        ]
+    },
+    properties: {
+        title: decodeURIComponent(params.title),
+        //description: '1718 14th St NW, Washington, DC',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/foundations/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-color': '#fc4353',
+        'marker-symbol': 'cafe'
+    }
+}).addTo(map);
 </script>
-
-
-
-		
-
 
 </body>
 </html>
