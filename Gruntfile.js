@@ -311,13 +311,21 @@ module.exports = function (grunt) {
             dest: '<%= yeoman.dist %>/data', 
             src: ['**']
         },
-        // grunt copy:dist copies the bower_components over too
+        // grunt build copies the bower_components over too
         {
             expand: true,
             cwd: '<%= yeoman.app %>/bower_components',
             dest: '<%= yeoman.dist %>/bower_components',
             src: ['**']
         },
+        // copy the /scripts/timeline folder over to dist
+        {
+        	expand: true,
+            cwd: '<%= yeoman.app %>/scripts/timeline',
+            dest: '<%= yeoman.dist %>/scripts/timeline',
+            src: ['**']
+        },
+  
         ], // end files
       },
             styles: {

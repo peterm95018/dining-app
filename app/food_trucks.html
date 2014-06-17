@@ -13,12 +13,15 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/customMain.css">
-		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
         <!-- endbuild -->
-		<!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
+
+        <!-- keep some css files out of concatenation build:css process -->
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+        <!-- end -->
+
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
-         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
         <!-- endbuild -->
     </head>
     <body>
@@ -220,7 +223,7 @@
 		///// function def's //////
 
 		function myModalInfo(locationName) {
-		       $.getJSON("../data/location_hours.json", function(data) {
+		       $.getJSON("data/location_hours.json", function(data) {
 				   var items = '';
 				   var tempLocationName = '';
 		   		var ourTableHead = '<table class=\'table table-striped\'><tr><th>Meal</th><th>Time</th><th>Day</th></tr>';
@@ -251,7 +254,7 @@
 		}
 		
 		function myModalMenu(locationName) {
-		      $.getJSON("../data/menu_examples.json", function(data) {
+		      $.getJSON("data/menu_examples.json", function(data) {
 		  		// setters
 		  		var tempMenu = '';
 		  		var menu_items = '';
