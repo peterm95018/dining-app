@@ -22,6 +22,10 @@
         <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
         <!-- end -->
 
+        <!-- keep some js files out of concatenation scripts/vendor.js process -->
+        <script src="bower_components/add-to-homescreen/src/addtohomescreen.min.js"></script>
+        <!-- end -->
+
         <!-- build:js scripts/vendor/modernizr.js --> 
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
@@ -100,7 +104,7 @@
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
-	          <h3>Dining Locations</h3>
+	          <h2><a href="dining_locations.html">Dining Locations</a></h2>
 	          <h4 class="muted-text">Dining Halls, Cafés and Restaurants</h4>
 	          <p>Menus, maps and information about campus and vendor provided dining locations. </p>
 	        </div><!-- /.col-lg5 col-md-5 -->
@@ -115,7 +119,7 @@
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
-	          <h3>What's Open</h3>
+	          <h2><a href="whats_open.html">What's Open</a></h2>
 	          <h4>What's Open Near Me</h4>
 	          <p>List of the food locations that are currently open based on the current time and your location.</p>
 	          <!--<p><a class="btn btn-success" href="whats_open.html" data-locationName="Dining">What's Open <span class="glyphicon glyphicon-eye-open"></span></a></p>-->
@@ -131,7 +135,7 @@
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
-	          <h3>Food Events</h3>
+	          <h2><a href="food_events.html">Food Events</a></h3>
 	          <h4>Info for Foodies</h4>
 	          <p>Information about College Nights, Variety Meals and Special Events.</p>
         </div><!-- /.col-lg5 col-md-5 -->
@@ -163,11 +167,12 @@
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="bower_components/add-to-homescreen/src/addtohomescreen.min.js"></script>
 		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
-        
+
+
+
 <script> addToHomescreen();</script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
