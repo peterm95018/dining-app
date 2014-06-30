@@ -149,25 +149,25 @@ module.exports = function (grunt) {
         /*concat: {
             dist: {}
         },*/
-        requirejs: {
-            dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-                options: {
-                    // `name` and `out` is set by grunt-usemin
-                    baseUrl: '<%= yeoman.app %>/scripts',
-                    optimize: 'none',
-                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
-                    // https://github.com/yeoman/grunt-usemin/issues/30
-                    //generateSourceMaps: true,
-                    // required to support SourceMaps
-                    // http://requirejs.org/docs/errors.html#sourcemapcomments
-                    preserveLicenseComments: false,
-                    useStrict: true,
-                    wrap: true
-                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
-                }
-            }
-        },
+        // requirejs: {
+        //     dist: {
+        //         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+        //         options: {
+        //             // `name` and `out` is set by grunt-usemin
+        //             baseUrl: '<%= yeoman.app %>/scripts',
+        //             optimize: 'none',
+        //             // TODO: Figure out how to make sourcemaps work with grunt-usemin
+        //             // https://github.com/yeoman/grunt-usemin/issues/30
+        //             //generateSourceMaps: true,
+        //             // required to support SourceMaps
+        //             // http://requirejs.org/docs/errors.html#sourcemapcomments
+        //             preserveLicenseComments: false,
+        //             useStrict: true,
+        //             wrap: true
+        //             //uglify2: {} // https://github.com/mishoo/UglifyJS2
+        //         }
+        //     }
+        // },
         rev: {
             dist: {
                 files: {
@@ -184,7 +184,7 @@ module.exports = function (grunt) {
             options: {
                 dest: '<%= yeoman.dist %>'
             },
-            html: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/map.html'],
+            html: ['<%= yeoman.app %>/index.html'],
         },
         usemin: {
             options: {
@@ -275,7 +275,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
         }
-        ], // end files
+        ] // end files; trailing comma here???
       },
             styles: {
                 expand: true,
