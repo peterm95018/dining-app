@@ -12,31 +12,8 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
-	
-	grunt.loadNpmTasks('grunt-contrib-handlebars');
-	
-	
+
     grunt.initConfig({
-		
-		handlebars: {
-			compile: {
-			files: {
-		          "temp/modules/compiled-templates.js": [
-		            "app/modules/*/templates/**/*.hbs"
-		          ]
-		        },
-		        options: {
-		          namespace: 'MyApp.Templates',
-		          wrapped: true, 
-		          processName: function(filename) {
-		            // funky name processing here
-		            return filename
-		                    .replace(/^app\/modules\//, '')
-		                    .replace(/\.hbs$/, '');
-		          }
-		        }
-		      }
-		 },
 			
         // configurable paths
         yeoman: {
@@ -44,12 +21,6 @@ module.exports = function (grunt) {
             dist: 'dist'
         },
         watch: {
-			handlebars: {
-			        files: [
-			          'app/modules/*/templates/*.hbs'
-			        ],
-			        tasks: 'handlebars reload'
-			      },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
@@ -303,29 +274,7 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        },
-        // grunt copy:dist copies the data/*.json files
-        {
-            expand: true, 
-            cwd: '<%= yeoman.app %>/data', 
-            dest: '<%= yeoman.dist %>/data', 
-            src: ['**']
-        },
-        // grunt build copies the bower_components over too
-        {
-            expand: true,
-            cwd: '<%= yeoman.app %>/bower_components',
-            dest: '<%= yeoman.dist %>/bower_components',
-            src: ['**']
-        },
-        // copy the /scripts/timeline folder over to dist
-        {
-        	expand: true,
-            cwd: '<%= yeoman.app %>/scripts/timeline',
-            dest: '<%= yeoman.dist %>/scripts/timeline',
-            src: ['**']
-        },
-  
+        }
         ], // end files
       },
             styles: {

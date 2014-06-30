@@ -25,10 +25,7 @@
     "grunt-svgmin": "~0.2.0",
     "grunt-concurrent": "~0.3.0",
     "load-grunt-tasks": "~0.1.0",
-    "time-grunt": "~0.1.1",
-    "grunt-contrib-handlebars": "~0.6.0",
-    "grunt-iis": "^0.1.3",
-    "grunt-iisexpress": "^0.3.1"
+    "time-grunt": "~0.1.1"
   },
   "engines": {
     "node": ">=0.8.0"
