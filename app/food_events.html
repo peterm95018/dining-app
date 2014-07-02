@@ -130,13 +130,14 @@
 
         // Get list of upcoming iCal events formatted in JSON
         $.getJSON(gcal_json_url, function(data){
+           // Parse and render each event
 
-            // Parse and render each event
+           if(data.feed.entry === undefined){//data.feed.entry will be undefined if no events in the next 2 weeks
+              $("#gcal-events").append("<dt>Looks like there's no events in the next 2 weeks. Check back later!</dt>");
+              return false;
+           }
             $.each(data.feed.entry, function(i, item){
-                /*if(i == 0) {
-                    jQuery("#gcal-events").first().hide();
-                };*/
-                
+                              
                 // event title
                 var event_title = item.title.$t;
                 
@@ -174,12 +175,13 @@
                     + "<dd>" + event_start_str + event_loc + "</dd>"
                     + "<dd>" + event_contents + "</dd>"
                     + "</dl></div>" + "<hr>"
-                 );
+                );
+                
             });
-
+         
             $("#gcal-events hr:last").remove();//Removes the ugly last <hr> in the list of events
 
-        });
+         });
     
    </script>
 
