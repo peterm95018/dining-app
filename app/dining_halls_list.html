@@ -82,7 +82,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99164&lng=-122.06534&title=College Eight&#47;Oakes" data-locationName="College Eight&#47;Oakes">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="College Eight&#47;Oakes">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="College Eight&#47;Oakes">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="College Eight&#47;Oakes">Hours <span class="glyphicon glyphicon-info-sign"></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -218,7 +218,19 @@
 		          <h4 class="modal-title" id="myModalLabelMenu">Menu  </h4>
 		        </div>
 		        <div id="modal-body-menu" class="modal-body">
-			
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+					  <li class="active"><a href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+					  <li><a href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
+					  <li><a href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					</ul>
+					
+					<!--Tabbed content-->
+					<div class="tab-content">
+					  <div class="tab-pane active" id="breakfast">b-fast</div>
+					  <div class="tab-pane" id="lunch">lun</div>
+					  <div class="tab-pane" id="dinner">din</div>
+					</div>
 		        </div>
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -251,7 +263,7 @@
 		   }
    
 		   if (btnType === 'myModalMenu') {
-			   myModalMenu(locationName);
+			   //myModalMenu(locationName);
 		   }
 		   
 		   if (btnType === 'map') {
