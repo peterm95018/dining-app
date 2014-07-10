@@ -263,7 +263,7 @@
 		   }
    
 		   if (btnType === 'myModalMenu') {
-			   //myModalMenu(locationName);
+			   myModalMenu(locationName);
 		   }
 		   
 		   if (btnType === 'map') {
@@ -306,8 +306,31 @@
 		}
 		
 		function myModalMenu(locationName) {
-		      $.getJSON("../data/menu_examples.json", function(data) {
-		  		// setters
+			
+			//We want to get the right bundle of data before anything else,
+			//The below function is a placeholder until we can successfully 
+			//call the php function
+			
+			var myData = [];
+			$.getJSON("../data/results.json", function(data) {
+				for(var i = 0; i < data.length; i++){
+					if(locationName === "College Eight/Oakes" && data[i].Location_Number === "30"){
+						myData.push(data[i]);
+					}
+					if(locationName === "Colleges Nine/Ten" && data[i].Location_Number === "40"){
+						myData.push(data[i]);
+					}
+					if(locationName === "Cowell/Stevenson" && data[i].Location_Number === "05"){
+						myData.push(data[i]);
+					}
+					//if(locationName === "Crown/Merrill" && data[i].Location_Number === "30"){
+					//	myData.push(data[i]);
+					//}
+					if(locationName === "Porter/Kresge" && data[i].Location_Number === "25"){
+						myData.push(data[i]);
+					}	
+				}	
+		  	/*	// setters
 		  		var tempMenu = '';
 		  		var menu_items = '';
 		  		var menu_items = '<ul>';
@@ -334,8 +357,13 @@
 	 
 			 // we use the empty() to make sure we don't get duplicate data
 			 $('#modal-body-menu').empty().append(menu_items);
-			 $('#myModalLabelMenu.modal-title').empty().append(locationName);
-		 });
+			 $('#myModalLabelMenu.modal-title').empty().append(locationName);*/
+			});
+			
+			//Now we can start appending the javascript data from myData
+			//Into the right tabs
+			//Printed below to show that it works
+			console.log(myData);
 		}
 		
 		</script>
