@@ -220,9 +220,9 @@
 		        <div id="modal-body-menu" class="modal-body">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-					  <li class="active"><a href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
-					  <li><a href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
-					  <li><a href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					  <li class="active" id="breakfastTab"><a href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+					  <li id="lunchTab"><a href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
+					  <li id="dinnerTab"><a href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
 					</ul>
 					
 					<!--Tabbed content-->
@@ -330,34 +330,6 @@
 						myData.push(data[i]);
 					}	
 				}	
-		  	/*	// setters
-		  		var tempMenu = '';
-		  		var menu_items = '';
-		  		var menu_items = '<ul>';
-		        // assign partial JSON to local variable
-				var tempMenu = data[locationName];
-				//console.log(tempMenu);
-      
-			 // loop over the JSON data and recurse if we've got nested data. output values
-		      $.each(tempMenu, recurse);
-			  // recurse through the data as needed 
-		      function recurse(key, val) {
-		          menu_items += "<li>"; 
-		          if (val instanceof Object) {
-		              menu_items += key + "<ul>";
-		              $.each(val, recurse);
-		              menu_items += "</ul>";
-		          } else {
-		              //menu_items += "<a href='" + val + "'>" + key + "</a>";
-		                menu_items += val;
-		          }
-		          menu_items += "</li>";
-		      }
-			 menu_items += "</ul>"; // close the list
-	 
-			 // we use the empty() to make sure we don't get duplicate data
-			 $('#modal-body-menu').empty().append(menu_items);
-			 $('#myModalLabelMenu.modal-title').empty().append(locationName);*/
 			
 			
 				//We have to empty the previous info
@@ -385,6 +357,27 @@
 					
 					$("#"+time).append(menu_item);
 					
+				}
+				
+				var currentTime = (new Date()).getHours();
+				$("#breakfastTab").removeClass("active");
+				$("#lunchTab").removeClass("active");
+				$("#dinnerTab").removeClass("active");
+				$("#breakfast").removeClass("active");
+				$("#lunch").removeClass("active");
+				$("#dinner").removeClass("active");
+				
+				if(currentTime < 11){
+					$("#breakfastTab").addClass("active");
+					$("#breakfast").addClass("active");
+				}
+				if(currentTime > 10 && currentTime < 17){
+					$("#lunchTab").addClass("active");
+					$("#lunch").addClass("active");
+				}
+				if(currentTime > 16){
+					$("#dinnerTab").addClass("active");
+					$("#dinner").addClass("active");
 				}
 			
 			});
