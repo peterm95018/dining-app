@@ -394,9 +394,9 @@
 				
             //This part creates the outer collapse accordion div
             //We append stuff to it in the for loop
-				$("#breakfast").append('<div class="panel-group" id="accordion"></div>');
-				$("#lunch").append('<div class="panel-group" id="accordion"></div>');
-            $("#dinner").append('<div class="panel-group" id="accordion"></div>');
+				$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
+				$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
+            $("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
 
             //Now we can start appending the javascript data from myData into the right tabs
 				for(var j = 0; j < myData.length; j++){
@@ -415,7 +415,7 @@
                var	menu_item = '<div class="panel panel-default">' +
 				       	              '<div class="panel-heading">' +
 					   	                '<p class="panel-title">' +
-        						               '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + j + '">' +
+        						               '<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
           						              row.Recipe_Print_As_Name + //Item title
         						               '</a>' +
       						             '</p>' +
@@ -425,7 +425,8 @@
 							                '</div>' +
 						                 '</div>' +
                                  '</div>';
-					$("#"+time+" #accordion").append(menu_item);//Push the items into the appropriate accordion
+               //Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
+					$("#"+time+"accordion").append(menu_item);//Push the items into the appropriate accordion
                
                //Check if allergens/codes are blank, if so, don't print them.
                if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append(row.Allergens.trim()+"<br>");}//Not blank; Print
