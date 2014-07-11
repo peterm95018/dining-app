@@ -213,10 +213,10 @@
 		  <div class="modal fade" id="myModalMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabelMenu" aria-hidden="true">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		        <div class="modal-header">
+		        <!--<div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		          <h4 class="modal-title" id="myModalLabelMenu">Menu  </h4>
-		        </div>
+		        </div>-->
 		        <div id="modal-body-menu" class="modal-body">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
@@ -227,13 +227,13 @@
 					
 					<!--Tabbed content-->
 					<div class="tab-content">
-					  <div class="tab-pane active" id="breakfast">b-fast</div>
-					  <div class="tab-pane" id="lunch">lun</div>
-					  <div class="tab-pane" id="dinner">din</div>
+					  <div class="tab-pane active" style="padding-top:10px;" id="breakfast"></div>
+					  <div class="tab-pane" style="padding-top:10px;" id="lunch"></div>
+					  <div class="tab-pane" style="padding-top:10px;" id="dinner"></div>
 					</div>
 		        </div>
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		        <div class="modal-footer" style="margin-top:0px;">
+		          <button type="button"  class="btn btn-primary" data-dismiss="modal">Close</button>
 		        </div>
 		      </div><!-- /.modal-content -->
 		    </div><!-- /.modal-dialog -->
@@ -358,12 +358,36 @@
 			 // we use the empty() to make sure we don't get duplicate data
 			 $('#modal-body-menu').empty().append(menu_items);
 			 $('#myModalLabelMenu.modal-title').empty().append(locationName);*/
-			});
 			
-			//Now we can start appending the javascript data from myData
-			//Into the right tabs
-			//Printed below to show that it works
-			console.log(myData);
+			
+				//We have to empty the previous info
+				$("#breakfast").empty();
+				$("#lunch").empty();
+				$("#dinner").empty();
+				
+				//Now we can start appending the javascript data from myData
+				//Into the right tabs		
+				for(var j = 0; j < myData.length; j++){
+					var row = myData[j];
+					//One more sort to determine which meal goes where
+					var time = "";
+					switch(row.Meal_Number){
+						case "1": time = "breakfast";
+								   break;
+						case "2": time = "lunch";
+								   break;
+						case "3": time = "dinner";
+								   break;
+					}
+					var menu_item = "<p style='font-size:14px;padding-left:7px;'>";
+					menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
+					menu_item = menu_item + "</p>";
+					
+					$("#"+time).append(menu_item);
+					
+				}
+			
+			});
 		}
 		
 		</script>
