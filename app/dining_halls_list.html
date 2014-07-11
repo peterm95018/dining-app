@@ -82,7 +82,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99164&lng=-122.06534&title=College Eight&#47;Oakes" data-locationName="College Eight&#47;Oakes">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="College Eight&#47;Oakes">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="College Eight&#47;Oakes">Hours <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="College Eight&#47;Oakes">Hours <span class="glyphicon glyphicon-time"></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -102,7 +102,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=37.00074&lng=-122.05786&title=Colleges Nine&#47;Ten" data-locationName="Colleges Nine&#47;Ten">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Colleges Nine&#47;Ten">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Colleges Nine&#47;Ten">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Colleges Nine&#47;Ten">Hours <span class="glyphicon glyphicon-time"></span></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -121,7 +121,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99688&lng=-122.05302&title=Cowell&#47;Stevenson" data-locationName="Cowell&#47;Stevenson">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Cowell&#47;Stevenson">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Cowell&#47;Stevenson">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Cowell&#47;Stevenson">Hours <span class="glyphicon glyphicon-time"></span></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -141,7 +141,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=37.00015&lng=-122.05441&title=Crown&#47;Merrill" data-locationName="Crown&#47;Merrill">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Crown&#47;Merrill">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Crown&#47;Merrill">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Crown&#47;Merrill">Hours <span class="glyphicon glyphicon-time"></span></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -161,7 +161,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99419&lng=-122.06585&title=Porter&#47;Kresge" data-locationName="Porter&#47;Kresge">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Porter&#47;Kresge">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Porter&#47;Kresge">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Porter&#47;Kresge">Hours <span class="glyphicon glyphicon-time"></span></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -220,7 +220,7 @@
 		        <div id="modal-body-menu" class="modal-body">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-					  <li class="active"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+                 <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
 					  <li><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
 					  <li><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
 					</ul>
@@ -246,6 +246,7 @@
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
+		<script src="bower_components/momentjs/moment.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 		
@@ -275,32 +276,82 @@
 		///// function def's //////
 
 		function myModalInfo(locationName) {
-		       $.getJSON("../data/location_hours.json", function(data) {
-				   var items = '';
-				   var tempLocationName = '';
-		   		var ourTableHead = '<table class=\'table table-striped\'><tr><th>Meal</th><th>Time</th><th>Day</th></tr>';
-		   		var ourTableTail = '</table>';
-				   
+		       $.getJSON("../data/whats-open-hours.json", function(data) {
+				    var items = '';
+				    var tempLocationName = '';
+					var ourTableHead = '<table class=\'table table-striped\'><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
+					var ourTableTail = '</table>';
+					
+					var ourData = data.DiningHalls;
+					
+					switch(locationName){
+						case "College Eight/Oakes":
+							ourData = ourData.CollegeEightOakes;
+							break;
+						case "Colleges Nine/Ten":
+							ourData = ourData.CollegesNineTen;
+							break;
+						case "Cowell/Stevenson":
+							ourData = ourData.CowellStevenson;
+							break;
+						case "Crown/Merrill":
+							ourData = ourData.CrownMerrill;
+							break;
+						case "Porter/Kresge":
+							ourData = ourData.PorterKresge;
+							break;
+					}
+					console.log(ourData);
+					items += ourTableHead;
+					//Monday
+					if(ourData.Monday.Open !== ""){
+						items += "<tr> <td>Monday</td><td>" + moment(ourData.Monday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Monday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+				    //Tuesday
+				    if(ourData.Tuesday.Open !== ""){
+						items += "<tr> <td>Tuesday</td><td>" + moment(ourData.Tuesday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Tuesday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+					//Wednesday
+					if(ourData.Wednesday.Open !== ""){
+						items += "<tr> <td>Wednesday</td><td>" + moment(ourData.Wednesday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Wednesday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+					//Thursday
+					if(ourData.Thursday.Open !== ""){
+						items += "<tr> <td>Thursday</td><td>" + moment(ourData.Thursday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Thursday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+					//Friday
+					if(ourData.Friday.Open !== ""){
+						items += "<tr> <td>Friday</td><td>" + moment(ourData.Friday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Friday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+					//Saturday
+					if(ourData.Saturday.Open !== ""){
+						items += "<tr> <td>Saturday</td><td>" + moment(ourData.Saturday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Saturday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+					//Sunday
+					if(ourData.Sunday.Open !== ""){
+						items += "<tr> <td>Sunday</td><td>" + moment(ourData.Sunday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Sunday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+					}
+					
+					
 					// assign partial JSON to local variable
-					var tempLocationName = data[locationName];			
+					/*var tempLocationName = data[locationName];			
 					// open the table
 					items += ourTableHead;
-				   $.each(tempLocationName, function() {
+				    $.each(tempLocationName, function() {
 					   items += '<tr>';
 					   $.each(this, function(k, v) {
 						   // do stuff
 						   items += '<td>' + v + '</td>';
 					   }); // end inner loop
-				   }); // end outer loop
-		   
-				   // close the row
-				   items += '</tr>';
-				   // close the table
-				   items += ourTableTail;
+				    }); // end outer loop
+					*/
+					
+				    // close the table
+				    items += ourTableTail;
 				   
-				   // we use the empty() to make sure we don't get duplicate data
-				   $('#modal-body-info').empty().append(items);
-				   $('#myModalLabelInfo.modal-title').empty().append(locationName);
+				    // we use the empty() to make sure we don't get duplicate data
+				    $('#modal-body-info').empty().append(items);
+				    $('#myModalLabelInfo.modal-title').empty().append(locationName);
 				   
 			   });		   
 		}
@@ -334,34 +385,6 @@
 						myData.push(data[i]);
 					}	
 				}	
-		  	/*	// setters
-		  		var tempMenu = '';
-		  		var menu_items = '';
-		  		var menu_items = '<ul>';
-		        // assign partial JSON to local variable
-				var tempMenu = data[locationName];
-				//console.log(tempMenu);
-      
-			 // loop over the JSON data and recurse if we've got nested data. output values
-		      $.each(tempMenu, recurse);
-			  // recurse through the data as needed 
-		      function recurse(key, val) {
-		          menu_items += "<li>"; 
-		          if (val instanceof Object) {
-		              menu_items += key + "<ul>";
-		              $.each(val, recurse);
-		              menu_items += "</ul>";
-		          } else {
-		              //menu_items += "<a href='" + val + "'>" + key + "</a>";
-		                menu_items += val;
-		          }
-		          menu_items += "</li>";
-		      }
-			 menu_items += "</ul>"; // close the list
-	 
-			 // we use the empty() to make sure we don't get duplicate data
-			 $('#modal-body-menu').empty().append(menu_items);
-			 $('#myModalLabelMenu.modal-title').empty().append(locationName);*/
 			
 			
 				//We have to empty the previous info
@@ -409,6 +432,27 @@
                if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
 
 				}//End FOR loop		
+				
+				var currentTime = (new Date()).getHours();
+				$("#breakfastTab").removeClass("active");
+				$("#lunchTab").removeClass("active");
+				$("#dinnerTab").removeClass("active");
+				$("#breakfast").removeClass("active");
+				$("#lunch").removeClass("active");
+				$("#dinner").removeClass("active");
+				
+				if(currentTime < 11){
+					$("#breakfastTab").addClass("active");
+					$("#breakfast").addClass("active");
+				}
+				if(currentTime > 10 && currentTime < 17){
+					$("#lunchTab").addClass("active");
+					$("#lunch").addClass("active");
+				}
+				if(currentTime > 16){
+					$("#dinnerTab").addClass("active");
+					$("#dinner").addClass("active");
+				}
 			
 			});//End getJSON
 		}//End function
