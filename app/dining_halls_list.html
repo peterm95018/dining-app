@@ -276,84 +276,84 @@
 		///// function def's //////
 
 		function myModalInfo(locationName) {
-		       $.getJSON("../data/whats-open-hours.json", function(data) {
-				    var items = '';
-				    var tempLocationName = '';
-					var ourTableHead = '<table class=\'table table-striped\'><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
-					var ourTableTail = '</table>';
-					
-					var ourData = data.DiningHalls;
-					
-					switch(locationName){
-						case "College Eight/Oakes":
-							ourData = ourData.CollegeEightOakes;
-							break;
-						case "Colleges Nine/Ten":
-							ourData = ourData.CollegesNineTen;
-							break;
-						case "Cowell/Stevenson":
-							ourData = ourData.CowellStevenson;
-							break;
-						case "Crown/Merrill":
-							ourData = ourData.CrownMerrill;
-							break;
-						case "Porter/Kresge":
-							ourData = ourData.PorterKresge;
-							break;
-					}
-					console.log(ourData);
-					items += ourTableHead;
-					//Monday
-					if(ourData.Monday.Open !== ""){
-						items += "<tr> <td>Monday</td><td>" + moment(ourData.Monday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Monday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-				    //Tuesday
-				    if(ourData.Tuesday.Open !== ""){
-						items += "<tr> <td>Tuesday</td><td>" + moment(ourData.Tuesday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Tuesday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-					//Wednesday
-					if(ourData.Wednesday.Open !== ""){
-						items += "<tr> <td>Wednesday</td><td>" + moment(ourData.Wednesday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Wednesday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-					//Thursday
-					if(ourData.Thursday.Open !== ""){
-						items += "<tr> <td>Thursday</td><td>" + moment(ourData.Thursday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Thursday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-					//Friday
-					if(ourData.Friday.Open !== ""){
-						items += "<tr> <td>Friday</td><td>" + moment(ourData.Friday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Friday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-					//Saturday
-					if(ourData.Saturday.Open !== ""){
-						items += "<tr> <td>Saturday</td><td>" + moment(ourData.Saturday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Saturday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-					//Sunday
-					if(ourData.Sunday.Open !== ""){
-						items += "<tr> <td>Sunday</td><td>" + moment(ourData.Sunday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Sunday.Close, "h:mm").format("h:mm a") + "</td></tr>";
-					}
-					
-					
-					// assign partial JSON to local variable
-					/*var tempLocationName = data[locationName];			
-					// open the table
-					items += ourTableHead;
-				    $.each(tempLocationName, function() {
-					   items += '<tr>';
-					   $.each(this, function(k, v) {
-						   // do stuff
-						   items += '<td>' + v + '</td>';
-					   }); // end inner loop
-				    }); // end outer loop
-					*/
-					
-				    // close the table
-				    items += ourTableTail;
-				   
-				    // we use the empty() to make sure we don't get duplicate data
-				    $('#modal-body-info').empty().append(items);
-				    $('#myModalLabelInfo.modal-title').empty().append(locationName);
-				   
-			   });		   
+			$.getJSON("../data/whats-open-hours.json", function(data) {
+				var items = '';
+				var tempLocationName = '';
+				var ourTableHead = '<table class=\'table table-striped\'><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
+				var ourTableTail = '</table>';
+				
+				var ourData = data.DiningHalls;
+				
+				switch(locationName){
+					case "College Eight/Oakes":
+						ourData = ourData.CollegeEightOakes;
+						break;
+					case "Colleges Nine/Ten":
+						ourData = ourData.CollegesNineTen;
+						break;
+					case "Cowell/Stevenson":
+						ourData = ourData.CowellStevenson;
+						break;
+					case "Crown/Merrill":
+						ourData = ourData.CrownMerrill;
+						break;
+					case "Porter/Kresge":
+						ourData = ourData.PorterKresge;
+						break;
+				}
+				console.log(ourData);
+				items += ourTableHead;
+				//Monday
+				if(ourData.Monday.Open !== ""){
+					items += "<tr> <td>Monday</td><td>" + moment(ourData.Monday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Monday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				//Tuesday
+				if(ourData.Tuesday.Open !== ""){
+					items += "<tr> <td>Tuesday</td><td>" + moment(ourData.Tuesday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Tuesday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				//Wednesday
+				if(ourData.Wednesday.Open !== ""){
+					items += "<tr> <td>Wednesday</td><td>" + moment(ourData.Wednesday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Wednesday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				//Thursday
+				if(ourData.Thursday.Open !== ""){
+					items += "<tr> <td>Thursday</td><td>" + moment(ourData.Thursday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Thursday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				//Friday
+				if(ourData.Friday.Open !== ""){
+					items += "<tr> <td>Friday</td><td>" + moment(ourData.Friday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Friday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				//Saturday
+				if(ourData.Saturday.Open !== ""){
+					items += "<tr> <td>Saturday</td><td>" + moment(ourData.Saturday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Saturday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				//Sunday
+				if(ourData.Sunday.Open !== ""){
+					items += "<tr> <td>Sunday</td><td>" + moment(ourData.Sunday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Sunday.Close, "h:mm").format("h:mm a") + "</td></tr>";
+				}
+				
+				
+				// assign partial JSON to local variable
+				/*var tempLocationName = data[locationName];			
+				// open the table
+				items += ourTableHead;
+			    $.each(tempLocationName, function() {
+				   items += '<tr>';
+				   $.each(this, function(k, v) {
+					   // do stuff
+					   items += '<td>' + v + '</td>';
+				   }); // end inner loop
+			    }); // end outer loop
+				*/
+				
+			    // close the table
+			    items += ourTableTail;
+			   
+			    // we use the empty() to make sure we don't get duplicate data
+			    $('#modal-body-info').empty().append(items);
+			    $('#myModalLabelInfo.modal-title').empty().append(locationName);
+			   
+				});
 		}
 		
 		function myModalMenu(locationName) {
@@ -366,20 +366,20 @@
 			$.getJSON("../data/results.json", function(data) {
 				for(var i = 0; i < data.length; i++){
 					if(locationName === "College Eight/Oakes" && data[i].Location_Number === "30"){
-                  myData.push(data[i]);
-                  continue;
+						myData.push(data[i]);
+						continue;
 					}
 					else if(locationName === "Colleges Nine/Ten" && data[i].Location_Number === "40"){
-                  myData.push(data[i]);
-                  continue;
+						myData.push(data[i]);
+						continue;
 					}
 					else if(locationName === "Cowell/Stevenson" && data[i].Location_Number === "05"){
-                  myData.push(data[i]);
-                  continue;
+						myData.push(data[i]);
+						continue;
 					}
 					//if(locationName === "Crown/Merrill" && data[i].Location_Number === "20"){
-               //	myData.push(data[i]);
-                  ///continue;
+						//myData.push(data[i]);
+						//continue;
 					//}
 					else if(locationName === "Porter/Kresge" && data[i].Location_Number === "25"){
 						myData.push(data[i]);
@@ -392,13 +392,13 @@
 				$("#lunch").empty();
 				$("#dinner").empty();
 				
-            //This part creates the outer collapse accordion div
-            //We append stuff to it in the for loop
+				//This part creates the outer collapse accordion div
+				//We append stuff to it in the for loop
 				$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
 				$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
-            $("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
+				$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
 
-            //Now we can start appending the javascript data from myData into the right tabs
+				//Now we can start appending the javascript data from myData into the right tabs
 				for(var j = 0; j < myData.length; j++){
 					var row = myData[j];
 					//One more sort to determine which meal goes where
@@ -411,26 +411,27 @@
 						case "3": time = "dinner";
 								   break;
 					}
-               //Create a blank collapsable element (lots of divs)
-               var	menu_item = '<div class="panel panel-default">' +
-				       	              '<div class="panel-heading">' +
-					   	                '<p class="panel-title">' +
-        						               '<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
-          						              row.Recipe_Print_As_Name + //Item title
-        						               '</a>' +
-      						             '</p>' +
-						                 '</div>' +
-						                 '<div id="collapse' +j+ '" class="panel-collapse collapse">' +
-						                   '<div class="panel-body">' + //This is where the content gets appended
-							                '</div>' +
-						                 '</div>' +
-                                 '</div>';
-               //Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
-					$("#"+time+"accordion").append(menu_item);//Push the items into the appropriate accordion
-               
-               //Check if allergens/codes are blank, if so, don't print them.
-               if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append(row.Allergens.trim()+"<br>");}//Not blank; Print
-               if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
+					//Create a blank collapsable element (lots of divs)
+					var	menu_item = '<div class="panel panel-default">' +
+										'<div class="panel-heading">' +
+											'<p class="panel-title">' +
+												'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
+													row.Recipe_Print_As_Name + //Item title
+												'</a>' +
+											'</p>' +
+										'</div>' +
+										'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
+											'<div class="panel-body">' + //This is where the content gets appended
+											'</div>' +
+										'</div>' +
+									'</div>';
+					//Push the items into the appropriate accordion
+					//Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
+					$("#"+time+"accordion").append(menu_item);
+
+					//Check if allergens/codes are blank, print only if non-blank.
+					if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append(row.Allergens.trim()+"<br>");}
+					if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
 
 				}//End FOR loop		
 				
