@@ -220,9 +220,9 @@
 		        <div id="modal-body-menu" class="modal-body">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-					  <li class="active"><a href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
-					  <li><a href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
-					  <li><a href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					  <li class="active"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+					  <li><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
+					  <li><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
 					</ul>
 					
 					<!--Tabbed content-->
@@ -315,18 +315,22 @@
 			$.getJSON("../data/results.json", function(data) {
 				for(var i = 0; i < data.length; i++){
 					if(locationName === "College Eight/Oakes" && data[i].Location_Number === "30"){
-						myData.push(data[i]);
+                  myData.push(data[i]);
+                  continue;
 					}
-					if(locationName === "Colleges Nine/Ten" && data[i].Location_Number === "40"){
-						myData.push(data[i]);
+					else if(locationName === "Colleges Nine/Ten" && data[i].Location_Number === "40"){
+                  myData.push(data[i]);
+                  continue;
 					}
-					if(locationName === "Cowell/Stevenson" && data[i].Location_Number === "05"){
-						myData.push(data[i]);
+					else if(locationName === "Cowell/Stevenson" && data[i].Location_Number === "05"){
+                  myData.push(data[i]);
+                  continue;
 					}
-					//if(locationName === "Crown/Merrill" && data[i].Location_Number === "30"){
-					//	myData.push(data[i]);
+					//if(locationName === "Crown/Merrill" && data[i].Location_Number === "20"){
+               //	myData.push(data[i]);
+                  ///continue;
 					//}
-					if(locationName === "Porter/Kresge" && data[i].Location_Number === "25"){
+					else if(locationName === "Porter/Kresge" && data[i].Location_Number === "25"){
 						myData.push(data[i]);
 					}	
 				}	
@@ -365,8 +369,13 @@
 				$("#lunch").empty();
 				$("#dinner").empty();
 				
-				//Now we can start appending the javascript data from myData
-				//Into the right tabs		
+            //This part creates the outer collapse accordion div
+            //We append stuff to it in the for loop
+				$("#breakfast").append('<div class="panel-group" id="accordion"></div>');
+				$("#lunch").append('<div class="panel-group" id="accordion"></div>');
+            $("#dinner").append('<div class="panel-group" id="accordion"></div>');
+
+            //Now we can start appending the javascript data from myData into the right tabs
 				for(var j = 0; j < myData.length; j++){
 					var row = myData[j];
 					//One more sort to determine which meal goes where
@@ -379,17 +388,31 @@
 						case "3": time = "dinner";
 								   break;
 					}
-					var menu_item = "<p style='font-size:14px;padding-left:7px;'>";
-					menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
-					menu_item = menu_item + "</p>";
-					
-					$("#"+time).append(menu_item);
-					
-				}
+               //Create a blank collapsable element (lots of divs)
+               var	menu_item = '<div class="panel panel-default">' +
+				       	              '<div class="panel-heading">' +
+					   	                '<p class="panel-title">' +
+        						               '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + j + '">' +
+          						              row.Recipe_Print_As_Name + //Item title
+        						               '</a>' +
+      						             '</p>' +
+						                 '</div>' +
+						                 '<div id="collapse' +j+ '" class="panel-collapse collapse">' +
+						                   '<div class="panel-body">' + //This is where the content gets appended
+							                '</div>' +
+						                 '</div>' +
+                                 '</div>';
+					$("#"+time+" #accordion").append(menu_item);//Push the items into the appropriate accordion
+               
+               //Check if allergens/codes are blank, if so, don't print them.
+               if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append(row.Allergens.trim()+"<br>");}//Not blank; Print
+               if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
+
+				}//End FOR loop		
 			
-			});
-		}
-		
+			});//End getJSON
+		}//End function
+	
 		</script>
 
 
