@@ -23,6 +23,7 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+		  <script src="bower_components/momentjs/moment.js"></script>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -246,7 +247,6 @@
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
-		<script src="bower_components/momentjs/moment.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 		
@@ -283,24 +283,24 @@
 				var ourTableTail = '</table>';
 				
 				var ourData = data.DiningHalls;
-				
-				switch(locationName){
-					case "College Eight/Oakes":
-						ourData = ourData.CollegeEightOakes;
-						break;
-					case "Colleges Nine/Ten":
-						ourData = ourData.CollegesNineTen;
-						break;
-					case "Cowell/Stevenson":
-						ourData = ourData.CowellStevenson;
-						break;
-					case "Crown/Merrill":
-						ourData = ourData.CrownMerrill;
-						break;
-					case "Porter/Kresge":
-						ourData = ourData.PorterKresge;
-						break;
-				}
+			
+			switch(locationName){
+				case "College Eight/Oakes":
+					ourData = ourData.CollegeEightOakes;
+					break;
+				case "Colleges Nine/Ten":
+					ourData = ourData.CollegesNineTen;
+					break;
+				case "Cowell/Stevenson":
+					ourData = ourData.CowellStevenson;
+					break;
+				case "Crown/Merrill":
+					ourData = ourData.CrownMerrill;
+					break;
+				case "Porter/Kresge":
+					ourData = ourData.PorterKresge;
+					break;
+			}
 				console.log(ourData);
 				items += ourTableHead;
 				//Monday
@@ -412,7 +412,7 @@
 								   break;
 					}
 					//Create a blank collapsable element (lots of divs)
-					var	menu_item = '<div class="panel panel-default">' +
+					var menu_item = '<div class="panel panel-default">' +
 										'<div class="panel-heading">' +
 											'<p class="panel-title">' +
 												'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
