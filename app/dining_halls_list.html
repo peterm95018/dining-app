@@ -221,10 +221,10 @@
 		        <div id="modal-body-menu" class="modal-body">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
-                 <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
-					  <li><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
-					  <li><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					<ul id="myTabs" class="nav nav-tabs" role="tablist">
+					  <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+					  <li id="lunchTab"><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
+					  <li id="dinnerTab"><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
 					</ul>
 					
 					<!--Tabbed content-->
@@ -333,20 +333,6 @@
 					items += "<tr> <td>Sunday</td><td>" + moment(ourData.Sunday.Open, "h:mm").format("h:mm a") + "</td><td>" + moment(ourData.Sunday.Close, "h:mm").format("h:mm a") + "</td></tr>";
 				}
 				
-				
-				// assign partial JSON to local variable
-				/*var tempLocationName = data[locationName];			
-				// open the table
-				items += ourTableHead;
-			    $.each(tempLocationName, function() {
-				   items += '<tr>';
-				   $.each(this, function(k, v) {
-					   // do stuff
-					   items += '<td>' + v + '</td>';
-				   }); // end inner loop
-			    }); // end outer loop
-				*/
-				
 			    // close the table
 			    items += ourTableTail;
 			   
@@ -378,12 +364,13 @@
 						myData.push(data[i]);
 						continue;
 					}
-					//if(locationName === "Crown/Merrill" && data[i].Location_Number === "20"){
-						//myData.push(data[i]);
-						//continue;
-					//}
+					if(locationName === "Crown/Merrill" && data[i].Location_Number === "20"){
+						myData.push(data[i]);
+						continue;
+					}
 					else if(locationName === "Porter/Kresge" && data[i].Location_Number === "25"){
 						myData.push(data[i]);
+						continue;
 					}	
 				}	
 			
@@ -447,14 +434,17 @@
 				if(currentTime < 11){
 					$("#breakfastTab").addClass("active");
 					$("#breakfast").addClass("active");
+					$("#breakfastTab a").tab('show');
 				}
 				if(currentTime > 10 && currentTime < 17){
 					$("#lunchTab").addClass("active");
 					$("#lunch").addClass("active");
+					$("#lunchTab a").tab('show');
 				}
 				if(currentTime > 16){
 					$("#dinnerTab").addClass("active");
 					$("#dinner").addClass("active");
+					$("#dinnerTab a").tab('show');
 				}
 			
 			});//End getJSON
