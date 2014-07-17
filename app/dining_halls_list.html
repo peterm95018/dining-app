@@ -284,6 +284,12 @@
 
 		///// function def's //////
 
+		function getAndroidVersion(ua){//Stolen straight from http://stackoverflow.com/q/7184573
+			var ua = ua || navigator.userAgent; 
+			var match = ua.match(/Android\s([0-9\.]*)/);
+			return match ? match[1] : false;
+		}
+
 		function myModalInfo(locationName) {
 			$.getJSON("../data/whats-open-hours.json", function(data) {
 				var items = '';
@@ -394,6 +400,7 @@
 				$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
 				$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
 
+				var androidversion = parseInt(getAndroidVersion()); console.log("Android Version: " + androidversion);
 				//Now we can start appending the javascript data from myData into the right tabs
 				for(var j = 0; j < myData.length; j++){
 					var row = myData[j];
@@ -407,20 +414,29 @@
 						case "3": time = "dinner";
 								   break;
 					}
+					var menu_item = "";
+					
+					if(androidversion < 3){//Use plain text if it's an older Android. No accordion.
+						menu_item  = "<p style='font-size:14px;padding-left:7px;'>";
+						menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
+						menu_item = menu_item + "</p>";
+					}
 					//Create a blank collapsable element (lots of divs)
-					var menu_item = '<div class="panel panel-default">' +
-										'<div class="panel-heading">' +
-											'<p class="panel-title">' +
-												'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
-													row.Recipe_Print_As_Name + //Item title
-												'</a>' +
-											'</p>' +
-										'</div>' +
-										'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
-											'<div class="panel-body">' + //This is where the content gets appended
-											'</div>' +
-										'</div>' +
-									'</div>';
+					else{
+						menu_item = '<div class="panel panel-default">' +
+								'<div class="panel-heading">' +
+									'<p class="panel-title">' +
+										'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
+											row.Recipe_Print_As_Name + //Item title
+										'</a>' +
+									'</p>' +
+								'</div>' +
+								'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
+									'<div class="panel-body">' + //This is where the content gets appended
+									'</div>' +
+								'</div>' +
+							'</div>';
+					}
 					//Push the items into the appropriate accordion
 					//Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
 					$("#"+time+"accordion").append(menu_item);
