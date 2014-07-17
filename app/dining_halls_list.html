@@ -426,7 +426,7 @@
 					$("#"+time+"accordion").append(menu_item);
 
 					//Check if allergens/codes are blank, print only if non-blank.
-					if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append(row.Allergens.trim()+"<br>");}
+					if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append("Allergens: "+ row.Allergens.trim()+"<br>");}
 					if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
 
 				}//End FOR loop		
