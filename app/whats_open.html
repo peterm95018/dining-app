@@ -308,12 +308,6 @@
 			
 			
 			// specify options
-			var s2 = new Date();
-			var f2 = new Date();
-			s2.setHours(5);
-			s2.setMinutes(0);
-			f2.setHours(23);
-			f2.setMinutes(59);
             var options = {
                 "width":  "100%",
                 "height": "100%",//previous value: "300px"
@@ -326,8 +320,6 @@
 				customStackOrder: myStackOrder,
 				animate: false,
 				groupsOrder: false,
-				start: s2,
-                end: f2,
                 margin: "20px"
             };
             
@@ -336,10 +328,6 @@
             timeline = new links.Timeline(document.getElementById('mytimeline'));
             
             links.events.addListener(timeline, 'select', onSelect);
-            
-            
-
-            
             
             //reSort data object if geolocated, someone should make this sort happen
             if(geolocationFlag){
@@ -362,6 +350,15 @@
 
             // Draw our timeline with the created data and options
             timeline.draw(data, options);
+
+            //Scale the timeline to start at 7:15am and end at 5:30pm.
+            var olddate = new Date();
+            var newdate = new Date();
+            olddate.setHours(7);
+			olddate.setMinutes(15);
+			newdate.setHours(17);
+			newdate.setMinutes(0);
+            timeline.setVisibleChartRange(olddate, newdate);
 			
 		}
     
@@ -424,10 +421,10 @@
 	        </div>
 	      </div>
 	      
-	      <h3>Time line Info</h3>
-	      <p><b>Green</b> locations are <b>open</b></p>
-	      <p><b>Red</b> locations are <b>closed</b></p>
-	      <p id="changeThis">Share your location to find the location closest to you</p>
+	      <p><b style="color:#1AA11A">Green</b> locations are <b>open</b></p>
+	      <p><b style="color:#F03030">Red</b> locations are <b>closed</b></p>
+	      <p>Scroll <b>up/down</b> on the sides and scroll <b>sideways</b> on timeline.</p>
+	      <p id="changeThis">Share your location to find the location closest to you.</p>
 
 		  <div id="mytimeline" style="margin: 0px 20px;"></div>
 
