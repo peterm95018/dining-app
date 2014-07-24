@@ -291,7 +291,7 @@
 		}
 
 		function myModalInfo(locationName) {
-			$.getJSON("../data/whats-open-hours.json", function(data) {
+			$.getJSON("data/whats-open-hours.json", function(data) {
 				var items = '';
 				var tempLocationName = '';
 				var ourTableHead = '<table class=\'table table-striped\'><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
@@ -359,6 +359,11 @@
 		
 		function myModalMenu(locationName) {
 			
+			//We have to empty the previous info
+			$("#breakfast").empty();
+			$("#lunch").empty();
+			$("#dinner").empty();
+			
 			//We want to get the right bundle of data before anything else,
 			//The below function is a placeholder until we can successfully 
 			//call the php function
@@ -398,11 +403,6 @@
 			xhr.send(data);
 			
 			function onPHPLoad(jsonData){			
-			
-				//We have to empty the previous info
-				$("#breakfast").empty();
-				$("#lunch").empty();
-				$("#dinner").empty();
 				
 				//This part creates the outer collapse accordion div
 				//We append stuff to it in the for loop
