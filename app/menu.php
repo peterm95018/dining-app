@@ -9,6 +9,10 @@
 
    $uid = 'FoodProEpicure';
    $pwd = 'F00dPr0*2';
+   
+   //Get location_number and serve_date
+   $serve_date = $_POST('serve_date');
+   $location_number = $_POST('location_num');
 
    try {
      // $conn = new PDO( "sqlsrv:server=$serverName,$port;Database = $database", $uid, $pwd);
@@ -25,7 +29,10 @@
 
    $query = "select ID, Serve_Date, Meal_Number, Location_Number, Location_Name, Recipe_Print_As_Name, Allergens, Recipe_Web_Codes
         from FoodPro.dbo.ForecastedRecipes
-        where Serve_Date = N'07/10/2014'";
+        where Serve_Date = N'"+$serve_date+"'
+        orderby Meal_Number";
+        
+        //and Location_Number = "+$location_number+"
 
    $stmt = $conn->query( $query );
    while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){

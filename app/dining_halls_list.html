@@ -363,8 +363,40 @@
 			//The below function is a placeholder until we can successfully 
 			//call the php function
 			
-			var myData = [];
-			$.getJSON("../data/results.json", function(data) {
+			location_num = "";
+			switch(locationName){
+				case "College Eight/Oakes":
+					location_num = "30";
+					break;
+				case "Colleges Nine/Ten":
+					location_num = "40";
+					break;
+				case "Cowell/Stevenson":
+					location_num = "05";
+					break;
+				//We don't know what this number is, just return until we can find that data
+				case "Crown/Merrill":
+					return;
+					break;
+				case "Porter/Kresge":
+					location_num = "25";
+					break;
+			}
+			
+			var data = new FormData();
+			data.append('serve_date', moment().format("MM/DD/YYYY") );
+			data.append('location_num', location_num);
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'menu.php', true);
+			xhr.onload = function () {
+				console.log("Menu Data returned");
+				console.log(this.responseText);
+			};
+			xhr.send(data);
+			
+			//$.getJSON("../data/results.json", function(data) {
+			function onPHPLoad(jsonData){
 				for(var i = 0; i < data.length; i++){
 					if(locationName === "College Eight/Oakes" && data[i].Location_Number === "30"){
 						myData.push(data[i]);
@@ -471,7 +503,7 @@
 					$("#dinnerTab a").tab('show');
 				}
 			
-			});//End getJSON
+			}
 		}//End function
 	
 		</script>
