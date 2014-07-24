@@ -291,7 +291,7 @@
 		}
 
 		function myModalInfo(locationName) {
-			$.getJSON("../data/whats-open-hours.json", function(data) {
+			$.getJSON("data/whats-open-hours.json", function(data) {
 				var items = '';
 				var tempLocationName = '';
 				var ourTableHead = '<table class=\'table table-striped\'><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
@@ -358,7 +358,12 @@
 		}
 		
 		function myModalMenu(locationName) {
-			
+
+			//We have to empty the previous info
+			$("#breakfast").empty();
+			$("#lunch").empty();
+			$("#dinner").empty();
+				
 			//We want to get the right bundle of data before anything else,
 			//The below function is a placeholder until we can successfully 
 			//call the php function
@@ -383,34 +388,30 @@
 					break;
 			}
 			
-			var data = new FormData();
-			data.append('serve_date', moment().format("MM/DD/YYYY") );
-			data.append('location_num', location_num);
-			
+			// XMLHttpRequest lets us send variables in the URL to the PHP
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', 'menu.php', true);
-			xhr.onload = function () {
-				console.log("Menu Data returned");
-				console.log(this.responseText);
-				var jsonObj = $.parseJSON(this.responseText);
-				onPHPLoad(jsonObj);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
+			xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
+				var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
+				onPHPLoad(jsonObj);//Do the parsing and placing of the JSON here.
 			};
-			xhr.send(data);
+
+			var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
+			xhr.send('serve_date=' +today+ '&location_num=' + location_num);//Send the data over the URL
 			
+			//This is a big function that parses the JSON holding the menu items.
+			//It's only called from the xhr.onload listener. It puts items in the 3 menu modal tabs.
+			//It also checks if you're using an old android and will do plaintext if so.
 			function onPHPLoad(jsonData){			
-			
-				//We have to empty the previous info
-				$("#breakfast").empty();
-				$("#lunch").empty();
-				$("#dinner").empty();
-				
+
 				//This part creates the outer collapse accordion div
 				//We append stuff to it in the for loop
 				$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
 				$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
 				$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
 
-				var androidversion = parseInt(getAndroidVersion()); console.log("Android Version: " + androidversion);
+				var androidversion = parseInt(getAndroidVersion());
 				//Now we can start appending the javascript data from myData into the right tabs
 				for(var j = 0; j < jsonData.length; j++){
 					var row = jsonData[j];

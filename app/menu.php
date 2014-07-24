@@ -26,9 +26,8 @@
       print_r($e);
       die( "Error connecting to SQL Server" );
    }
-
-   //echo "Connected to SQL Server\n";
-
+   
+   //Long query that sorts by date and location
    $query = "select ID, Serve_Date, Meal_Number, Location_Number, Location_Name, Recipe_Print_As_Name, Allergens, Recipe_Web_Codes
         from FoodPro.dbo.ForecastedRecipes
         where Serve_Date = N'" . $serve_date . "'
