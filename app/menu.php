@@ -1,4 +1,6 @@
 <?php
+   ini_set('display_errors', '1');
+   ini_set('error_reporting', E_ALL);
    $serverName = "ches-prod-sql-1.ucsc.edu";
    $database = "FoodPro";
          $port = 1443;
@@ -11,8 +13,8 @@
    $pwd = 'F00dPr0*2';
    
    //Get location_number and serve_date
-   $serve_date = $_POST('serve_date');
-   $location_number = $_POST('location_num');
+   $serve_date = $_POST['serve_date'];
+   $location_number = $_POST['location_num'];
 
    try {
      // $conn = new PDO( "sqlsrv:server=$serverName,$port;Database = $database", $uid, $pwd);
@@ -25,14 +27,13 @@
       die( "Error connecting to SQL Server" );
    }
 
-   echo "Connected to SQL Server\n";
+   //echo "Connected to SQL Server\n";
 
    $query = "select ID, Serve_Date, Meal_Number, Location_Number, Location_Name, Recipe_Print_As_Name, Allergens, Recipe_Web_Codes
         from FoodPro.dbo.ForecastedRecipes
-        where Serve_Date = N'"+$serve_date+"'
-        orderby Meal_Number";
-        
-        //and Location_Number = "+$location_number+"
+        where Serve_Date = N'" . $serve_date . "'
+        and Location_Number = " . $location_number . "
+        order by Meal_Number";
 
    $stmt = $conn->query( $query );
    while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){

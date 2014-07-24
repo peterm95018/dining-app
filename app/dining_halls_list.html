@@ -392,34 +392,12 @@
 			xhr.onload = function () {
 				console.log("Menu Data returned");
 				console.log(this.responseText);
+				var jsonObj = $.parseJSON(this.responseText);
+				onPHPLoad(jsonObj);
 			};
 			xhr.send(data);
 			
-			//$.getJSON("../data/results.json", function(data) {
-			function onPHPLoad(jsonData){
-				for(var i = 0; i < data.length; i++){
-					if(locationName === "College Eight/Oakes" && data[i].Location_Number === "30"){
-						myData.push(data[i]);
-						continue;
-					}
-					else if(locationName === "Colleges Nine/Ten" && data[i].Location_Number === "40"){
-						myData.push(data[i]);
-						continue;
-					}
-					else if(locationName === "Cowell/Stevenson" && data[i].Location_Number === "05"){
-						myData.push(data[i]);
-						continue;
-					}
-					if(locationName === "Crown/Merrill" && data[i].Location_Number === "20"){
-						myData.push(data[i]);
-						continue;
-					}
-					else if(locationName === "Porter/Kresge" && data[i].Location_Number === "25"){
-						myData.push(data[i]);
-						continue;
-					}	
-				}	
-			
+			function onPHPLoad(jsonData){			
 			
 				//We have to empty the previous info
 				$("#breakfast").empty();
@@ -434,8 +412,8 @@
 
 				var androidversion = parseInt(getAndroidVersion()); console.log("Android Version: " + androidversion);
 				//Now we can start appending the javascript data from myData into the right tabs
-				for(var j = 0; j < myData.length; j++){
-					var row = myData[j];
+				for(var j = 0; j < jsonData.length; j++){
+					var row = jsonData[j];
 					//One more sort to determine which meal goes where
 					var time = "";
 					switch(row.Meal_Number){
