@@ -11,19 +11,19 @@
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
-   		<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/customMain.css">
         <!-- endbuild -->
 
-                 <!-- keep some css files out of concatenation build:css process -->
+        <!-- keep some css files out of concatenation build:css process -->
         <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
         <!-- end -->
 
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-		  <script src="bower_components/momentjs/moment.js"></script>
+        <script src="bower_components/momentjs/moment.js"></script>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -68,6 +68,7 @@
           </div><!-- /.navbar-custom -->
           </nav>
 		
+
 	    <div class="container">
 
 	      <div class="row">
@@ -294,7 +295,7 @@
 			$.getJSON("data/whats-open-hours.json", function(data) {
 				var items = '';
 				var tempLocationName = '';
-				var ourTableHead = '<table class=\'table table-striped\'><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
+				var ourTableHead = '<table class=\'table table-striped\' style="margin:0px"><tr><th>Day</th><th>Open</th><th>Close</th></tr>';
 				var ourTableTail = '</table>';
 				
 				var ourData = data.DiningHalls;
@@ -355,6 +356,8 @@
 			    $('#myModalLabelInfo.modal-title').empty().append(locationName);
 			   
 				});
+
+			$(".modal-footer").css('margin-top','0px'); //Remove excess white space in footer. Looked awkward.
 		}
 		
 		function myModalMenu(locationName) {
@@ -434,7 +437,7 @@
 					}
 					//Create a blank collapsable element (lots of divs)
 					else{
-						menu_item = '<div class="panel panel-default">' +
+						menu_item = '<div class="panel panel-success">' +
 								'<div class="panel-heading">' +
 									'<p class="panel-title">' +
 										'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
@@ -454,6 +457,8 @@
 
 					//Check if allergens/codes are blank, print only if non-blank.
 					if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append("Allergens: "+ row.Allergens.trim()+"<br>");}
+					else{$("#"+time+" .panel-body:last").append("No Allergens<br>");}
+
 					if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
 
 				}//End FOR loop		
