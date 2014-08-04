@@ -1,0 +1,159 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>UCSC Dining Services</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/customMain.css">
+        <!-- endbuild -->
+
+        <!-- keep some css files out of concatenation build:css process -->
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+        <!-- end -->
+
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+        <script src="bower_components/momentjs/moment.js"></script>
+        
+        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+        
+        <style>
+			a { cursor: pointer; cursor: hand; }
+        </style>
+        
+    </head>
+    <body style="background-color:#92D44F;">
+		
+		<div class="panel panel-default" style="width:80%; margin-right:auto; margin-left:auto;">
+			<div class="panel-body">
+				
+				<h1>Hours Tracking</h1>
+				<hr>
+				<p>To change the normal hours of a dining location, use the 'Update Normal Hours' tab.</p>
+				<p>To change the hours on a particular date, or a set of dates, use the 'Add Exceptions' tab.</p>
+		
+				<ul id="myTabs" class="nav nav-tabs" role="tablist">
+					<li class="active"><a style="outline:0" href="#normal" role="tab" data-toggle="tab">Update Normal Hours</a></li>
+					<li ><a style="outline:0" href="#exception" role="tab" data-toggle="tab">Add Exceptions</a></li>
+				</ul>
+					
+				<!--Tabbed content-->
+				<div class="tab-content">
+				  <div class="tab-pane active" style="padding-top:10px;" id="normal">
+					  
+					<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="DiningLocDropDownButton">
+						Select Dining Location <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" id="DiningLocDropDown">
+						<!--<li><a href="#">Action</a></li>-->
+					  </ul>
+					</div>
+					
+					<br><br>
+					
+					<button disabled  class="btn btn-default" id="submitNormal" >Submit Changes</button>
+					
+				  </div>
+				  <div class="tab-pane" style="padding-top:10px;" id="exception">
+				  'Allo Guvnor
+				  </div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+        
+        <!--Insert js here-->
+        <script>
+			
+			// Delete cache
+			window.onload = function() {
+				if(!window.location.hash) {
+					window.location = window.location + '#loaded';
+					window.location.reload();
+				}
+			}
+			$.ajax({ cache: false });
+			
+			//Create a hash table for each dining location: diningTable[location] = locationNum
+			var diningTable = {};
+			
+			//Location Numbers that we know about
+			diningTable["College Eight/Oakes Dining Hall"] = "30";
+			diningTable["Colleges Nine/Ten Dining Hall"] = "40";
+			diningTable["Cowell/Stevenson Dining Hall"] = "05";
+			diningTable["Porter/Kresge Dining Hall"] = "25";
+			
+			//Location Numbers that we don't know about
+			diningTable["Crown/Merrill Dining Hall"] = "-01";
+			
+			//Next, populate the drop down with the hash table keys
+			for(var key in diningTable){
+				var locHTML = "<li>";
+						locHTML += "<a>"+ key +"</a>";
+					locHTML += "</li>";
+					
+					$("#DiningLocDropDown").append(locHTML);
+			}
+			
+			var currentLocation; //global variable for the selected location
+			
+			//Now a click listener for the dropdown
+			$("#DiningLocDropDown").on( 'click', 'li a', function(){
+				//First set the dropdown button text to the text of the selected location
+				$("#DiningLocDropDownButton").text( $(this).text() );
+				$("#DiningLocDropDownButton").val( $(this).text() );
+				
+				//change global current location
+				currentLocation = $(this).text();
+				
+				//enable the button
+				$("#submitNormal").removeAttr('disabled');
+				
+				//call php function to pull data
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'time_pull.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onload = function () {
+					// once the pull is working, fill out data
+				};
+				xhr.send('location=' + currentLocation);
+			});
+			
+        
+        </script>
+    
+    
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <!-- build:js scripts/main.js -->
+        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+        <!-- endbuild -->
+	</body>
+</html>
