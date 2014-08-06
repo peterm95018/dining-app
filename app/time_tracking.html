@@ -222,12 +222,18 @@
 				$("#addEntry").removeAttr('disabled');
 				
 				//call php function to pull data
+				updateValues();
+				
+			});
+
+			//This function creates the XMLHttpRequest and adds in the many entries for each
+			//weekday the dining hall is open. It puts the current times in each slot. It also
+			//builds the table which shows all the hours from the "View Hours" button.
+			function updateValues{
 				var xhr = new XMLHttpRequest();
 				xhr.open('POST', 'time_pull.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onload = function () {
-					
-					//console.log("yolo");
 
 					var location_hours = [
 						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1"},
@@ -274,7 +280,7 @@
 						var row = jsonObj[j];
 						var text = "";
 						text = "<tr><td>" + row.weekdays + "</td><td>" + row.location_number +
-						"</td><td>" + row.starttime + "</td><td>" + row.endtime + "</td></tr>";
+						"</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td></tr>";
 						$("tbody").append(text);
 
 						//Entry Boxes built here
@@ -308,8 +314,8 @@
 
 				};
 				xhr.send('location=' + diningTable[currentLocation]);
-			});
-			
+			}
+
 			//Add a listener for the normal submission button
 			$("#submitNormal").on('click', function(){
 				var entries = $("#EntryContainer").children();
@@ -355,14 +361,12 @@
 					
 					
 				}
-				console.log(data);
 				
 				 $.ajax({
 						type: "POST",
 						dataType: "json",
 						url: "time_update.php",
 						data: {myData: data},
-						contentType: "application/json; charset=utf-8",
 						success: function(data){
 							alert('Items added');
 						},
@@ -370,6 +374,9 @@
 							console.log(e.message);
 						}
 				});
+
+				$("tbody").empty();//Empty this so that people don't get confused by old data in the table.
+				updateValues();//Refresh the entries and table with the newly updated data.
 				
 			});
         </script>
