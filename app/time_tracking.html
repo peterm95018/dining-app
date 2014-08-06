@@ -139,7 +139,7 @@
 			
 			//Close listener
 			$("#EntryContainer").on('click', 'div div button.close', function(){
-				var parentPanel = $(this).parent().parent();
+				var parentPanel = $(this).parent().parent().parent();
 				
 				if(confirm("Are you sure you want to delete this entry?")){
 					parentPanel.remove();
@@ -170,8 +170,8 @@
 						+		"<li><a>Sunday</a></li>"
 						+	  "</ul>"
 						+	"</div> <br>"
-						+	"Open: <input type='time'> to <br>"
-						+	"Close: <input type='time'> <br> <br>"
+						+	"Open: <input type='time' class='opening'> to <br>"
+						+	"Close: <input type='time' class='closing'> <br> <br>"
 						+"</div>"
 					+"</div>"
 					+ "</div>";
@@ -201,13 +201,13 @@
 					//console.log("yolo");
 
 					var location_hours = [
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: 1},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: 2},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: 3},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: 4},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: 5},
-						{starttime: "10:00:00", endtime: "23:00:00", weekdays: 6},
-						{starttime: "08:00:00", endtime: "23:00:00", weekdays: 7}
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "2"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "3"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "4"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "5"},
+						{starttime: "10:00:00", endtime: "23:00:00", weekdays: "6"},
+						{starttime: "08:00:00", endtime: "23:00:00", weekdays: "7"}
 						];
 
 					$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
@@ -217,25 +217,25 @@
 						
 						var day = "Select Day of the Week <span class='caret'></span>";
 						switch(jsonObj[j].weekdays){
-								case 1: 
+								case "1": 
 									day = "Monday";
 									break;
-								case 2: 
+								case "2": 
 									day = "Tuesday";
 									break;
-								case 3: 
+								case "3": 
 									day = "Wednesday";
 									break;
-								case 4: 
+								case "4": 
 									day = "Thursday";
 									break;
-								case 5: 
+								case "5": 
 									day = "Friday";
 									break;
-								case 6: 
+								case "6": 
 									day = "Saturday";
 									break;
-								case 7: 
+								case "7": 
 									day = "Sunday";
 									break;
 						}
@@ -260,8 +260,8 @@
 							+		"<li><a>Sunday</a></li>"
 							+	  "</ul>"
 							+	"</div> <br>"
-							+	"Open: <input type='time' value="+jsonObj[j].starttime+"> to <br>"
-							+	"Close: <input type='time' value="+jsonObj[j].endtime+"> <br> <br>"
+							+	"Open: <input type='time' class='opening' value="+jsonObj[j].starttime+"> to <br>"
+							+	"Close: <input type='time' class='closing' value="+jsonObj[j].endtime+"> <br> <br>"
 							+ "</div>"
 							+"</div>"
 							+"</div>";
@@ -277,7 +277,64 @@
 			//Add a listener for the normal submission button
 			$("#submitNormal").on('click', function(){
 				var entries = $("#EntryContainer").children();
-				console.log(entries);
+				
+				var data = [];
+				for(var i = 0; i < entries.length; i++){
+					var entry = entries[i];
+					
+					//Get the day
+					var day = entry.children[0].children[0].children[1].children[0].innerHTML;
+					switch(day){
+							case "Monday": 
+								day = "1";
+								break;
+							case "Tuesday": 
+								day = "2";
+								break;
+							case "Wednesday": 
+								day = "3";
+								break;
+							case "Thursday": 
+								day = "4";
+								break;
+							case "Friday": 
+								day = "5";
+								break;
+							case "Saturday": 
+								day = "6";
+								break;
+							case "Sunday": 
+								day = "7";
+								break;
+					}
+					//console.log("day: " + day); 
+					
+					//get the hours
+					var opening = entry.children[0].children[0].children[3].value;
+					//console.log("Opens: " + opening);
+					var closing = entry.children[0].children[0].children[5].value;
+					//console.log("Closes: " + closing);
+					
+					data.push({starttime: opening, endtime: closing, weekdays: day, location_number: diningTable[currentLocation]});
+					
+					
+				}
+				console.log(data);
+				
+				 $.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "time_update.php",
+						data: {myData: data},
+						contentType: "application/json; charset=utf-8",
+						success: function(data){
+							alert('Items added');
+						},
+						error: function(e){
+							console.log(e.message);
+						}
+				});
+				
 			});
 			
         </script>
