@@ -58,12 +58,11 @@
 					  <ul class="dropdown-menu" role="menu" id="DiningLocDropDown">
 						<!--<li><a href="#">Action</a></li>-->
 					  </ul>
-					  <button type="button" class="btn btn-default" id="ViewHours">View Hours</button>
 					</div>
 
 					<br><br>
 					
-					<div id="EntryContainer"></div>
+					<div class="row" id="EntryContainer"></div>
 					
 					
 					
@@ -79,18 +78,7 @@
 				  'Allo Guvnor
 				  </div>
 				</div>
-				<table class="table table-condensed hidden">
-					<thead>
-						<tr>
-							<th>Weekday</th>
-							<th>Location</th>
-							<th>Start Time</th>
-							<th>End Time</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+				
 				
 			</div>
 		</div>
@@ -142,8 +130,6 @@
 			$("#EntryContainer").on('click', 'div div div ul li a', function(){
 				var entry = $(this).text();
 				
-				console.log(entry);
-				
 				var button = $(this).parent().parent().parent().find('button.btn');
 				
 				
@@ -166,7 +152,8 @@
 			
 			//Click Listener for adding entries
 			$("#addEntry").on('click', function(){
-				var entryHTML = "<div class='panel panel-default' style='width:300px;'>"
+				var entryHTML = "<div class='col-lg-4'>"
+						+ "<div class='panel panel-default' style='width:300px;'>"
 						+ "<div class='panel-body'>"
 						+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
 						+	"Day: <div class='btn-group'>"
@@ -186,7 +173,8 @@
 						+	"Open: <input type='time'> to <br>"
 						+	"Close: <input type='time'> <br> <br>"
 						+"</div>"
-					+"</div>";
+					+"</div>"
+					+ "</div>";
 					
 					$("#EntryContainer").append(entryHTML);
 			});
@@ -209,6 +197,8 @@
 				xhr.open('POST', 'time_pull.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onload = function () {
+					
+					//console.log("yolo");
 
 					var location_hours = [
 						{starttime: "09:00:00", endtime: "20:00:00", weekdays: 1},
@@ -220,23 +210,75 @@
 						{starttime: "08:00:00", endtime: "23:00:00", weekdays: 7}
 						];
 
-					$("tbody").empty();//Get rid of old data from other dining hall hours.
+					$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
 					var jsonObj = $.parseJSON(this.responseText);
+					//var jsonObj = location_hours;
 					for(var j = 0; j < jsonObj.length; j++){
-						var row = jsonObj[j];
-						var text = "";
-						text = "<tr><td>" + row.weekdays + "</td><td>" + row.location_number +
-							"</td><td>" + row.starttime + "</td><td>" + row.endtime + "</td></tr>";
-						$("tbody").append(text);
+						
+						var day = "Select Day of the Week <span class='caret'></span>";
+						switch(jsonObj[j].weekdays){
+								case 1: 
+									day = "Monday";
+									break;
+								case 2: 
+									day = "Tuesday";
+									break;
+								case 3: 
+									day = "Wednesday";
+									break;
+								case 4: 
+									day = "Thursday";
+									break;
+								case 5: 
+									day = "Friday";
+									break;
+								case 6: 
+									day = "Saturday";
+									break;
+								case 7: 
+									day = "Sunday";
+									break;
+						}
+						
+						
+						
+						var entryHTML = "<div class='col-lg-4'>"
+						    +"<div class='panel panel-default' style='width:300px;'>"
+							+ "<div class='panel-body'>"
+							+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+							+	"Day: <div class='btn-group'>"
+							+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+							+		day
+							+	  "</button>"
+							+	  "<ul class='dropdown-menu' role='menu' >"
+							+		"<li><a>Monday</a></li>"
+							+		"<li><a>Tuesday</a></li>"
+							+		"<li><a>Wednesday</a></li>"
+							+		"<li><a>Thursday</a></li>"
+							+		"<li><a>Friday</a></li>"
+							+		"<li><a>Saturday</a></li>"
+							+		"<li><a>Sunday</a></li>"
+							+	  "</ul>"
+							+	"</div> <br>"
+							+	"Open: <input type='time' value="+jsonObj[j].starttime+"> to <br>"
+							+	"Close: <input type='time' value="+jsonObj[j].endtime+"> <br> <br>"
+							+ "</div>"
+							+"</div>"
+							+"</div>";
+							
+					
+						$("#EntryContainer").append(entryHTML);
 					} 
 
 				};
 				xhr.send('location=' + diningTable[currentLocation]);
 			});
 			
-			$("#ViewHours").on('click', function(){
-				$("table").attr('class', 'table table-condensed');
-			})
+			//Add a listener for the normal submission button
+			$("#submitNormal").on('click', function(){
+				var entries = $("#EntryContainer").children();
+				console.log(entries);
+			});
 			
         </script>
     
