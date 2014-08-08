@@ -4,15 +4,13 @@ ini_set('display_errors', '1');
 ini_set('error_reporting', E_ALL);
 
 //Get the JSON and decode it
-$JSONobj = $_POST['data'];
+$JSONobj = $_POST['myData'];
 $size = count($JSONobj);
 
 $serverName = 'localhost';
 $database = 'dininghours';
 $username = 'resnet';
 $password = '';
-
-print_r($JSONobj);
 
 try {
       $conn = new PDO( "mysql:host=$serverName;dbname=$database", $username, $password);
@@ -25,13 +23,16 @@ catch( PDOException $e ) {
 }
 
 $query = "";
-
+//Loop through and compile all the update queries into one big $query!
 for($i = 0; $i < $size; $i = $i +1){
-	$row = $JSONob[$i];
-	echo "row.startime = " $row . $row.starttime;
-	echo "row[startime] = " $row . $row[starttime];
-	$query += "UPDATE hours SET starttime = $row.starttime WHERE location_number = $row.location_number AND weekdays = $row.weekdays;";
-	$query += "UPDATE hours SET endttime = $row.endtime WHERE location_number = $row.location_number AND weekdays = $row.weekdays;";
+	$row = $JSONobj[$i];
+	$newstarttime = $row['starttime'];
+	$loc = $row['location_number'];
+	$weekday = $row['weekdays'];
+	$newendtime = $row['endtime'];
+	//You have to surround the time in single quotes because of the colon :
+	$query =$query . "UPDATE hours SET starttime='$newstarttime' WHERE location_number=$loc AND weekdays=$weekday;";
+	$query =$query . "UPDATE hours SET endtime='$newendtime' WHERE location_number=$loc AND weekdays=$weekday;";
 }
 
 $stmt = $conn->query( $query );

@@ -57,6 +57,7 @@
 					  <ul class="dropdown-menu" role="menu" id="DiningLocDropDown">
 						<!--<li><a href="#">Action</a></li>-->
 					  </ul>
+					  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">View Hours</button>
 					</div>
 
 					<br><br>
@@ -76,6 +77,34 @@
 				  <div class="tab-pane" style="padding-top:10px;" id="exception">
 				  'Allo Guvnor
 				  </div>
+				</div>
+
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        						<h4 class="modal-title" id="myModalLabel"></h4>
+      						</div>
+							<div class="modal-body">
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Weekday</th>
+												<th>Location</th>
+												<th>Start Time</th>
+												<th>End Time</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				
@@ -211,12 +240,18 @@
 				$("#addEntry").removeAttr('disabled');
 				
 				//call php function to pull data
+				updateValues();
+				
+			});
+
+			//This function creates the XMLHttpRequest and adds in the many entries for each
+			//weekday the dining hall is open. It puts the current times in each slot. It also
+			//builds the table which shows all the hours from the "View Hours" button.
+			function updateValues(){
 				var xhr = new XMLHttpRequest();
 				xhr.open('POST', 'time_pull.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onload = function () {
-					
-					//console.log("yolo");
 
 					var location_hours = [
 						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1"},
@@ -229,8 +264,10 @@
 						];
 
 					$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
-					//var jsonObj = $.parseJSON(this.responseText);
-					var jsonObj = location_hours;
+					$("tbody").empty();
+					$("#myModalLabel").empty().append(currentLocation);
+					var jsonObj = $.parseJSON(this.responseText);
+					//var jsonObj = location_hours;
 					for(var j = 0; j < jsonObj.length; j++){
 						
 						var day = "Select Day of the Week <span class='caret'></span>";
@@ -260,12 +297,19 @@
 						
 						var open = moment(jsonObj[j].starttime.substring(0, 5), "HH:mm").format("hh:mm a");
 						var close = moment(jsonObj[j].endtime.substring(0, 5), "HH:mm").format("hh:mm a");
-						
 						open = open.replace('am', 'AM');
 						open = open.replace('pm', 'PM');
 						close = close.replace('am', 'AM');
 						close = close.replace('pm', 'PM');
 						
+						//View Hours modal table built here
+						var row = jsonObj[j];
+						var text = "";
+						text = "<tr><td>" + row.weekdays + "</td><td>" + row.location_number +
+						"</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td></tr>";
+						$("tbody").append(text);
+
+						//Entry Boxes built here
 						var entryHTML = "<div class='col-lg-4'>"
 						    +"<div class='panel panel-default' style='width:300px;'>"
 							+ "<div class='panel-body'>"
@@ -306,8 +350,8 @@
 
 				};
 				xhr.send('location=' + diningTable[currentLocation]);
-			});
-			
+			}
+
 			//Add a listener for the normal submission button
 			$("#submitNormal").on('click', function(){
 				var entries = $("#EntryContainer").children();
@@ -354,14 +398,12 @@
 					
 					
 				}
-				console.log(data);
 				
 				 $.ajax({
 						type: "POST",
 						dataType: "json",
 						url: "time_update.php",
 						data: {myData: data},
-						contentType: "application/json; charset=utf-8",
 						success: function(data){
 							alert('Items added');
 						},
@@ -369,9 +411,11 @@
 							console.log(e.message);
 						}
 				});
+
+				$("tbody").empty();//Empty this so that people don't get confused by old data in the table.
+				updateValues();//Refresh the entries and table with the newly updated data.
 				
 			});
-			
         </script>
     
     
