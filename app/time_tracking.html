@@ -12,6 +12,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/customMain.css">
         <!-- endbuild -->
@@ -23,9 +24,7 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-        <script src="bower_components/momentjs/moment.js"></script>
         
-        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
         
         <style>
 			a { cursor: pointer; cursor: hand; }
@@ -67,7 +66,7 @@
 					
 					
 					
-					<button disabled  class="btn btn-default" id="addEntry" >+ Add Entry</button> <br>
+					<button  class="btn btn-default" id="addEntry" >+ Add Entry</button> <br>
 					<p style="color:grey;">Use this to add an entry (ex. If a location is now open on Saturdays, then you can add an entry for Saturday,
 					or if a location is open Monday at 2 different times of the day, then you can add another entry for Monday)</p> <br>
 					
@@ -88,8 +87,12 @@
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
+		<script src="bower_components/momentjs/moment.js"></script>
+		<script src="bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+        
+        
         
         <!--Insert js here-->
         <script>
@@ -170,13 +173,28 @@
 						+		"<li><a>Sunday</a></li>"
 						+	  "</ul>"
 						+	"</div> <br>"
-						+	"Open: <input type='time' class='opening'> to <br>"
-						+	"Close: <input type='time' class='closing'> <br> <br>"
+						+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='Set Open Time'> to <br>"
+						+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='Set Close Time'>"
 						+"</div>"
-					+"</div>"
-					+ "</div>";
+					+ "</div>"
+					+"</div>";
 					
 					$("#EntryContainer").append(entryHTML);
+					
+					$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+						format: 'HH:ii P', 
+						showMeridian: true,
+						startView: 1, 
+						autoclose: true,
+						initialDate: "01-01-2001 ",
+						maxView: 1});
+					});
+					
+					
+					
+					
+					
 			});
 			
 			//Now a click listener for the dropdown
@@ -211,8 +229,8 @@
 						];
 
 					$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
-					var jsonObj = $.parseJSON(this.responseText);
-					//var jsonObj = location_hours;
+					//var jsonObj = $.parseJSON(this.responseText);
+					var jsonObj = location_hours;
 					for(var j = 0; j < jsonObj.length; j++){
 						
 						var day = "Select Day of the Week <span class='caret'></span>";
@@ -240,7 +258,13 @@
 									break;
 						}
 						
+						var open = moment(jsonObj[j].starttime.substring(0, 5), "HH:mm").format("hh:mm a");
+						var close = moment(jsonObj[j].endtime.substring(0, 5), "HH:mm").format("hh:mm a");
 						
+						open = open.replace('am', 'AM');
+						open = open.replace('pm', 'PM');
+						close = close.replace('am', 'AM');
+						close = close.replace('pm', 'PM');
 						
 						var entryHTML = "<div class='col-lg-4'>"
 						    +"<div class='panel panel-default' style='width:300px;'>"
@@ -260,19 +284,24 @@
 							+		"<li><a>Sunday</a></li>"
 							+	  "</ul>"
 							+	"</div> <br>"
-<<<<<<< HEAD
-							+	"Open: <input type='time' class='opening' value="+jsonObj[j].starttime+"> to <br>"
-							+	"Close: <input type='time' class='closing' value="+jsonObj[j].endtime+"> <br> <br>"
-=======
-							+	"Open: <input type='time' value="+jsonObj[j].starttime.substring(0, 5)+"> to <br>"
-							+	"Close: <input type='time' value="+jsonObj[j].endtime.substring(0, 5)+"> <br> <br>"
->>>>>>> 7e246215ee238f79bf4cc0942864f1366fa315ad
+							+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='"+open+"'> to <br>"
+							+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='"+close+"'>"
 							+ "</div>"
 							+"</div>"
 							+"</div>";
 							
 					
 						$("#EntryContainer").append(entryHTML);
+						
+						$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+							format: 'HH:ii P', 
+							showMeridian: true,
+							startView: 1, 
+							autoclose: true,
+							initialDate: "01-01-2001 ",
+							maxView: 1});
+						});
 					} 
 
 				};
@@ -311,14 +340,15 @@
 							case "Sunday": 
 								day = "7";
 								break;
-					}
-					//console.log("day: " + day); 
+					} 
 					
 					//get the hours
 					var opening = entry.children[0].children[0].children[3].value;
-					//console.log("Opens: " + opening);
+					if(!moment(moment().format("MM-DD-YYYY ") + opening, "MM-DD-YYYY HH:mm", "MM-DD-YYYY HH:mm:ss", "MM-DD-YYYY hh:mm:ss a", 
+					"MM-DD-YYYY hh:mm a","MM-DD-YYYY hh:mm:ssa", "MM-DD-YYYY hh:mma").isValid()){
+						console.log("Not Valid");
+					}
 					var closing = entry.children[0].children[0].children[5].value;
-					//console.log("Closes: " + closing);
 					
 					data.push({starttime: opening, endtime: closing, weekdays: day, location_number: diningTable[currentLocation]});
 					
@@ -356,7 +386,7 @@
         </script>
 
         <!-- build:js scripts/main.js -->
-        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+        <!--<script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>-->
         <!-- endbuild -->
 	</body>
 </html>
