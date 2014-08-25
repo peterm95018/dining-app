@@ -21,7 +21,7 @@ catch( PDOException $e ) {
    die( "Error connecting to SQL Server" );
 }
 
-$query = "SELECT * FROM hours WHERE location_number=$location_number";
+$query = "SELECT * FROM exceptions WHERE location_number=$location_number AND endtime >= CURDATE();"
 
 $stmt = $conn->query( $query );
 

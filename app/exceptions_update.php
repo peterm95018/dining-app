@@ -25,14 +25,16 @@ catch( PDOException $e ) {
 $query = "";
 //Loop through and compile all the update queries into one big $query!
 for($i = 0; $i < $size; $i = $i +1){
-	$row = $JSONobj[$i];
-	$newstarttime = $row['starttime'];
-	$loc = $row['location_number'];
-	$weekday = $row['weekdays'];
-	$newendtime = $row['endtime'];
+	$row       = $JSONobj[$i];
+	$loc       = $row['location_number'];
+	$weekday   = $row['weekdays'];
+	$startdate = $row['startdate'];
+	$enddate   = $row['enddate'];
+	$starttime = $row['starttime'];
+	$endtime   = $row['endtime'];
+	$details   = $row['details'];
 	//You have to surround the time in single quotes because of the colon :
-	$query =$query . "UPDATE hours SET starttime='$newstarttime' WHERE location_number=$loc AND weekdays=$weekday;";
-	$query =$query . "UPDATE hours SET endtime='$newendtime' WHERE location_number=$loc AND weekdays=$weekday;";
+	$query = "INSERT INTO exceptions ($loc, $weekday, '$startdate', '$enddate', '$starttime', '$endtime', $details);";
 }
 
 $stmt = $conn->query( $query );
