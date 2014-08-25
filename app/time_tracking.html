@@ -94,6 +94,9 @@
 						
 						<div id="DateSelector"></div>
 						
+						<p style='margin-bottom: 0px;'> Reason: </p>
+						<div class='input-group'><input type='text' id='details' class='form-control' style='width: 200%;' placeholder='Reason for exception (eg. Spring Break)'></div> <br>
+						
 						<p style='margin-bottom: 0px;'> Hours: </p>
 						<div class="btn-group">
 						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="ExceptionDiningLocDropDownButton">
@@ -117,7 +120,7 @@
 						<p style="color:grey;">Use this to add an entry (ex. If a location is now open on Saturdays, then you can add an entry for Saturday,
 						or if a location is open Monday at 2 different times of the day, then you can add another entry for Monday)</p> <br>
 						
-						<button disabled  class="btn btn-default" id="submitNormal" >Submit Changes</button>
+						<button disabled  class="btn btn-default" id="submitException" >Submit Changes</button>
 					</div>
 					
 				  </div>
@@ -199,7 +202,7 @@
 				$("#DateSelector").empty();
 				var dateSelectorText = "<div style='margin-bottom: 20px;'>"
 					+ "<p style='margin-bottom: 0px;'>Date:</p>"
-					+ "<input type='button' style='margin:2px;' length='20' readonly class='btn btn-default form_datetime_exception' value='Set Date'></div>";
+					+ "<input type='button' style='margin:2px;' length='20' id='singledate' readonly class='btn btn-default form_datetime_exception' value='Set Date'></div>";
 					
 				$("#DateSelector").append(dateSelectorText);
 				
@@ -217,6 +220,8 @@
 					});
 				});
 				
+				$("#ExceptionEntryContainer").empty();//Get rid of old data from other dining hall hours.
+				
 				single = true;
 			});
 			$("#range").on('click', function(){
@@ -228,8 +233,8 @@
 				$("#DateSelector").empty();
 				var dateSelectorText = "<div style='margin-bottom: 20px;'>"
 					+ "<p style='margin-bottom: 0px;'>Date Range:</p>"
-					+ "<input type='button' style='margin:2px; ' length='20' readonly class='btn btn-default form_datetime_exception' value='Set Start Date'>"
-					+ " to <input type='button' style='margin:2px;' length='20' readonly class='btn btn-default form_datetime_exception' value='Set End Date'></div>";
+					+ "<input type='button' style='margin:2px; ' id='startdate' length='20' readonly class='btn btn-default form_datetime_exception' value='Set Start Date'>"
+					+ " to <input type='button' style='margin:2px;' id='enddate' length='20' readonly class='btn btn-default form_datetime_exception' value='Set End Date'></div>";
 					
 				$("#DateSelector").append(dateSelectorText);
 				
@@ -347,16 +352,203 @@
 				//call php function to pull data
 				if(!single) updateExceptionValues();
 				
+				//enable the buttons
+				$("#submitException").removeAttr('disabled');
+				$("#ExceptionAddEntry").removeAttr('disabled');
+				
 				populateExceptionsTable();
 				
 			});
 			
 			//This function creates the XMLHttpRequest and adds in the many entries for each
-			//weekday the dining hall is open. It puts the current times in each slot. It also
-			//builds the table which shows all the hours from the "View Hours" button.
+			//weekday the dining hall is open. It puts the current times in each slot.
 			function updateExceptionValues(){
-				console.log("boop");
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'time_pull.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onload = function () {
+
+					var location_hours = [
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "2"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "3"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "4"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "5"},
+						{starttime: "10:00:00", endtime: "23:00:00", weekdays: "6"},
+						{starttime: "08:00:00", endtime: "23:00:00", weekdays: "7"}
+						];
+
+					$("#ExceptionEntryContainer").empty();//Get rid of old data from other dining hall hours.
+					//$("tbody").empty();
+					//$("#myModalLabel").empty().append(currentLocation);
+					//var jsonObj = $.parseJSON(this.responseText);
+					var jsonObj = location_hours;
+					for(var j = 0; j < jsonObj.length; j++){
+						
+						var day = "Select Day of the Week <span class='caret'></span>";
+						switch(jsonObj[j].weekdays){
+								case "1": 
+									day = "Monday";
+									break;
+								case "2": 
+									day = "Tuesday";
+									break;
+								case "3": 
+									day = "Wednesday";
+									break;
+								case "4": 
+									day = "Thursday";
+									break;
+								case "5": 
+									day = "Friday";
+									break;
+								case "6": 
+									day = "Saturday";
+									break;
+								case "7": 
+									day = "Sunday";
+									break;
+						}
+						
+						var open = moment(jsonObj[j].starttime.substring(0, 5), "HH:mm").format("hh:mm a");
+						var close = moment(jsonObj[j].endtime.substring(0, 5), "HH:mm").format("hh:mm a");
+						open = open.replace('am', 'AM');
+						open = open.replace('pm', 'PM');
+						close = close.replace('am', 'AM');
+						close = close.replace('pm', 'PM');
+						
+						//View Hours modal table built here
+						//var row = jsonObj[j];
+						//var text = "";
+						//text = "<tr><td>" + row.weekdays + "</td><td>" + row.location_number +
+						//"</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td></tr>";
+						//$("tbody").append(text);
+
+						//Entry Boxes built here
+						var entryHTML = "<div class='col-lg-4'>"
+						    +"<div class='panel panel-default' style='width:300px;'>"
+							+ "<div class='panel-body'>"
+							+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+							+	"Day: <div class='btn-group'>"
+							+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+							+		day
+							+	  "</button>"
+							+	  "<ul class='dropdown-menu' role='menu' >"
+							+		"<li><a>Monday</a></li>"
+							+		"<li><a>Tuesday</a></li>"
+							+		"<li><a>Wednesday</a></li>"
+							+		"<li><a>Thursday</a></li>"
+							+		"<li><a>Friday</a></li>"
+							+		"<li><a>Saturday</a></li>"
+							+		"<li><a>Sunday</a></li>"
+							+	  "</ul>"
+							+	"</div> <br>"
+							+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='"+open+"'> to <br>"
+							+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='"+close+"'>"
+							+ "</div>"
+							+"</div>"
+							+"</div>";
+							
+					
+						$("#ExceptionEntryContainer").append(entryHTML);
+						
+						$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+							format: 'HH:ii P', 
+							showMeridian: true,
+							startView: 1, 
+							autoclose: true,
+							initialDate: "01-01-2001 ",
+							maxView: 1});
+						});
+					} 
+
+				};
+				xhr.send('location=' + diningTable[currentLocation]);
 			}
+			
+			//Add a listener for the exception submission button
+			$("#submitException").on('click', function(){
+				var entries = $("#ExceptionEntryContainer").children();
+				
+				var data = [];
+				for(var i = 0; i < entries.length; i++){
+					var entry = entries[i];
+					
+					//Get the day
+					if(single){
+						var day = moment().format('dddd');
+					}else{
+						var day = entry.children[0].children[0].children[1].children[0].innerHTML;
+						switch(day){
+								case "Monday": 
+									day = "1";
+									break;
+								case "Tuesday": 
+									day = "2";
+									break;
+								case "Wednesday": 
+									day = "3";
+									break;
+								case "Thursday": 
+									day = "4";
+									break;
+								case "Friday": 
+									day = "5";
+									break;
+								case "Saturday": 
+									day = "6";
+									break;
+								case "Sunday": 
+									day = "7";
+									break;
+						} 
+					}
+					
+					//get the hours
+					if(single){
+						var opening = entry.children[0].children[0].children[1].value;
+						var closing = entry.children[0].children[0].children[3].value;
+					} else{
+						var opening = entry.children[0].children[0].children[3].value;
+						var closing = entry.children[0].children[0].children[5].value;
+					}
+					
+					//get the details
+					var reason = $("#details").val();
+					
+					//get the startdate and enddate
+					if(single){
+						var start = $("#singledate").val();
+						var end = $("#singledate").val();
+					} else{
+						var start = $("#startdate").val();
+						var end = $("#enddate").val();
+					}
+					
+					data.push({starttime: opening, endtime: closing, startdate: start, end: enddate, weekdays: day, location_number: diningTable[currentLocation], details: reason });
+					
+					
+				}
+				
+				 $.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "exceptions_update.php",
+						data: {myData: data},
+						success: function(data){
+							alert('Items added');
+						},
+						error: function(e){
+							console.log(e.message);
+						}
+				});
+				
+				//You should do this in populateExceptionsTable
+				//$("tbody").empty();//Empty this so that people don't get confused by old data in the table.
+				populateExceptionsTable();//Refresh the entries and table with the newly updated data.
+				
+			});
 			
 			function populateExceptionsTable(){
 				//Aiden populates the exceptions here
