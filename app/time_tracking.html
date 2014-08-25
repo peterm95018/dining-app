@@ -57,8 +57,9 @@
 					  <ul class="dropdown-menu" role="menu" id="DiningLocDropDown">
 						<!--<li><a href="#">Action</a></li>-->
 					  </ul>
-					  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">View Hours</button>
-					</div>
+				    </div>
+				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-left:20px;">View Hours</button>
+				
 
 					<br><br>
 					
@@ -75,7 +76,51 @@
 					
 				  </div>
 				  <div class="tab-pane" style="padding-top:10px;" id="exception">
-				  'Allo Guvnor
+					<div class="tab-pane active" style="padding-top:10px;" id="normal">
+					
+					<p style="color:grey;">Use this tab to add dates for abnormal dining hours. For example, a dining location may be open 10 am to 7 pm during 
+					normal school hours, but during Summer Break, it may have limited hours. Using this tab, you can specify those dates and hours. </p>
+					<div class="btn-group" style="margin-bottom: 20px;">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="SingleOrRangeButton">
+							Would you like to add an exception for a single date or a range of dates? <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a id='single'>Add Exception for a Single Date</a></li>
+							<li><a id='range'>Add Exception for a Range of Dates</a></li>
+						</ul>
+					</div> <br>
+					
+					<div id='ExceptionGroup' hidden>
+						
+						<div id="DateSelector"></div>
+						
+						<p style='margin-bottom: 0px;'> Hours: </p>
+						<div class="btn-group">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="ExceptionDiningLocDropDownButton">
+							Select Dining Location <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu" id="ExceptionDiningLocDropDown">
+							<!--<li><a href="#">Action</a></li>-->
+						  </ul>
+						</div>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-left:20px;">View Hours</button>
+					
+
+						<br><br>
+						
+						<div class="row" id="ExceptionEntryContainer"></div>
+						
+						
+						
+						
+						<button  class="btn btn-default" id="ExceptionAddEntry" >+ Add Entry</button> <br>
+						<p style="color:grey;">Use this to add an entry (ex. If a location is now open on Saturdays, then you can add an entry for Saturday,
+						or if a location is open Monday at 2 different times of the day, then you can add another entry for Monday)</p> <br>
+						
+						<button disabled  class="btn btn-default" id="submitNormal" >Submit Changes</button>
+					</div>
+					
+				  </div>
 				  </div>
 				</div>
 
@@ -126,15 +171,6 @@
         <!--Insert js here-->
         <script>
 			
-			// Delete cache
-			window.onload = function() {
-				if(!window.location.hash) {
-					window.location = window.location + '#loaded';
-					window.location.reload();
-				}
-			}
-			$.ajax({ cache: false });
-			
 			//Create a hash table for each dining location: diningTable[location] = locationNum
 			var diningTable = {};
 			
@@ -146,6 +182,196 @@
 			
 			//Location Numbers that we don't know about
 			diningTable["Crown/Merrill Dining Hall"] = "-01";
+			
+			/*
+			* Exception listeners
+			*/
+			
+			var single;
+			
+			//first select whether it's a single date or a range of dates
+			$("#single").on('click', function(){
+				$("#SingleOrRangeButton").text($(this).text());
+				$("#SingleOrRangeButton").val($(this).text());
+				
+				$("#ExceptionGroup").removeAttr("hidden", "hidden");
+				
+				$("#DateSelector").empty();
+				var dateSelectorText = "<div style='margin-bottom: 20px;'>"
+					+ "<p style='margin-bottom: 0px;'>Date:</p>"
+					+ "<input type='button' style='margin:2px;' length='20' readonly class='btn btn-default form_datetime_exception' value='Set Date'></div>";
+					
+				$("#DateSelector").append(dateSelectorText);
+				
+				$(document).ready(function(){
+					$('.form_datetime_exception').datetimepicker({
+					format: 'mm/dd/yyyy', 
+					startView: 3, 
+					autoclose: true,
+					minView: 2,
+					maxView: 3,
+					todayBtn: true,
+					todayHighlight: true,
+					initialDate: new Date(),
+					startDate: new Date()
+					});
+				});
+				
+				single = true;
+			});
+			$("#range").on('click', function(){
+				$("#SingleOrRangeButton").text($(this).text());
+				$("#SingleOrRangeButton").val($(this).text());
+				
+				$("#ExceptionGroup").removeAttr("hidden", "hidden");
+				
+				$("#DateSelector").empty();
+				var dateSelectorText = "<div style='margin-bottom: 20px;'>"
+					+ "<p style='margin-bottom: 0px;'>Date Range:</p>"
+					+ "<input type='button' style='margin:2px; ' length='20' readonly class='btn btn-default form_datetime_exception' value='Set Start Date'>"
+					+ " to <input type='button' style='margin:2px;' length='20' readonly class='btn btn-default form_datetime_exception' value='Set End Date'></div>";
+					
+				$("#DateSelector").append(dateSelectorText);
+				
+				$(document).ready(function(){
+					$('.form_datetime_exception').datetimepicker({
+					format: 'mm/dd/yyyy', 
+					startView: 3, 
+					autoclose: true,
+					minView: 2,
+					maxView: 3,
+					todayBtn: true,
+					todayHighlight: true,
+					initialDate: new Date(),
+					startDate: new Date()
+					});
+				});
+				
+				single = false;
+				
+				if($("#ExceptionDiningLocDropDownButton").text().indexOf("Select") === -1) updateExceptionValues();
+			});
+			
+			//Next, populate the Exception drop down with the hash table keys
+			for(var key in diningTable){
+				var locHTML = "<li>";
+						locHTML += "<a>"+ key +"</a>";
+					locHTML += "</li>";
+					
+					$("#ExceptionDiningLocDropDown").append(locHTML);
+			}
+			
+			var currentExceptionLocation; //global variable for the selected location for the exceptions
+			
+			//Click listener for dropdown menus
+			$("#ExceptionEntryContainer").on('click', 'div div div ul li a', function(){
+				var entry = $(this).text();
+				
+				var button = $(this).parent().parent().parent().find('button.btn');
+				
+				
+				button.val(entry);
+				button.text(entry);
+			});
+			
+			//Close listener
+			$("#ExceptionEntryContainer").on('click', 'div div button.close', function(){
+				var parentPanel = $(this).parent().parent().parent();
+				
+				if(confirm("Are you sure you want to delete this entry?")){
+					parentPanel.remove();
+				} else{
+					return;
+				}
+				
+				
+			});
+			
+			//Click Listener for adding entries
+			$("#ExceptionAddEntry").on('click', function(){
+				
+				var dropdown = "<br>";
+				
+				if(!single){
+					dropdown = "Day: <div class='btn-group'>"
+						+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+						+		"Select Day of the Week <span class='caret'></span>"
+						+	  "</button>"
+						+	  "<ul class='dropdown-menu' role='menu' >"
+						+		"<li><a>Monday</a></li>"
+						+		"<li><a>Tuesday</a></li>"
+						+		"<li><a>Wednesday</a></li>"
+						+		"<li><a>Thursday</a></li>"
+						+		"<li><a>Friday</a></li>"
+						+		"<li><a>Saturday</a></li>"
+						+		"<li><a>Sunday</a></li>"
+						+	  "</ul>"
+						+	"</div> <br>";
+				}
+				
+				var entryHTML = "<div class='col-lg-4'>"
+						+ "<div class='panel panel-default' style='width:300px;'>"
+						+ "<div class='panel-body'>"
+						+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+						+	dropdown
+						+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='Set Open Time'> to <br>"
+						+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='Set Close Time'>"
+						+"</div>"
+					+ "</div>"
+					+"</div>";
+					
+					$("#ExceptionEntryContainer").append(entryHTML);
+					
+					$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+						format: 'HH:ii P', 
+						showMeridian: true,
+						startView: 1, 
+						autoclose: true,
+						initialDate: "01-01-2001 ",
+						maxView: 1});
+					});
+					
+		
+			});
+			
+			//Now a click listener for the exception dropdown
+			$("#ExceptionDiningLocDropDown").on( 'click', 'li a', function(){
+				//First set the dropdown button text to the text of the selected location
+				$("#ExceptionDiningLocDropDownButton").text( $(this).text() );
+				$("#ExceptionDiningLocDropDownButton").val( $(this).text() );
+				
+				//change global current location
+				currentExceptionLocation = $(this).text();
+				
+				//call php function to pull data
+				if(!single) updateExceptionValues();
+				
+				populateExceptionsTable();
+				
+			});
+			
+			//This function creates the XMLHttpRequest and adds in the many entries for each
+			//weekday the dining hall is open. It puts the current times in each slot. It also
+			//builds the table which shows all the hours from the "View Hours" button.
+			function updateExceptionValues(){
+				console.log("boop");
+			}
+			
+			function populateExceptionsTable(){
+				//Aiden populates the exceptions here
+			}
+			
+			// Delete cache
+			window.onload = function() {
+				if(!window.location.hash) {
+					window.location = window.location + '#loaded';
+					window.location.reload();
+				}
+			}
+			$.ajax({ cache: false });
+			
+			
 			
 			//Next, populate the drop down with the hash table keys
 			for(var key in diningTable){
