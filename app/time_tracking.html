@@ -346,6 +346,7 @@
 				
 				//call php function to pull data
 				if(!single) updateExceptionValues();
+				else $("#ExceptionAddEntry").trigger('click');
 				
 				//enable the buttons
 				$("#submitException").removeAttr('disabled');
@@ -359,7 +360,7 @@
 			//weekday the dining hall is open. It puts the current times in each slot.
 			function updateExceptionValues(){
 				var xhr = new XMLHttpRequest();
-				xhr.open('POST', 'exceptions_pull.php', true);
+				xhr.open('POST', 'time_pull.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onload = function () {
 
@@ -548,22 +549,11 @@
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onload = function () {
 
-					var location_hours = [
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1", startdate: "08/28/14", enddate: "08/31/14", details: "Some deets here."},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "2", startdate: "09/02/14", enddate: "09/10/14", details: "Lolololz?"},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "3", startdate: "09/11/14", enddate: "09/13/14", details: "(530) 210-0457"},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "4", startdate: "09/15/14", enddate: "09/23/14", details: "I <3 details."},
-						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "5", startdate: "09/24/14", enddate: "09/25/14", details: ")()()()()()()("},
-						{starttime: "10:00:00", endtime: "23:00:00", weekdays: "6", startdate: "09/26/14", enddate: "09/26/14", details: "Only a single date here."},
-						{starttime: "08:00:00", endtime: "23:00:00", weekdays: "7", startdate: "09/27/14", enddate: "09/30/14", details: "v^v^v^v^v"}
-						];
-
-					$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
+					//$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
 					$("#emptymessage").empty();
 					$("tbody").empty();
 					$("#myModalLabel").empty().append(currentExceptionLocation);
 					var jsonObj = $.parseJSON(this.responseText);
-					//var jsonObj = location_hours;
 
 					//Create the table header for View Hours button
 					$("thead tr").html(
@@ -616,45 +606,7 @@
 						text = "<tr><td>" + daysofweek[row.weekdays - 1] + "</td><td>" + row.startdate + "</td><td>" + row.enddate + "</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td><td>" + row.details + "</td></tr>";
 						$("tbody").append(text);
 
-						//Entry Boxes built here
-						var entryHTML = "<div class='col-lg-4'>"
-						    +"<div class='panel panel-default' style='width:300px;'>"
-							+ "<div class='panel-body'>"
-							+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
-							+	"Day: <div class='btn-group'>"
-							+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
-							+		day
-							+	  "</button>"
-							+	  "<ul class='dropdown-menu' role='menu' >"
-							+		"<li><a>Monday</a></li>"
-							+		"<li><a>Tuesday</a></li>"
-							+		"<li><a>Wednesday</a></li>"
-							+		"<li><a>Thursday</a></li>"
-							+		"<li><a>Friday</a></li>"
-							+		"<li><a>Saturday</a></li>"
-							+		"<li><a>Sunday</a></li>"
-							+	  "</ul>"
-							+	"</div> <br>"
-							+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='"+open+"'> to <br>"
-							+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='"+close+"'>"
-							+ "</div>"
-							+"</div>"
-							+"</div>";
-							
-					
-						$("#EntryContainer").append(entryHTML);
-						
-						$(document).ready(function(){
-						$('.form_datetime').datetimepicker({
-							format: 'HH:ii P', 
-							showMeridian: true,
-							startView: 1, 
-							autoclose: true,
-							initialDate: "01-01-2001 ",
-							maxView: 1});
-						});
-					} 
-
+					}
 				};
 				xhr.send('location=' + diningTable[currentExceptionLocation]);
 			}
@@ -946,7 +898,6 @@
 
 				$("tbody").empty();//Empty this so that people don't get confused by old data in the table.
 				updateValues();//Refresh the entries and table with the newly updated data.
-				
 			});
         </script>
     
