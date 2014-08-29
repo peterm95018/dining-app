@@ -326,15 +326,28 @@
 		  <div class="modal fade" id="myModalMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabelMenu" aria-hidden="true">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		        <div class="modal-header">
+		        <!--<div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		          <h4 class="modal-title" id="myModalLabelMenu">Menu  </h4>
-		        </div>
+		        </div>-->
 		        <div id="modal-body-menu" class="modal-body">
-			
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<!-- Nav tabs -->
+					<ul id="myTabs" class="nav nav-tabs" role="tablist">
+					  <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+					  <li id="lunchTab"><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
+					  <li id="dinnerTab"><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					</ul>
+					
+					<!--Tabbed content-->
+					<div class="tab-content">
+					  <div class="tab-pane active" style="padding-top:10px;" id="breakfast"></div>
+					  <div class="tab-pane" style="padding-top:10px;" id="lunch"></div>
+					  <div class="tab-pane" style="padding-top:10px;" id="dinner"></div>
+					</div>
 		        </div>
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		        <div class="modal-footer" style="margin-top:0px;">
+		          <button type="button"  class="btn btn-primary" data-dismiss="modal">Close</button>
 		        </div>
 		      </div><!-- /.modal-content -->
 		    </div><!-- /.modal-dialog -->
@@ -354,7 +367,7 @@
 		$('.btn').click(function(e) {
 			//e.preventDefault();
 		   var locationName = $(this).attr('data-locationName');
-		   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
+		   var tempBtnType = $(this).attr('data-target').toString(); // returns #myModalInfo or #myModalMenu
 		   var btnType = tempBtnType.substring(1); // strip off the #
 		   console.log(btnType);
 		   console.log(locationName);
@@ -374,6 +387,10 @@
 		});
 
 		///// function def's //////
+		
+
+		
+		
 
 		function myModalInfo(locationName) {
 		       $.getJSON("../data/location_hours.json", function(data) {
@@ -407,37 +424,165 @@
 		}
 		
 		function myModalMenu(locationName) {
-		      $.getJSON("../data/menu_examples.json", function(data) {
-		  		// setters
-		  		var tempMenu = '';
-		  		var menu_items = '';
-		  		var menu_items = '<ul>';
-		        // assign partial JSON to local variable
-				var tempMenu = data[locationName];
-				//console.log(tempMenu);
-      
-			 // loop over the JSON data and recurse if we've got nested data. output values
-		      $.each(tempMenu, recurse);
-			  // recurse through the data as needed 
-		      function recurse(key, val) {
-		          menu_items += "<li>"; 
-		          if (val instanceof Object) {
-		              menu_items += key + "<ul>";
-		              $.each(val, recurse);
-		              menu_items += "</ul>";
-		          } else {
-		              //menu_items += "<a href='" + val + "'>" + key + "</a>";
-		                menu_items += val;
-		          }
-		          menu_items += "</li>";
-		      }
-			 menu_items += "</ul>"; // close the list
-	 
-			 // we use the empty() to make sure we don't get duplicate data
-			 $('#modal-body-menu').empty().append(menu_items);
-			 $('#myModalLabelMenu.modal-title').empty().append(locationName);
-		 });
-		}
+			
+			//We have to empty the previous info
+			$("#breakfast").empty();
+			$("#lunch").empty();
+			$("#dinner").empty();
+			
+			var location_num = "0";
+			switch(locationName){
+				case "Banana Joe's Café":
+					location_num = "30"; //fill out correct location_num later
+					return;
+					break;
+				case "Oakes Café":
+					location_num = "40"; //fill out correct location_num later
+					return;
+					break;
+				case "Owl's Nest Restaurant": //fill out correct location_num later
+					location_num = "05";
+					return;
+					break;
+				case "Terra Fresca Restaurant": //fill out correct location_num later
+					location_num = "25";
+					return;
+					break;
+			}
+			
+			
+			if(location_num === "0"){
+				 $.getJSON("../data/menu_examples.json", function(data) {
+					var loc = data[locationName];
+					
+					if(loc["Breakfast"] !== undefined){
+						var breakfastHTML = "";
+						for(var a = 0; a < loc["Breakfast"].length; a++){
+							breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
+						}
+					}
+					if( loc["Lunch"] !== undefined) {
+						var lunchHTML = "";
+						for(var b = 0; b < loc["Lunch"].length; b++){
+							lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
+						}
+					}
+					if( loc["Dinner"] !== undefined){
+						var dinnerHTML = "";
+						for(var c = 0; c < loc["Dinner"].length; c++){
+							dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
+						}		
+					}
+					
+					$("#breakfast").append(breakfastHTML);
+					$("#lunch").append(lunchHTML);
+					$("#dinner").append(dinnerHTML);
+
+				 });
+			 } else {
+			 
+				// XMLHttpRequest lets us send variables in the URL to the PHP
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'menu.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
+				xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
+					var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
+					onPHPLoad(jsonObj);//Do the parsing and placing of the JSON here.
+				};
+
+				var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
+				xhr.send('serve_date=' +today+ '&location_num=' + location_num);//Send the data over the URL
+				
+				//This is a big function that parses the JSON holding the menu items.
+				//It's only called from the xhr.onload listener. It puts items in the 3 menu modal tabs.
+				//It also checks if you're using an old android and will do plaintext if so.
+				function onPHPLoad(jsonData){			
+
+					//This part creates the outer collapse accordion div
+					//We append stuff to it in the for loop
+					$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
+					$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
+					$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
+
+					var androidversion = parseInt(getAndroidVersion());
+					//Now we can start appending the javascript data from myData into the right tabs
+					for(var j = 0; j < jsonData.length; j++){
+						var row = jsonData[j];
+						//One more sort to determine which meal goes where
+						var time = "";
+						switch(row.Meal_Number){
+							case "1": time = "breakfast";
+									   break;
+							case "2": time = "lunch";
+									   break;
+							case "3": time = "dinner";
+									   break;
+						}
+						var menu_item = "";
+						
+						if(androidversion < 3){//Use plain text if it's an older Android. No accordion.
+							menu_item  = "<p style='font-size:14px;padding-left:7px;'>";
+							menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
+							menu_item = menu_item + "</p>";
+						}
+						//Create a blank collapsable element (lots of divs)
+						else{
+							menu_item = '<div class="panel panel-success">' +
+									'<div class="panel-heading">' +
+										'<p class="panel-title">' +
+											'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
+												row.Recipe_Print_As_Name + //Item title
+											'</a>' +
+										'</p>' +
+									'</div>' +
+									'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
+										'<div class="panel-body">' + //This is where the content gets appended
+										'</div>' +
+									'</div>' +
+								'</div>';
+						}
+						//Push the items into the appropriate accordion
+						//Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
+						$("#"+time+"accordion").append(menu_item);
+
+						//Check if allergens/codes are blank, print only if non-blank.
+						if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append("Allergens: "+ row.Allergens.trim()+"<br>");}
+						else{$("#"+time+" .panel-body:last").append("No Allergens<br>");}
+
+						if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
+
+					}//End FOR loop		
+					
+
+				
+				}
+			}
+			
+			var currentTime = (new Date()).getHours();
+			$("#breakfastTab").removeClass("active");
+			$("#lunchTab").removeClass("active");
+			$("#dinnerTab").removeClass("active");
+			$("#breakfast").removeClass("active");
+			$("#lunch").removeClass("active");
+			$("#dinner").removeClass("active");
+			
+			if(currentTime < 11){
+				$("#breakfastTab").addClass("active");
+				$("#breakfast").addClass("active");
+				$("#breakfastTab a").tab('show');
+			}
+			if(currentTime > 10 && currentTime < 17){
+				$("#lunchTab").addClass("active");
+				$("#lunch").addClass("active");
+				$("#lunchTab a").tab('show');
+			}
+			if(currentTime > 16){
+				$("#dinnerTab").addClass("active");
+				$("#dinner").addClass("active");
+				$("#dinnerTab a").tab('show');
+			}
+		}//End function
+
 		
 		</script>
 

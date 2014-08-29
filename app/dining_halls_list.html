@@ -264,7 +264,7 @@
 		$('.btn').click(function(e) {
 			//e.preventDefault();
 		   var locationName = $(this).attr('data-locationName');
-		   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
+		   var tempBtnType = $(this).attr('data-target').toString(); // returns #myModalInfo or #myModalMenu
 		   var btnType = tempBtnType.substring(1); // strip off the #
 		   console.log(btnType);
 		   console.log(locationName);
