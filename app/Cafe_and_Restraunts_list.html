@@ -453,10 +453,9 @@
 			
 			if(location_num === "0"){
 				 $.getJSON("../data/menu_examples.json", function(data) {
-					var loc = data[locationName];
-					console.log("stringy: " + JSON.stringify(loc));
+					var loc = data[locationName];				
+					var breakfastHTML = "";
 					if(loc["Breakfast"] !== undefined){
-						var breakfastHTML = "";
 						for(var a = 0; a < loc["Breakfast"].length; a++){
 							breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
 						}
@@ -465,9 +464,9 @@
 					else{
 						$("#breakfastTab").attr('class', 'hidden');
 					}
-
+					
+					var lunchHTML = "";
 					if( loc["Lunch"] !== undefined) {
-						var lunchHTML = "";
 						for(var b = 0; b < loc["Lunch"].length; b++){
 							lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
 						}
@@ -477,8 +476,8 @@
 						$("#lunchTab").attr('class', 'hidden');
 					}
 
+					var dinnerHTML = "";
 					if( loc["Dinner"] !== undefined){
-						var dinnerHTML = "";
 						for(var c = 0; c < loc["Dinner"].length; c++){
 							dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
 						}	
@@ -491,6 +490,10 @@
 					$("#breakfast").append(breakfastHTML);
 					$("#lunch").append(lunchHTML);
 					$("#dinner").append(dinnerHTML);
+					
+					if(breakfastHTML === "") $("#breakfastTab").attr("hidden", "hidden");
+					if(lunchHTML === "") $("#lunchTab").attr("hidden", "hidden");
+					if(dinnerHTML === "") $("#dinnerTab").attr("hidden", "hidden");
 
 				 });
 			 } else {
