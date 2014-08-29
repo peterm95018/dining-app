@@ -454,24 +454,38 @@
 			if(location_num === "0"){
 				 $.getJSON("../data/menu_examples.json", function(data) {
 					var loc = data[locationName];
-					
+					console.log("stringy: " + JSON.stringify(loc));
 					if(loc["Breakfast"] !== undefined){
 						var breakfastHTML = "";
 						for(var a = 0; a < loc["Breakfast"].length; a++){
 							breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
 						}
+						$("#breakfastTab").removeClass('hidden');
 					}
+					else{
+						$("#breakfastTab").attr('class', 'hidden');
+					}
+
 					if( loc["Lunch"] !== undefined) {
 						var lunchHTML = "";
 						for(var b = 0; b < loc["Lunch"].length; b++){
 							lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
 						}
+						$("#lunchTab").removeClass('hidden');
 					}
+					else{
+						$("#lunchTab").attr('class', 'hidden');
+					}
+
 					if( loc["Dinner"] !== undefined){
 						var dinnerHTML = "";
 						for(var c = 0; c < loc["Dinner"].length; c++){
 							dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
-						}		
+						}	
+						$("#dinnerTab").removeClass('hidden');	
+					}
+					else{
+						$("#dinnerTab").attr('class', 'hidden');
 					}
 					
 					$("#breakfast").append(breakfastHTML);
