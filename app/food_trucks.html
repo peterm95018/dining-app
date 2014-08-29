@@ -83,7 +83,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=37.0007&lng=-122.06235&title=Cruz N Gourmet" data-locationName="Cruz N Gourmet">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Cruz N Gourmet">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Cruz N Gourmet">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Cruz N Gourmet">Hours <span class="glyphicon glyphicon-time"></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -103,7 +103,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99916&lng=-122.06204&title=Raymond's Catering" data-locationName="Raymond's Catering">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Raymond's Catering">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Raymond's Catering">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Raymond's Catering">Hours <span class="glyphicon glyphicon-time"></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -123,7 +123,7 @@
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99359&lng=-122.06054&title=Zameen Mediterranean Cuisine" data-locationName="Zameen Mediterranean Cuisine">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Zameen Mediterranean Cuisine">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>				   
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Zameen Mediterranean Cuisine">Info <span class="glyphicon glyphicon-info-sign"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Zameen Mediterranean Cuisine">Hours <span class="glyphicon glyphicon-time"></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -173,12 +173,25 @@
 		  <div class="modal fade" id="myModalMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabelMenu" aria-hidden="true">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		        <div class="modal-header">
+		        <!--<div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		          <h4 class="modal-title" id="myModalLabelMenu">Menu  </h4>
-		        </div>
+		        </div>-->
 		        <div id="modal-body-menu" class="modal-body">
-			
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<!-- Nav tabs -->
+					<ul id="myTabs" class="nav nav-tabs" role="tablist">
+					  <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
+					  <li id="lunchTab"><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
+					  <li id="dinnerTab"><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					</ul>
+					
+					<!--Tabbed content-->
+					<div class="tab-content">
+					  <div class="tab-pane active" style="padding-top:10px;" id="breakfast"></div>
+					  <div class="tab-pane" style="padding-top:10px;" id="lunch"></div>
+					  <div class="tab-pane" style="padding-top:10px;" id="dinner"></div>
+					</div>
 		        </div>
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -201,7 +214,7 @@
 		$('.btn').click(function(e) {
 			//e.preventDefault();
 		   var locationName = $(this).attr('data-locationName');
-		   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
+		   var tempBtnType = $(this).attr('data-target').toString(); // returns #myModalInfo or #myModalMenu
 		   var btnType = tempBtnType.substring(1); // strip off the #
 		   console.log(btnType);
 		   console.log(locationName);
@@ -254,36 +267,68 @@
 		}
 		
 		function myModalMenu(locationName) {
-		      $.getJSON("data/menu_examples.json", function(data) {
-		  		// setters
-		  		var tempMenu = '';
-		  		var menu_items = '';
-		  		var menu_items = '<ul>';
-		        // assign partial JSON to local variable
-				var tempMenu = data[locationName];
-				//console.log(tempMenu);
-      
-			 // loop over the JSON data and recurse if we've got nested data. output values
-		      $.each(tempMenu, recurse);
-			  // recurse through the data as needed 
-		      function recurse(key, val) {
-		          menu_items += "<li>"; 
-		          if (val instanceof Object) {
-		              menu_items += key + "<ul>";
-		              $.each(val, recurse);
-		              menu_items += "</ul>";
-		          } else {
-		              //menu_items += "<a href='" + val + "'>" + key + "</a>";
-		                menu_items += val;
-		          }
-		          menu_items += "</li>";
-		      }
-			 menu_items += "</ul>"; // close the list
-	 
-			 // we use the empty() to make sure we don't get duplicate data
-			 $('#modal-body-menu').empty().append(menu_items);
-			 $('#myModalLabelMenu.modal-title').empty().append(locationName);
-		 });
+			
+			//We have to empty the previous info
+			$("#breakfast").empty();
+			$("#lunch").empty();
+			$("#dinner").empty();
+			
+			
+		   $.getJSON("../data/menu_examples.json", function(data) {
+				var loc = data[locationName];
+				
+				var breakfastHTML = "";
+				if(loc["Breakfast"] !== undefined){
+					for(var a = 0; a < loc["Breakfast"].length; a++){
+						breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
+					}
+				}
+				var lunchHTML = "";
+				if( loc["Lunch"] !== undefined) {
+					for(var b = 0; b < loc["Lunch"].length; b++){
+						lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
+					}
+				}
+				var dinnerHTML = "";
+				if( loc["Dinner"] !== undefined){
+					for(var c = 0; c < loc["Dinner"].length; c++){
+						dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
+					}		
+				}
+				
+				$("#breakfast").append(breakfastHTML);
+				$("#lunch").append(lunchHTML);
+				$("#dinner").append(dinnerHTML);
+				
+				if(breakfastHTML === "") $("#breakfastTab").attr("hidden", "hidden");
+				if(lunchHTML === "") $("#lunchTab").attr("hidden", "hidden");
+				if(dinnerHTML === "") $("#dinnerTab").attr("hidden", "hidden");
+
+			 });
+			 
+			 var currentTime = (new Date()).getHours();
+			$("#breakfastTab").removeClass("active");
+			$("#lunchTab").removeClass("active");
+			$("#dinnerTab").removeClass("active");
+			$("#breakfast").removeClass("active");
+			$("#lunch").removeClass("active");
+			$("#dinner").removeClass("active");
+			
+			if(currentTime < 11){
+				$("#breakfastTab").addClass("active");
+				$("#breakfast").addClass("active");
+				$("#breakfastTab a").tab('show');
+			}
+			if(currentTime > 10 && currentTime < 17){
+				$("#lunchTab").addClass("active");
+				$("#lunch").addClass("active");
+				$("#lunchTab a").tab('show');
+			}
+			if(currentTime > 16){
+				$("#dinnerTab").addClass("active");
+				$("#dinner").addClass("active");
+				$("#dinnerTab a").tab('show');
+			}
 		}
 		
 		</script>
