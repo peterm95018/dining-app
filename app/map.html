@@ -158,7 +158,7 @@ window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) 
   params[key] = value;
 });
 
-var map = L.mapbox.map('map', 'peterm95018.ia5knpbj').setView([params.lat,params.lng], params.zoom);
+var map = L.mapbox.map('map', 'peterm95018.ia5knpbj', {infoControl: true, attributionControl: false}).setView([params.lat,params.lng], params.zoom);
 
 var hash = new L.Hash(map); // leaflet hash plugin
 L.control.locate().addTo(map); // leaflet locate control plugin
