@@ -326,12 +326,13 @@
 		  <div class="modal fade" id="myModalMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabelMenu" aria-hidden="true">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		        <!--<div class="modal-header">
+
+		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		          <h4 class="modal-title" id="myModalLabelMenu">Menu  </h4>
-		        </div>-->
+		          <h4 class="modal-title" id="myModalLabelMenu">Menu</h4>
+		        </div>
+
 		        <div id="modal-body-menu" class="modal-body">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<!-- Nav tabs -->
 					<ul id="myTabs" class="nav nav-tabs" role="tablist">
 					  <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
@@ -430,6 +431,8 @@
 			$("#lunch").empty();
 			$("#dinner").empty();
 			
+			$('#myModalLabelMenu').text(locationName); //Put the title on the modal
+
 			var location_num = "0";
 			switch(locationName){
 				case "Banana Joe's Café":
