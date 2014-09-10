@@ -156,11 +156,11 @@
 	        <div class="col-lg-5 col-md-5">
 	          <h3>Global Village Café</h3>
 	          <h4>Café</h4>
-	          <p>The Global Village Café is located inside the McHenry Library. The café Green Business Logooffers a menu that includes coffee/espresso drinks, soups, salads, sandwiches and desserts with an emphasis on fresh and healthy ingredients provided by our local farmers.</p>
+	          <p>The Global Village Café is located inside the McHenry Library. The café Green Business Logo offers a menu that includes coffee/espresso drinks, soups, salads, sandwiches and desserts with an emphasis on fresh and healthy ingredients provided by our local farmers.</p>
 			  <div id="" class="btn-group-md">
 		          <a class="btn btn-primary" href="map.html?zoom=17&lat=36.99541&lng=-122.05928&title=Global Village Café" data-locationName="Global Village Café">Map <span class="glyphicon glyphicon-map-marker"></span></a>
 				  <a class="btn btn-info" role="dialog" href="#" data-toggle="modal" data-target="#myModalMenu" data-locationName="Global Village Café">Menu <span class="glyphicon glyphicon-chevron-right"></span></a>
-				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Global Village Café">hours <span class="glyphicon glyphicon-time"></span></a>
+				  <a class="btn btn-success" role="dialog" href="#" data-toggle="modal" data-target="#myModalInfo" data-locationName="Global Village Café">Hours <span class="glyphicon glyphicon-time"></span></a>
 			  </div>
 	        </div>
 	      </div>
@@ -394,7 +394,7 @@
 		
 
 		function myModalInfo(locationName) {
-		       $.getJSON("../data/location_hours.json", function(data) {
+		       $.getJSON("data/location_hours.json", function(data) {
 				   var items = '';
 				   var tempLocationName = '';
 		   		var ourTableHead = '<table class=\'table table-striped\'><tr><th>Meal</th><th>Time</th><th>Day</th></tr>';
@@ -455,7 +455,7 @@
 			
 			
 			if(location_num === "0"){
-				 $.getJSON("../data/menu_examples.json", function(data) {
+				 $.getJSON("data/menu_examples.json", function(data) {
 					var loc = data[locationName];				
 					var breakfastHTML = "";
 					if(loc["Breakfast"] !== undefined){

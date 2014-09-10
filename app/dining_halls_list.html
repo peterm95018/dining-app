@@ -399,6 +399,11 @@
 			xhr.open('POST', 'menu.php', true);
 			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
 			xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
+				console.log("Response text = " + this.responseText );
+				if(this.responseText == undefined){
+					console.log("Food database for " + locationName + " is empty.");
+					return false;
+				}
 				var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
 				onPHPLoad(jsonObj);//Do the parsing and placing of the JSON here.
 			};

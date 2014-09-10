@@ -3,22 +3,22 @@
    ini_set('error_reporting', E_ALL);
    $serverName = "ches-prod-sql-1.ucsc.edu";
    $database = "FoodPro";
-         $port = 1443;
+   $port = 1443;
 
    // Get UID and PWD from application-specific files.
-   // $uid = file_get_contents("C:\AppData\uid.txt");
-   // $pwd = file_get_contents("C:\AppData\pwd.txt");
+   $uid = file_get_contents('/home/admin/foodpro_login/uid.txt');
+   $pwd = file_get_contents('/home/admin/foodpro_login/pwd.txt');
 
-   $uid = 'FoodProEpicure';
-   $pwd = 'F00dPr0*2';
+   $uid = trim($uid);  //'FoodProEpicure';
+   $pwd = trim($pwd);  //'F00dPr0*2';
    
    //Get location_number and serve_date
    $serve_date = $_POST['serve_date'];
    $location_number = $_POST['location_num'];
 
    try {
-     // $conn = new PDO( "sqlsrv:server=$serverName,$port;Database = $database", $uid, $pwd);
-       $conn = new PDO( "dblib:host=$serverName;dbname=$database", $uid, $pwd);
+      // $conn = new PDO( "sqlsrv:server=$serverName,$port;Database = $database", $uid, $pwd);
+      $conn = new PDO( "dblib:host=$serverName;dbname=$database", $uid, $pwd);
       $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
    }
 
@@ -39,7 +39,7 @@
     //  print_r( $row );
     $rows[] = $row;
    }
-   print json_encode($rows);
+   if( !empty($rows) ){ print json_encode($rows); } //Only print if the JSON isn't blank.
 
    // Free statement and connection resources.
    $stmt = null;
