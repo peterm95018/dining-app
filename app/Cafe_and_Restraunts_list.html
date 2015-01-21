@@ -334,17 +334,17 @@
 
 		        <div id="modal-body-menu" class="modal-body">
 					<!-- Nav tabs -->
-					<ul id="myTabs" class="nav nav-tabs" role="tablist">
-					  <li class="active" id="breakfastTab"><a style="outline:0" href="#breakfast" role="tab" data-toggle="tab">Breakfast</a></li>
-					  <li id="lunchTab"><a style="outline:0" href="#lunch" role="tab" data-toggle="tab">Lunch</a></li>
-					  <li id="dinnerTab"><a style="outline:0" href="#dinner" role="tab" data-toggle="tab">Dinner</a></li> 
+					<ul id='myTabs' class='nav nav-tabs' role='tablist'>
+					  <li class='active' id='breakfastTab'><a style='outline:0' href='#breakfast' role='tab' data-toggle='tab'>Breakfast</a></li>
+					  <li id='lunchTab'><a style='outline:0' href='#lunch' role='tab' data-toggle='tab'>Lunch</a></li>
+					  <li id='dinnerTab'><a style='outline:0' href='#dinner' role='tab' data-toggle='tab'>Dinner</a></li> 
 					</ul>
 					
 					<!--Tabbed content-->
-					<div class="tab-content">
-					  <div class="tab-pane active" style="padding-top:10px;" id="breakfast"></div>
-					  <div class="tab-pane" style="padding-top:10px;" id="lunch"></div>
-					  <div class="tab-pane" style="padding-top:10px;" id="dinner"></div>
+					<div class='tab-content' id='myTabContent'>
+					  <div class='tab-pane active' style='padding-top:10px;' id='breakfast'></div>
+					  <div class='tab-pane' style='padding-top:10px;' id='lunch'></div>
+					  <div class='tab-pane' style='padding-top:10px;' id='dinner'></div>
 					</div>
 		        </div>
 		        <div class="modal-footer" style="margin-top:0px;">
@@ -437,69 +437,69 @@
 			switch(locationName){
 				case "Banana Joe's Café":
 					location_num = "30"; //fill out correct location_num later
-					return;
 					break;
 				case "Oakes Café":
 					location_num = "40"; //fill out correct location_num later
-					return;
 					break;
 				case "Owl's Nest Restaurant": //fill out correct location_num later
 					location_num = "05";
-					return;
 					break;
 				case "Terra Fresca Restaurant": //fill out correct location_num later
 					location_num = "25";
-					return;
 					break;
 			}
 			
 			
 			if(location_num === "0"){
+				//First empty tabs
+				$("#myTabs").empty();
+				$("#myTabContent").empty();
+				
+				 //Not all categories in static menus are 'breakfast', 'lunch', and 'dinner'
 				 $.getJSON("data/menu_examples.json", function(data) {
-					var loc = data[locationName];				
-					var breakfastHTML = "";
-					if(loc["Breakfast"] !== undefined){
-						for(var a = 0; a < loc["Breakfast"].length; a++){
-							breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
+					var loc = data[locationName];		
+					
+					var category;
+					var i = 0;
+					//loop through each category in loc
+					for(category in loc){
+						//create a spaceless category name
+						var noSpaceCat = category.replace(/ /g, "_");
+						//Create the tab elements
+						if(i === 0 ){
+							var $tabLabel = $("<li class='active'><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
+							var $tabContent = $("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
+						} else {
+							var $tabLabel = $("<li><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
+							var $tabContent = $("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
 						}
-						$("#breakfastTab").removeClass('hidden');
-					}
-					else{
-						$("#breakfastTab").attr('class', 'hidden');
-					}
-					
-					var lunchHTML = "";
-					if( loc["Lunch"] !== undefined) {
-						for(var b = 0; b < loc["Lunch"].length; b++){
-							lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
+						
+						$("#myTabs").append($tabLabel);
+						
+						$("#myTabContent").append($tabContent);
+						
+						var catHTML = "";
+						for(var a = 0; a < loc[category].length; a++){
+							catHTML += "<li style='margin-left: 10px;'>"+ loc[category][a] +"</li>";
 						}
-						$("#lunchTab").removeClass('hidden');
-					}
-					else{
-						$("#lunchTab").attr('class', 'hidden');
-					}
-
-					var dinnerHTML = "";
-					if( loc["Dinner"] !== undefined){
-						for(var c = 0; c < loc["Dinner"].length; c++){
-							dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
-						}	
-						$("#dinnerTab").removeClass('hidden');	
-					}
-					else{
-						$("#dinnerTab").attr('class', 'hidden');
-					}
+						$tabContent.append(catHTML);
+						i++;
+					}		
 					
-					$("#breakfast").append(breakfastHTML);
-					$("#lunch").append(lunchHTML);
-					$("#dinner").append(dinnerHTML);
 					
-					if(breakfastHTML === "") $("#breakfastTab").attr("hidden", "hidden");
-					if(lunchHTML === "") $("#lunchTab").attr("hidden", "hidden");
-					if(dinnerHTML === "") $("#dinnerTab").attr("hidden", "hidden");
-
 				 });
 			 } else {
+				 
+				//First, refill tab content
+				$("#myTabs").empty();
+				$("#myTabs").append("<li class='active' id='breakfastTab'><a style='outline:0' href='#breakfast' role='tab' data-toggle='tab'>Breakfast</a></li>"
+					               +"<li id='lunchTab'><a style='outline:0' href='#lunch' role='tab' data-toggle='tab'>Lunch</a></li>"
+					               +"<li id='dinnerTab'><a style='outline:0' href='#dinner' role='tab' data-toggle='tab'>Dinner</a></li>");
+				$("#myTabContent").empty();
+				$("#myTabContent").append("<div class='tab-pane active' style='padding-top:10px;' id='breakfast'></div>"
+										 +"<div class='tab-pane' style='padding-top:10px;' id='lunch'></div>"
+										 +"<div class='tab-pane' style='padding-top:10px;' id='dinner'></div>");
+				
 			 
 				// XMLHttpRequest lets us send variables in the URL to the PHP
 				var xhr = new XMLHttpRequest();
@@ -576,30 +576,31 @@
 
 				
 				}
-			}
 			
-			var currentTime = (new Date()).getHours();
-			$("#breakfastTab").removeClass("active");
-			$("#lunchTab").removeClass("active");
-			$("#dinnerTab").removeClass("active");
-			$("#breakfast").removeClass("active");
-			$("#lunch").removeClass("active");
-			$("#dinner").removeClass("active");
+				var currentTime = (new Date()).getHours();
+				$("#breakfastTab").removeClass("active");
+				$("#lunchTab").removeClass("active");
+				$("#dinnerTab").removeClass("active");
+				$("#breakfast").removeClass("active");
+				$("#lunch").removeClass("active");
+				$("#dinner").removeClass("active");
+				
+				if(currentTime < 11){
+					$("#breakfastTab").addClass("active");
+					$("#breakfast").addClass("active");
+					$("#breakfastTab a").tab('show');
+				}
+				if(currentTime > 10 && currentTime < 17){
+					$("#lunchTab").addClass("active");
+					$("#lunch").addClass("active");
+					$("#lunchTab a").tab('show');
+				}
+				if(currentTime > 16){
+					$("#dinnerTab").addClass("active");
+					$("#dinner").addClass("active");
+					$("#dinnerTab a").tab('show');
+				}
 			
-			if(currentTime < 11){
-				$("#breakfastTab").addClass("active");
-				$("#breakfast").addClass("active");
-				$("#breakfastTab a").tab('show');
-			}
-			if(currentTime > 10 && currentTime < 17){
-				$("#lunchTab").addClass("active");
-				$("#lunch").addClass("active");
-				$("#lunchTab a").tab('show');
-			}
-			if(currentTime > 16){
-				$("#dinnerTab").addClass("active");
-				$("#dinner").addClass("active");
-				$("#dinnerTab a").tab('show');
 			}
 		}//End function
 

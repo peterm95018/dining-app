@@ -188,7 +188,7 @@
 					</ul>
 					
 					<!--Tabbed content-->
-					<div class="tab-content">
+					<div id="myTabContent" class="tab-content">
 					  <div class="tab-pane active" style="padding-top:10px;" id="breakfast"></div>
 					  <div class="tab-pane" style="padding-top:10px;" id="lunch"></div>
 					  <div class="tab-pane" style="padding-top:10px;" id="dinner"></div>
@@ -269,70 +269,42 @@
 		
 		function myModalMenu(locationName) {
 			
-			//We have to empty the previous info
-			$("#breakfast").empty();
-			$("#lunch").empty();
-			$("#dinner").empty();
+			 //First empty tabs
+			 $("#myTabs").empty();
+			 $("#myTabContent").empty();
 			
-			$('#myModalLabelMenu').text(locationName); //Put the title on the modal
-			
-		   $.getJSON("../data/menu_examples.json", function(data) {
-				var loc = data[locationName];
+			 //Not all categories in static menus are 'breakfast', 'lunch', and 'dinner'
+			 $.getJSON("data/menu_examples.json", function(data) {
+				var loc = data[locationName];		
 				
-				var breakfastHTML = "";
-				if(loc["Breakfast"] !== undefined){
-					for(var a = 0; a < loc["Breakfast"].length; a++){
-						breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
+				var category;
+				var i = 0;
+				//loop through each category in loc
+				for(category in loc){
+					//create a spaceless category name
+					var noSpaceCat = category.replace(/ /g, "_");
+					//Create the tab elements
+					if(i === 0 ){
+						var $tabLabel = $("<li class='active'><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
+						var $tabContent = $("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
+					} else {
+						var $tabLabel = $("<li><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
+						var $tabContent = $("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
 					}
-				}
-				var lunchHTML = "";
-				if( loc["Lunch"] !== undefined) {
-					for(var b = 0; b < loc["Lunch"].length; b++){
-						lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
+					
+					$("#myTabs").append($tabLabel);
+					
+					$("#myTabContent").append($tabContent);
+					
+					var catHTML = "";
+					for(var a = 0; a < loc[category].length; a++){
+						catHTML += "<li style='margin-left: 10px;'>"+ loc[category][a] +"</li>";
 					}
+					$tabContent.append(catHTML);
+					i++;
 				}
-				var dinnerHTML = "";
-				if( loc["Dinner"] !== undefined){
-					for(var c = 0; c < loc["Dinner"].length; c++){
-						dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
-					}		
-				}
-				
-				$("#breakfast").append(breakfastHTML);
-				$("#lunch").append(lunchHTML);
-				$("#dinner").append(dinnerHTML);
-				
-				if(breakfastHTML === "") $("#breakfastTab").attr("hidden", "hidden");
-				if(lunchHTML === "") $("#lunchTab").attr("hidden", "hidden");
-				if(dinnerHTML === "") $("#dinnerTab").attr("hidden", "hidden");
-
-			 });
-			 
-			 var currentTime = (new Date()).getHours();
-			$("#breakfastTab").removeClass("active");
-			$("#lunchTab").removeClass("active");
-			$("#dinnerTab").removeClass("active");
-			$("#breakfast").removeClass("active");
-			$("#lunch").removeClass("active");
-			$("#dinner").removeClass("active");
-			
-			if(currentTime < 11){
-				$("#breakfastTab").addClass("active");
-				$("#breakfast").addClass("active");
-				$("#breakfastTab a").tab('show');
-			}
-			if(currentTime > 10 && currentTime < 17){
-				$("#lunchTab").addClass("active");
-				$("#lunch").addClass("active");
-				$("#lunchTab a").tab('show');
-			}
-			if(currentTime > 16){
-				$("#dinnerTab").addClass("active");
-				$("#dinner").addClass("active");
-				$("#dinnerTab a").tab('show');
-			}
+			 }); 
 		}
-		
 		</script>
 
 
