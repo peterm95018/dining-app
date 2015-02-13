@@ -1,0 +1,191 @@
+{
+  "Bay Tree Express Store": {
+    "Convenience Items":[
+		"Teas",
+		"Coffees",
+		"Sandwhiches",
+		"Drinks",
+		"Snacks",
+		"Breakfast Foods",
+		"Pastries"
+    ]
+  },
+  "College Eight Café":{
+	"Lunch":[
+		"Coffee",
+		"Smoothies",
+		"Croissants",
+		"Sandwiches",
+		"and more..."
+	]
+  },
+  "Porter Slug Grill":{
+	"Dining Options":[
+		"Sandwiches",
+		"Burgers",
+		"Burritos",
+		"Espresso Drinks",
+		"Shakes",
+		"and more..."
+	]
+  },
+  "Cruz N Gourmet": {
+    "Lunch": [
+      "Pulled Pork Tacos, Wraps, Bowls",
+      "Spicy Thai Green Chicken Curry",
+      "House Smoked Tri-Tip Taco",
+      "menu varies daily"
+    ]
+  },
+  "Raymond's Catering": {
+    "Lunch": [
+      "Burritto",
+      "Sandwiches",
+      "Tacos",
+      "menu varies daily"
+    ]
+  },
+  "Zameen Mediterranean Cuisine": {
+    "Lunch": [
+      "Lamb and Beef Gyros Wrap",
+      "Falafel Wrap",
+      "Hummus and Roasted Vegetable Wrap",
+      "Greek Burger with Fresh Mozzarella",
+      "Greek Salad",
+      "Persian Rice Salad",
+      "Sweet Potato Fries",
+      "Specials - vary daily"
+    ]
+  },
+  "Stevenson Coffee House": {
+    "Dining Options": [
+		"Ice Cream",
+		"Soups",
+		"Salads",
+		"Sandwiches",
+		"Coffee",
+		"Baked Goods",
+		"and more..."
+    ]
+  },
+  "Cowell Coffee Shop": {
+    "Cafe Items" : [
+		"Sandwiches",
+		"Snacks",
+		"Salads",
+		"Muffins",
+		"Bagels",
+		"Coffee",
+		"and more"
+    ]
+  },
+  "Global Village Café": {
+    "Dessert": [
+      "Artisan Ice Cream",
+      "Affogato"
+    ],
+    "Deli": [
+      "Daily Specials"
+    ],
+    "Breakfast": [
+      "Hot Oatmeal",
+      "Yogurt Fruit Granola Cup"
+    ],
+    "Salads": [
+      "Veggie Cobb",
+      "Studious Chef",
+      "Farm Salad"
+    ],
+    "Sandwiches": [
+      "Grateful Veggie",
+      "Castrovilla",
+      "McHenry"
+    ],
+    "Beverages": [
+      "Smoothies",
+      "Juices"
+    ],
+    "Coffee Bar": [
+      "Regular Coffee",
+      "Brew Bar",
+      "Cappuccino"
+    ]
+  },
+  "Joe's Pizza & Subs": {
+  	"Burgers":[
+  		"Burger",
+  		"Cheese Burger",
+  		"French Fries",
+  		"Onion Rings"
+  	],
+  	"Pasta": [
+  		"Spaghetti",
+  		"Ravioli",
+  		"Tortellini",
+  		"Lasagna",
+  		"Garlic Bread",
+  		"Lentil Soup",
+  		"Clam Chowder"
+  	],
+  	"Vegetarian":[
+  		"Jumbo Spinach Calzone"
+  	],
+  	"Falafel":[
+  		"Whole Falafel",
+  		"Falafel Salad",
+  		"Baba Ghanouj"
+  	],
+  	"Salads":[
+  		"Small Salad",
+  		"Large Salad",
+  		"Potato Salad",
+  		"Chicken Salad",
+  		"Greek Salad",
+  		"Chef Salad"
+  	],
+  	"Drinks":[
+  		"Soda",
+  		"Coffee",
+  		"Iced Coffee"
+  	],
+  	"Pizza":[
+  		"Joe's Special",
+  		"Vegetarian",
+  		"All-Meat",
+  		"Hawaiian",
+  		"Pizza Sub Sandwich",
+  		"Calzone"
+  	],
+  	"Sandwiches":[
+  		"Italian Sub",
+  		"Roast Beef",
+  		"Club Sandwich",
+  		"Bacon",
+  		"Turkey",
+  		"Tuna",
+  		"Ham",
+  		"Pastrami",
+  		"Meatball",
+  		"Sausage",
+  		"Vegetarian",
+  		"Chicken Breast",
+  		"Beef Shawarma",
+  		"Philly Cheese Steak"
+  	]
+  },
+  "Coffee Carts": {
+    "Cafe Items" : [
+      "Sandwiches",
+      "Sushi",
+      "Salads",
+      "Muffins",
+      "Bagels",
+      "Pastries"
+    ],
+    "Drinks" : [
+      "100% Organic Coffee",
+      "Lattes",
+      "Mochas"
+    ]
+  }
+}
