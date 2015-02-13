@@ -1,0 +1,919 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>UCSC Dining Services</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/customMain.css">
+        <!-- endbuild -->
+		<script src="bower_components/momentjs/moment.js"></script>
+        <!-- keep some css files out of concatenation build:css process -->
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+        <!-- end -->
+
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+        
+        
+        <style>
+			a { cursor: pointer; cursor: hand; }
+        </style>
+        
+    </head>
+    <body style="background-color:#92D44F;">
+		
+		<div class="panel panel-default" style="width:80%; margin-right:auto; margin-left:auto;">
+			<div class="panel-body">
+				
+				<h1>Hours Tracking</h1>
+				<hr>
+				<p>To change the normal hours of a dining location, use the 'Update Normal Hours' tab.</p>
+				<p>To change the hours on a particular date, or a set of dates, use the 'Add Exceptions' tab.</p>
+		
+				<ul id="myTabs" class="nav nav-tabs" role="tablist">
+					<li class="active"><a style="outline:0" href="#normal" role="tab" data-toggle="tab">Update Normal Hours</a></li>
+					<li ><a style="outline:0" href="#exception" role="tab" data-toggle="tab">Add Exceptions</a></li>
+				</ul>
+					
+				<!--Tabbed content-->
+				<div class="tab-content">
+				  <div class="tab-pane active" style="padding-top:10px;" id="normal">
+					  
+					<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="DiningLocDropDownButton">
+						Select Dining Location <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" id="DiningLocDropDown">
+						<!--<li><a href="#">Action</a></li>-->
+					  </ul>
+				    </div>
+				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-left:20px;">View Hours</button>
+				
+
+					<br><br>
+					
+					<div class="row" id="EntryContainer"></div>
+					
+					
+					
+					
+					<button  class="btn btn-default" id="addEntry" >+ Add Entry</button> <br>
+					<p style="color:grey;">Use this to add an entry (ex. If a location is now open on Saturdays, then you can add an entry for Saturday,
+					or if a location is open Monday at 2 different times of the day, then you can add another entry for Monday)</p> <br>
+					
+					<button disabled  class="btn btn-default" id="submitNormal" >Submit Changes</button>
+					
+				  </div>
+				  <div class="tab-pane" style="padding-top:10px;" id="exception">
+					<div class="tab-pane active" style="padding-top:10px;" id="normal">
+					
+					<p style="color:grey;">Use this tab to add dates for abnormal dining hours. For example, a dining location may be open 10 am to 7 pm during 
+					normal school hours, but during Summer Break, it may have limited hours. Using this tab, you can specify those dates and hours. </p>
+					<div class="btn-group" style="margin-bottom: 20px;">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="SingleOrRangeButton">
+							Would you like to add an exception for a single date or a range of dates? <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a id='single'>Add Exception for a Single Date</a></li>
+							<li><a id='range'>Add Exception for a Range of Dates</a></li>
+						</ul>
+					</div> <br>
+					
+					<div id='ExceptionGroup' hidden>
+						
+						<div id="DateSelector"></div>
+						
+						<p style='margin-bottom: 0px;'> Reason: </p>
+						<div class='input-group'><input type='text' id='details' class='form-control' style='width: 200%;' placeholder='Reason for exception (eg. Spring Break)'></div> <br>
+						
+						<p style='margin-bottom: 0px;'> Hours: </p>
+						<div class="btn-group">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="ExceptionDiningLocDropDownButton">
+							Select Dining Location <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu" id="ExceptionDiningLocDropDown">
+							<!--<li><a href="#">Action</a></li>-->
+						  </ul>
+						</div>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-left:20px;">View Hours</button>
+					
+
+						<br><br>
+						
+						<div class="row" id="ExceptionEntryContainer"></div>
+						
+						
+						
+						
+						<button  class="btn btn-default" id="ExceptionAddEntry" >+ Add Entry</button> <br>
+						<p style="color:grey;">Use this to add an entry (ex. If a location is now open on Saturdays, then you can add an entry for Saturday,
+						or if a location is open Monday at 2 different times of the day, then you can add another entry for Monday)</p> <br>
+						
+						<button disabled  class="btn btn-default" id="submitException" >Submit Changes</button>
+					</div>
+					
+				  </div>
+				  </div>
+				</div>
+
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        						<h4 class="modal-title" id="myModalLabel"></h4>
+      						</div>
+							<div class="modal-body">
+									<center id="emptymessage"><h2>Choose a location first.</h2></center>
+									<table class="table table-condensed">
+										<thead><tr></tr></thead>
+										<tbody></tbody>
+									</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		<!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
+		<script src="bower_components/momentjs/moment.js"></script>
+		<script src="bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+        
+        
+        
+        <!--Insert js here-->
+        <script>
+			
+			//Create a hash table for each dining location: diningTable[location] = locationNum
+			var diningTable = {};
+			
+			//Location Numbers that we know about
+			diningTable["College Eight/Oakes Dining Hall"] = "30";
+			diningTable["Colleges Nine/Ten Dining Hall"] = "40";
+			diningTable["Cowell/Stevenson Dining Hall"] = "05";
+			diningTable["Porter/Kresge Dining Hall"] = "25";
+			
+			//Location Numbers that we don't know about
+			diningTable["Crown/Merrill Dining Hall"] = "-01";
+			
+			/*
+			* Exception listeners
+			*/
+			
+			var daysofweek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+			var single;
+			
+			//first select whether it's a single date or a range of dates
+			$("#single").on('click', function(){
+				$("#SingleOrRangeButton").text($(this).text());
+				$("#SingleOrRangeButton").val($(this).text());
+				
+				$("#ExceptionGroup").removeAttr("hidden", "hidden");
+				
+				$("#DateSelector").empty();
+				var dateSelectorText = "<div style='margin-bottom: 20px;'>"
+					+ "<p style='margin-bottom: 0px;'>Date:</p>"
+					+ "<input type='button' style='margin:2px;' length='20' id='singledate' readonly class='btn btn-default form_datetime_exception' value='Set Date'></div>";
+					
+				$("#DateSelector").append(dateSelectorText);
+				
+				$(document).ready(function(){
+					$('.form_datetime_exception').datetimepicker({
+					format: 'mm/dd/yyyy', 
+					startView: 3, 
+					autoclose: true,
+					minView: 2,
+					maxView: 3,
+					todayBtn: true,
+					todayHighlight: true,
+					initialDate: new Date(),
+					startDate: new Date()
+					});
+				});
+				
+				$("#ExceptionEntryContainer").empty();//Get rid of old data from other dining hall hours.
+				
+				single = true;
+			});
+			$("#range").on('click', function(){
+				$("#SingleOrRangeButton").text($(this).text());
+				$("#SingleOrRangeButton").val($(this).text());
+				
+				$("#ExceptionGroup").removeAttr("hidden", "hidden");
+				
+				$("#DateSelector").empty();
+				var dateSelectorText = "<div style='margin-bottom: 20px;'>"
+					+ "<p style='margin-bottom: 0px;'>Date Range:</p>"
+					+ "<input type='button' style='margin:2px; ' id='startdate' length='20' readonly class='btn btn-default form_datetime_exception' value='Set Start Date'>"
+					+ " to <input type='button' style='margin:2px;' id='enddate' length='20' readonly class='btn btn-default form_datetime_exception' value='Set End Date'></div>";
+					
+				$("#DateSelector").append(dateSelectorText);
+				
+				$(document).ready(function(){
+					$('.form_datetime_exception').datetimepicker({
+					format: 'mm/dd/yyyy', 
+					startView: 3, 
+					autoclose: true,
+					minView: 2,
+					maxView: 3,
+					todayBtn: true,
+					todayHighlight: true,
+					initialDate: new Date(),
+					startDate: new Date()
+					});
+				});
+				
+				single = false;
+				
+				if($("#ExceptionDiningLocDropDownButton").text().indexOf("Select") === -1) updateExceptionValues();
+			});
+			
+			//Next, populate the Exception drop down with the hash table keys
+			for(var key in diningTable){
+				var locHTML = "<li>";
+						locHTML += "<a>"+ key +"</a>";
+					locHTML += "</li>";
+					
+					$("#ExceptionDiningLocDropDown").append(locHTML);
+			}
+			
+			var currentExceptionLocation; //global variable for the selected location for the exceptions
+			
+			//Click listener for dropdown menus
+			$("#ExceptionEntryContainer").on('click', 'div div div ul li a', function(){
+				var entry = $(this).text();
+				
+				var button = $(this).parent().parent().parent().find('button.btn');
+				
+				
+				button.val(entry);
+				button.text(entry);
+			});
+			
+			//Close listener
+			$("#ExceptionEntryContainer").on('click', 'div div button.close', function(){
+				var parentPanel = $(this).parent().parent().parent();
+				
+				if(confirm("Are you sure you want to delete this entry?")){
+					parentPanel.remove();
+				} else{
+					return;
+				}
+				
+				
+			});
+			
+			//Click Listener for adding entries
+			$("#ExceptionAddEntry").on('click', function(){
+				
+				var dropdown = "<br>";
+				
+				if(!single){
+					dropdown = "Day: <div class='btn-group'>"
+						+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+						+		"Select Day of the Week <span class='caret'></span>"
+						+	  "</button>"
+						+	  "<ul class='dropdown-menu' role='menu' >"
+						+		"<li><a>Monday</a></li>"
+						+		"<li><a>Tuesday</a></li>"
+						+		"<li><a>Wednesday</a></li>"
+						+		"<li><a>Thursday</a></li>"
+						+		"<li><a>Friday</a></li>"
+						+		"<li><a>Saturday</a></li>"
+						+		"<li><a>Sunday</a></li>"
+						+	  "</ul>"
+						+	"</div> <br>";
+				}
+				
+				var entryHTML = "<div class='col-lg-4'>"
+						+ "<div class='panel panel-default' style='width:300px;'>"
+						+ "<div class='panel-body'>"
+						+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+						+	dropdown
+						+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='Set Open Time'> to <br>"
+						+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='Set Close Time'>"
+						+"</div>"
+					+ "</div>"
+					+"</div>";
+					
+					$("#ExceptionEntryContainer").append(entryHTML);
+					
+					$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+						format: 'HH:ii P', 
+						showMeridian: true,
+						startView: 1, 
+						autoclose: true,
+						initialDate: "01-01-2001 ",
+						maxView: 1});
+					});
+					
+		
+			});
+			
+			//Now a click listener for the exception dropdown
+			$("#ExceptionDiningLocDropDown").on( 'click', 'li a', function(){
+				//First set the dropdown button text to the text of the selected location
+				$("#ExceptionDiningLocDropDownButton").text( $(this).text() );
+				$("#ExceptionDiningLocDropDownButton").val( $(this).text() );
+				
+				//change global current location
+				currentExceptionLocation = $(this).text();
+				
+				//call php function to pull data
+				if(!single) updateExceptionValues();
+				else $("#ExceptionAddEntry").trigger('click');
+				
+				//enable the buttons
+				$("#submitException").removeAttr('disabled');
+				$("#ExceptionAddEntry").removeAttr('disabled');
+				
+				populateExceptionsTable();
+				
+			});
+			
+			//This function creates the XMLHttpRequest and adds in the many entries for each
+			//weekday the dining hall is open. It puts the current times in each slot.
+			function updateExceptionValues(){
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'time_pull.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onload = function () {
+
+					var location_hours = [
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "2"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "3"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "4"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "5"},
+						{starttime: "10:00:00", endtime: "23:00:00", weekdays: "6"},
+						{starttime: "08:00:00", endtime: "23:00:00", weekdays: "7"}
+						];
+
+					$("#ExceptionEntryContainer").empty();//Get rid of old data from other dining hall hours.
+					$("#myModalLabel").empty().append(currentExceptionLocation);
+					var jsonObj = $.parseJSON(this.responseText);
+					//jsonObj = location_hours;
+					for(var j = 0; j < jsonObj.length; j++){
+						
+						var day = "Select Day of the Week <span class='caret'></span>";
+						switch(jsonObj[j].weekdays){
+								case "1": 
+									day = "Monday";
+									break;
+								case "2": 
+									day = "Tuesday";
+									break;
+								case "3": 
+									day = "Wednesday";
+									break;
+								case "4": 
+									day = "Thursday";
+									break;
+								case "5": 
+									day = "Friday";
+									break;
+								case "6": 
+									day = "Saturday";
+									break;
+								case "7": 
+									day = "Sunday";
+									break;
+						}
+						
+						var open = moment(jsonObj[j].starttime.substring(0, 5), "HH:mm").format("hh:mm a");
+						var close = moment(jsonObj[j].endtime.substring(0, 5), "HH:mm").format("hh:mm a");
+						open = open.replace('am', 'AM');
+						open = open.replace('pm', 'PM');
+						close = close.replace('am', 'AM');
+						close = close.replace('pm', 'PM');
+						
+						//View Hours modal table built here
+						//var row = jsonObj[j];
+						//var text = "";
+						//text = "<tr><td>" + row.weekdays + "</td><td>" + row.location_number +
+						//"</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td></tr>";
+						//$("tbody").append(text);
+
+						//Entry Boxes built here
+						var entryHTML = "<div class='col-lg-4'>"
+						    +"<div class='panel panel-default' style='width:300px;'>"
+							+ "<div class='panel-body'>"
+							+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+							+	"Day: <div class='btn-group'>"
+							+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+							+		day
+							+	  "</button>"
+							+	  "<ul class='dropdown-menu' role='menu' >"
+							+		"<li><a>Monday</a></li>"
+							+		"<li><a>Tuesday</a></li>"
+							+		"<li><a>Wednesday</a></li>"
+							+		"<li><a>Thursday</a></li>"
+							+		"<li><a>Friday</a></li>"
+							+		"<li><a>Saturday</a></li>"
+							+		"<li><a>Sunday</a></li>"
+							+	  "</ul>"
+							+	"</div> <br>"
+							+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='"+open+"'> to <br>"
+							+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='"+close+"'>"
+							+ "</div>"
+							+"</div>"
+							+"</div>";
+							
+					
+						$("#ExceptionEntryContainer").append(entryHTML);
+						
+						$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+							format: 'HH:ii P', 
+							showMeridian: true,
+							startView: 1, 
+							autoclose: true,
+							initialDate: "01-01-2001 ",
+							maxView: 1});
+						});
+					} 
+
+				};
+				xhr.send('location=' + diningTable[currentExceptionLocation]);
+			}
+			
+			//Add a listener for the exception submission button
+			$("#submitException").on('click', function(){
+				var entries = $("#ExceptionEntryContainer").children();
+				
+				var data = [];
+				for(var i = 0; i < entries.length; i++){
+					var entry = entries[i];
+					
+					//Get the day
+					if(single){
+						var day = moment().format('dddd');
+					}else{
+						var day = entry.children[0].children[0].children[1].children[0].innerHTML;//Lol.
+						switch(day){
+								case "Monday": 
+									day = "1";
+									break;
+								case "Tuesday": 
+									day = "2";
+									break;
+								case "Wednesday": 
+									day = "3";
+									break;
+								case "Thursday": 
+									day = "4";
+									break;
+								case "Friday": 
+									day = "5";
+									break;
+								case "Saturday": 
+									day = "6";
+									break;
+								case "Sunday": 
+									day = "7";
+									break;
+						} 
+					}
+					
+					//get the hours
+					if(single){
+						var opening = entry.children[0].children[0].children[1].value;
+						var closing = entry.children[0].children[0].children[3].value;
+					} else{
+						var opening = entry.children[0].children[0].children[3].value;
+						var closing = entry.children[0].children[0].children[5].value;
+					}
+					
+					//get the details
+					var reason = $("#details").val();
+					
+					//get the startdate and enddate
+					if(single){
+						var start = $("#singledate").val();
+						var end = $("#singledate").val();
+					} else{
+						var start = $("#startdate").val();
+						var end = $("#enddate").val();
+					}
+					
+					data.push({starttime: opening, endtime: closing, startdate: start, end: enddate, weekdays: day, location_number: diningTable[currentLocation], details: reason });
+					
+					
+				}
+				
+				 $.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "exceptions_update.php",
+						data: {myData: data},
+						success: function(data){
+							alert('Items added: ' + JSON.stringify(data) );
+						},
+						error: function(e){
+							console.log(e.message);
+						}
+				});
+				
+				populateExceptionsTable();//Refresh the entries and table with the newly updated data.
+				
+			});
+			
+			function populateExceptionsTable(){
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'exceptions_pull.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onload = function () {
+
+					//$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
+					$("#emptymessage").empty();
+					$("tbody").empty();
+					$("#myModalLabel").empty().append(currentExceptionLocation);
+					var jsonObj = $.parseJSON(this.responseText);
+
+					//Create the table header for View Hours button
+					$("thead tr").html(
+							"<th>Weekday</th>"
+							+"<th>Start Date</th>"
+							+"<th>End Date</th>"
+							+"<th>Start Time</th>"
+							+"<th>End Time</th>"
+							+"<th>Details</th>"
+					);
+
+					for(var j = 0; j < jsonObj.length; j++){
+						
+						var day = "Select Day of the Week <span class='caret'></span>";
+						switch(jsonObj[j].weekdays){
+								case "1": 
+									day = "Monday";
+									break;
+								case "2": 
+									day = "Tuesday";
+									break;
+								case "3": 
+									day = "Wednesday";
+									break;
+								case "4": 
+									day = "Thursday";
+									break;
+								case "5": 
+									day = "Friday";
+									break;
+								case "6": 
+									day = "Saturday";
+									break;
+								case "7": 
+									day = "Sunday";
+									break;
+						}
+						
+						var open = moment(jsonObj[j].starttime.substring(0, 5), "HH:mm").format("hh:mm a");
+						var close = moment(jsonObj[j].endtime.substring(0, 5), "HH:mm").format("hh:mm a");
+						open = open.replace('am', 'AM');
+						open = open.replace('pm', 'PM');
+						close = close.replace('am', 'AM');
+						close = close.replace('pm', 'PM');
+						
+						//View Hours modal table built here
+						
+						var row = jsonObj[j];
+						var text = "";
+						text = "<tr><td>" + daysofweek[row.weekdays - 1] + "</td><td>" + row.startdate + "</td><td>" + row.enddate + "</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td><td>" + row.details + "</td></tr>";
+						$("tbody").append(text);
+
+					}
+				};
+				xhr.send('location=' + diningTable[currentExceptionLocation]);
+			}
+			
+			// Delete cache
+			window.onload = function() {
+				if(!window.location.hash) {
+					window.location = window.location + '#loaded';
+					window.location.reload();
+				}
+			}
+			$.ajax({ cache: false });
+			
+			
+			
+			//Next, populate the drop down with the hash table keys
+			for(var key in diningTable){
+				var locHTML = "<li>";
+						locHTML += "<a>"+ key +"</a>";
+					locHTML += "</li>";
+					
+					$("#DiningLocDropDown").append(locHTML);
+			}
+			
+			var currentLocation; //global variable for the selected location
+			
+			//Click listener for dropdown menus
+			$("#EntryContainer").on('click', 'div div div ul li a', function(){
+				var entry = $(this).text();
+				
+				var button = $(this).parent().parent().parent().find('button.btn');
+				
+				
+				button.val(entry);
+				button.text(entry);
+			});
+			
+			//Close listener
+			$("#EntryContainer").on('click', 'div div button.close', function(){
+				var parentPanel = $(this).parent().parent().parent();
+				
+				if(confirm("Are you sure you want to delete this entry?")){
+					parentPanel.remove();
+				} else{
+					return;
+				}
+				
+				
+			});
+			
+			//Click Listener for adding entries
+			$("#addEntry").on('click', function(){
+				var entryHTML = "<div class='col-lg-4'>"
+						+ "<div class='panel panel-default' style='width:300px;'>"
+						+ "<div class='panel-body'>"
+						+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+						+	"Day: <div class='btn-group'>"
+						+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+						+		"Select Day of the Week <span class='caret'></span>"
+						+	  "</button>"
+						+	  "<ul class='dropdown-menu' role='menu' >"
+						+		"<li><a>Monday</a></li>"
+						+		"<li><a>Tuesday</a></li>"
+						+		"<li><a>Wednesday</a></li>"
+						+		"<li><a>Thursday</a></li>"
+						+		"<li><a>Friday</a></li>"
+						+		"<li><a>Saturday</a></li>"
+						+		"<li><a>Sunday</a></li>"
+						+	  "</ul>"
+						+	"</div> <br>"
+						+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='Set Open Time'> to <br>"
+						+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='Set Close Time'>"
+						+"</div>"
+					+ "</div>"
+					+"</div>";
+					
+					$("#EntryContainer").append(entryHTML);
+					
+					$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+						format: 'HH:ii P', 
+						showMeridian: true,
+						startView: 1, 
+						autoclose: true,
+						initialDate: "01-01-2001 ",
+						maxView: 1});
+					});
+					
+					
+					
+					
+					
+			});
+			
+			//Now a click listener for the dropdown
+			$("#DiningLocDropDown").on( 'click', 'li a', function(){
+				//First set the dropdown button text to the text of the selected location
+				$("#DiningLocDropDownButton").text( $(this).text() );
+				$("#DiningLocDropDownButton").val( $(this).text() );
+				
+				//change global current location
+				currentLocation = $(this).text();
+				
+				//enable the buttons
+				$("#submitNormal").removeAttr('disabled');
+				$("#addEntry").removeAttr('disabled');
+				
+				//call php function to pull data
+				updateValues();
+				
+			});
+
+			//This function creates the XMLHttpRequest and adds in the many entries for each
+			//weekday the dining hall is open. It puts the current times in each slot. It also
+			//builds the table which shows all the hours from the "View Hours" button.
+			function updateValues(){
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'time_pull.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onload = function () {
+
+					var location_hours = [
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "1"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "2"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "3"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "4"},
+						{starttime: "09:00:00", endtime: "20:00:00", weekdays: "5"},
+						{starttime: "10:00:00", endtime: "23:00:00", weekdays: "6"},
+						{starttime: "08:00:00", endtime: "23:00:00", weekdays: "7"}
+						];
+
+					$("#EntryContainer").empty();//Get rid of old data from other dining hall hours.
+					$("tbody").empty();
+					$("#emptymessage").empty();
+					$("#myModalLabel").empty().append(currentLocation);
+					//Create the proper normal hours header for the table.
+					$("thead tr").html(												
+							"<th>Weekday</th>"
+							+"<th>Location</th>"
+							+"<th>Start Time</th>"
+							+"<th>End Time</th>"
+					);
+
+					var jsonObj = $.parseJSON(this.responseText);
+					//var jsonObj = location_hours;
+					for(var j = 0; j < jsonObj.length; j++){
+						
+						var day = "Select Day of the Week <span class='caret'></span>";
+						switch(jsonObj[j].weekdays){
+								case "1": 
+									day = "Monday";
+									break;
+								case "2": 
+									day = "Tuesday";
+									break;
+								case "3": 
+									day = "Wednesday";
+									break;
+								case "4": 
+									day = "Thursday";
+									break;
+								case "5": 
+									day = "Friday";
+									break;
+								case "6": 
+									day = "Saturday";
+									break;
+								case "7": 
+									day = "Sunday";
+									break;
+						}
+						
+						var open = moment(jsonObj[j].starttime.substring(0, 5), "HH:mm").format("hh:mm a");
+						var close = moment(jsonObj[j].endtime.substring(0, 5), "HH:mm").format("hh:mm a");
+						open = open.replace('am', 'AM');
+						open = open.replace('pm', 'PM');
+						close = close.replace('am', 'AM');
+						close = close.replace('pm', 'PM');
+						
+						//View Hours modal table built here
+						var row = jsonObj[j];
+						var text = "";
+						text = "<tr><td>" + row.weekdays + "</td><td>" + row.location_number +
+						"</td><td>" + row.starttime.substring(0, 5) + "</td><td>" + row.endtime.substring(0, 5) + "</td></tr>";
+						$("tbody").append(text);
+
+						//Entry Boxes built here
+						var entryHTML = "<div class='col-lg-4'>"
+						    +"<div class='panel panel-default' style='width:300px;'>"
+							+ "<div class='panel-body'>"
+							+	"<button type='button' class='close' data-dismiss='panel'><span aria-hidden='true'>&times;</span></button>"
+							+	"Day: <div class='btn-group'>"
+							+	  "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' >"
+							+		day
+							+	  "</button>"
+							+	  "<ul class='dropdown-menu' role='menu' >"
+							+		"<li><a>Monday</a></li>"
+							+		"<li><a>Tuesday</a></li>"
+							+		"<li><a>Wednesday</a></li>"
+							+		"<li><a>Thursday</a></li>"
+							+		"<li><a>Friday</a></li>"
+							+		"<li><a>Saturday</a></li>"
+							+		"<li><a>Sunday</a></li>"
+							+	  "</ul>"
+							+	"</div> <br>"
+							+	"Open:  <input type='button' style='margin:2px; margin-top:4px;' length='8' readonly class='btn btn-default form_datetime' value='"+open+"'> to <br>"
+							+	"Close: <input type='button' style='margin:2px;' length='8' readonly class='btn btn-default form_datetime' value='"+close+"'>"
+							+ "</div>"
+							+"</div>"
+							+"</div>";
+							
+					
+						$("#EntryContainer").append(entryHTML);
+						
+						$(document).ready(function(){
+						$('.form_datetime').datetimepicker({
+							format: 'HH:ii P', 
+							showMeridian: true,
+							startView: 1, 
+							autoclose: true,
+							initialDate: "01-01-2001 ",
+							maxView: 1});
+						});
+					} 
+
+				};
+				xhr.send('location=' + diningTable[currentLocation]);
+			}
+
+			//Add a listener for the normal submission button
+			$("#submitNormal").on('click', function(){
+				var entries = $("#EntryContainer").children();
+				
+				var data = [];
+				for(var i = 0; i < entries.length; i++){
+					var entry = entries[i];
+					
+					//Get the day
+					var day = entry.children[0].children[0].children[1].children[0].innerHTML;
+					switch(day){
+							case "Monday": 
+								day = "1";
+								break;
+							case "Tuesday": 
+								day = "2";
+								break;
+							case "Wednesday": 
+								day = "3";
+								break;
+							case "Thursday": 
+								day = "4";
+								break;
+							case "Friday": 
+								day = "5";
+								break;
+							case "Saturday": 
+								day = "6";
+								break;
+							case "Sunday": 
+								day = "7";
+								break;
+					} 
+					
+					//get the hours
+					var opening = entry.children[0].children[0].children[3].value;
+					if(!moment(moment().format("MM-DD-YYYY ") + opening, "MM-DD-YYYY HH:mm", "MM-DD-YYYY HH:mm:ss", "MM-DD-YYYY hh:mm:ss a", 
+					"MM-DD-YYYY hh:mm a","MM-DD-YYYY hh:mm:ssa", "MM-DD-YYYY hh:mma").isValid()){
+						console.log("Not Valid");
+					}
+					var closing = entry.children[0].children[0].children[5].value;
+					
+					data.push({starttime: opening, endtime: closing, weekdays: day, location_number: diningTable[currentLocation]});
+					
+					
+				}
+				
+				 $.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "time_update.php",
+						data: {myData: data},
+						success: function(data){
+							alert('Items added');
+						},
+						error: function(e){
+							console.log(e.message);
+						}
+				});
+
+				$("tbody").empty();//Empty this so that people don't get confused by old data in the table.
+				updateValues();//Refresh the entries and table with the newly updated data.
+			});
+        </script>
+    
+    
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-55091123-1');ga('send','pageview');
+        </script>
+
+        <!-- build:js scripts/main.js -->
+        <!--<script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>-->
+        <!-- endbuild -->
+	</body>
+</html>

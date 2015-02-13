@@ -4,6 +4,8 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>dining test</title>
@@ -11,35 +13,185 @@
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/customMain.css">
         <!-- endbuild -->
-		<!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
+
+         <!-- keep some css files out of concatenation build:css process -->
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+        <!-- end -->
+
         <!-- build:js scripts/vendor/modernizr.js --> 
-        <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
-		<script src="scripts/modernizr.custom.24514.js"></script>
-                <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+        <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
 
     <style type="text/css">
         body {font: 10pt arial;}
     </style>
 
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="/scripts/timeline/timeline.js"></script>
-    <link rel="stylesheet" type="text/css" href="/scripts/timeline/timeline.css">
+	<script src="bower_components/momentjs/moment.js"></script>
+	<script src="bower_components/jquery/jquery.js"></script>
 
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+   <script type="text/javascript" src="scripts/timeline/timeline.js"></script>
+    <link rel="stylesheet" type="text/css" href="scripts/timeline/timeline.css">
+    
+    
+    <style type="text/css">
+	div.timeline-event {
+        color: white;
+        border-radius: 5px;
+    }
+    div.timeline-event-content {
+        padding: 5px;
+    }
+    div.closed {
+        background-color: #F03030; /* red */
+        border-color: #bd2828;     /* red */
+    }
+    div.open {
+        background-color: #1AA11A; /* green */
+        border-color: #136e13;     /* green */
+    }
+    div.neither {
+		background-color: #add8e6; /* blue */
+      border-color: #97B0F8;     /* blue */
+	}
+    
+    
+    </style>
+
+    
+    <!--Made Mes's code more scalable-->
     <script type="text/javascript">
-        var timeline;
+		var timeline = null;
+		
+		var geolocationFlag = false;
+	
+		
+		var myLocation = {};
+		function getLocation(){
+			if (navigator.geolocation){
+				var position = navigator.geolocation.getCurrentPosition(showPosition);
+			}
+			else{
+				console.log("Geolocation is not supported by this browser.");
+			}
+		}
+		function showPosition(position){
+			myLocation["latitude"] = position.coords.latitude;
+			myLocation["longitude"] = position.coords.longitude;
+		}
+
+		//Function which asks for and saves gps coordinates to location
+		getLocation();
+
+
+		var locationSorted = false;
+		function updateForLocation(){
+
+			if(myLocation["latitude"] != undefined && myLocation["longitude"] != undefined){
+				reSort();
+				locationSorted = true;
+			}
+			else console.log("checked for location.");
+
+
+			if(!locationSorted) setTimeout(updateForLocation, 3000);
+		}
+
+		//Function which loops every 3 seconds until the location is collected, then reSort() is called
+		updateForLocation();
+
+
+
+		function reSort(){
+			//First, clear all of the elements from the timeline
+			//Next, call drawVisualization(), and turn on a flag so that it sorts by location
+		
+			geolocationFlag = true;
+			timeline.deleteAllItems(); 
+			drawVisualization();
+
+			document.getElementById("changeThis").innerHTML = "Locations closest to you are at the top of the time line";			
+
+		}
+		
+		
+		//Load json with location info
+		var masterCalendar;
+		$.getJSON("data/whats-open-hours.json", function (data) {
+			masterCalendar = data;
+		});
+		
+
+			/*
+			The MasterCalendar object should be formatted this way
+			
+			class MasterCalander:
+				class DiningHalls:
+					class CrownMerrill(Location) //inherits Location
+					class CollegeEightOakes(Location)
+					...
+				class CoffeeCarts:
+					class Baskin(Location)
+					class EarthMarine(Location)
+					...
+				class CafesRestaurants:
+					class Bananajoes(Location)
+					class TerraFresca(Location)
+					...
+				class FoodTrucks:
+					class CruzNGourmet(Location)
+					...
+			
+			//base class for each location, not explicitly defined, the sub-objects
+			//in MasterCalendar just take this form
+			class Location:
+				string name //the name (with spaces and special characters) of the location
+				
+				class location: //contains the lat, long coordinates of the location, not to be confused with the parent class
+					string latitude //is a double, but because of JSON, lat and long is saved as a string
+					string longitude
+					
+				class Monday:
+					string open //time the location opens on that day
+					string close //time the location closes on that day
+				class Tuesday:
+					string open
+					string close
+				class Wednesday:
+					string open
+					string close
+				class Thursday:
+					string open
+					string close
+				class Friday:
+					string open
+					string close
+			
+			*/
+		
 
         google.load("visualization", "1");
-
+        
         // Set callback to run when API is loaded
         google.setOnLoadCallback(drawVisualization);
-
+        
         // Called when the Visualization API is loaded.
         function drawVisualization()
 		{
-            // Create and populate a data table.
+			
+			//If the calendar hasn't loaded yet, call the func in 100 ms
+			if(masterCalendar == undefined){
+				window.setTimeout(drawVisualization, 100);
+				return;
+			}
+			
+			// Create and populate a data table.
 			var data = [];
 
 			// place images here
@@ -49,858 +201,219 @@
 			var owlsNest_img = '<img src="images/owls_nest.png" style="width:15px; height:15px">';
 			var perkCoffee_img = '<img src="images/perk_coffee_bar.png" style="width:15px; height:15px">';
 			
-			
-			//time veriables
-			var year, month, day, hour_start, hour_end, minute_start, minute_end, second;
-			year = 2014;
-			month = 3;//month starts from 0 for some reason... 
-			day = 5;
-			
-			porter_hour_start = 7;
-			porter_minute_start = 15;
-			porter_hour_end = 19;
-			porter_minute_end = 0;
-			
-			second = 0;
-			
-			c8_hour_start = 7;
-			c8_minute_start = 15;
-			c8_hour_end = 23;
-			c8_minute_end = 0;
-			
-			c9_hour_start = 7;
-			c9_minute_start = 15;
-			c9_hour_end = 23;
-			c9_minute_end = 0;
 
-			crown_hour_start = 7;
-			crown_minute_start = 15;
-			crown_hour_end = 20;
-			crown_minute_end = 0;
+			//Using moment js to get the current date and time
+			var now = moment();
+			var day_str = now.format("dddd");
 			
-			stevenson_hour_start = 7;
-			stevenson_minute_start = 15;
-			stevenson_hour_end = 20;
-			stevenson_minute_end = 0;
 			
-			bananaJoes_hour_start = 10;
-			bananaJoes_minute_start = 0;
-			bananaJoes_hour_end = 23;
-			bananaJoes_minute_end = 0;
 			
-			oakesCafe_hour_start = 8;
-			oakesCafe_minute_start = 30;
-			oakesCafe_hour_end = 23;
-			oakesCafe_minute_end = 0;
 			
-			bayTreeExpressStore_hour_start = 7;
-			bayTreeExpressStore_minute_start = 30;
-			bayTreeExpressStore_hour_end = 18;
-			bayTreeExpressStore_minute_end = 30;
 			
-			owlsNest_hour_start = 7;
-			owlsNest_minute_start = 30;
-			owlsNest_hour_end = 20;
-			owlsNest_minute_end = 30;
 			
-			collegeEightCafe_hour_start = 8;
-			collegeEightCafe_minute_start = 0;
-			collegeEightCafe_hour_end = 22;
-			collegeEightCafe_minute_end = 0;
-			
-			perkCoffeeEarthMarineSciences_hour_start = 7;
-			perkCoffeeEarthMarineSciences_minute_start = 30;
-			perkCoffeeEarthMarineSciences_hour_end = 16;
-			perkCoffeeEarthMarineSciences_minute_end = 0;
-			
-			perkCoffeeBaskinEngineering_hour_start = 7;
-			perkCoffeeBaskinEngineering_minute_start = 30;
-			perkCoffeeBaskinEngineering_hour_end = 18;
-			perkCoffeeBaskinEngineering_minute_end = 0;
-			
-			perkCoffeePhysicalScience_hour_start = 7;
-			perkCoffeePhysicalScience_minute_start = 30;
-			perkCoffeePhysicalScience_hour_end = 16;
-			perkCoffeePhysicalScience_minute_end = 0;
-			
-			perkCoffeeUniversityCenter_hour_start = 8;
-			perkCoffeeUniversityCenter_minute_start = 0;
-			perkCoffeeUniversityCenter_hour_end = 16;
-			perkCoffeeUniversityCenter_minute_end = 0;
-			
-			cowellCoffeeShop_hour_start = 7;
-			cowellCoffeeShop_minute_start = 45;
-			cowellCoffeeShop_hour_end = 23;
-			cowellCoffeeShop_minute_end = 30;
-			
-			porterSlugGrillAndCafe_hour_start = 7;
-			porterSlugGrillAndCafe_minute_start = 0;
-			porterSlugGrillAndCafe_hour_end = 23;
-			porterSlugGrillAndCafe_minute_end = 0;
-			
-			globalVillageCafe_hour_start = 8;
-			globalVillageCafe_minute_start = 0;
-			globalVillageCafe_hour_end = 21;
-			globalVillageCafe_minute_end = 0;
-			
-			stevensonCoffeeHouse_hour_start = 7;
-			stevensonCoffeeHouse_minute_start = 30;
-			stevensonCoffeeHouse_hour_end = 23;
-			stevensonCoffeeHouse_minute_end = 30;
+			for(var type_name in masterCalendar){   //eg DiningHalls, CoffeeCarts
+				var type = masterCalendar[type_name]; //the actual object
+				for(var location_name in type){  //loop through locations
+					var location = type[location_name]; //the location object
+					
+					var coords = [location.location.latitude, location.location.longitude];
+					
+					
+					//use the day_str to get the Weekday object
+					var hours = location[day_str];
+					
+					var _now = moment();
+					var s, f;
+					for(i = 0; i < 7; i++) {
+						
+						var year = parseInt(_now.format("YYYY"));
+						var month = parseInt(_now.format("MM"));
+						var day = parseInt(_now.format("DD"));
+						
+						//If the place isn't open, continue the loop
+						if(hours.Open == ""){
+							continue;
+						}
+						
+						var open = hours.Open.split(":");
+						var close = hours.Close.split(":");
+						
+						s = new Date(year, month - 1, day, parseInt(open[0]), parseInt(open[1]), 0);
+						f = new Date(year, month - 1, day, parseInt(close[0]), parseInt(open[1]), 0);
+						
+						var content = '';
+						
+						
+						if(type_name == "DiningHalls" ){
+							content += dining_img;
+						}
+						if(type_name == "CoffeeCarts" ){
+							content += perkCoffee_img;
+						}
+						
+						if(location_name == "BananaJoes"){
+							content += bananaJoes_img;
+						}
+						if(location_name == "OakesCafe"){
+							content += oakesCafe_img;
+						}
+						if(location_name == "OwlsNestRestaurant"){
+							content += owlsNest_img;
+						}
+						
+						content += " " + location.name;
 
-			joesPizzaAndSubs_hour_start = 9;
-			joesPizzaAndSubs_minute_start = 0;
-			joesPizzaAndSubs_hour_end = 19;
-			joesPizzaAndSubs_minute_end = 30;			
-			
-			terraFrescaRestaurant_hour_start = 11;
-			terraFrescaRestaurant_minute_start = 30;
-			terraFrescaRestaurant_hour_end = 14;
-			terraFrescaRestaurant_minute_end = 0;
-			 
-			 
-			
-			
-			//var s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-			//var f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-			var s1, f1;
-			for(i = 0; i < 100; i++)
-			{
+						
+						var distance;
+						if(geolocationFlag){
+							distance = Math.sqrt( (coords[0] - myLocation["latitude"])*(coords[0] - myLocation["latitude"]) + (coords[1] - myLocation["longitude"])*(coords[1] - myLocation["longitude"]));
+						} else {
+							distance = 0;
+						}
+						
+						var availability = "neither";
+						if(i === 0){
+							if(new Date() > s && new Date() < f){
+								availability = "open";
+							}
+							else{
+								availability = "closed";
+							}
+							
+						}
 				
-/*=========================================== Porter ==========================================================*/
-				s1 = new Date(year, month - 1, day, porter_hour_start, porter_minute_start, second);
-				f1 = new Date(year, month - 1, day, porter_hour_end, porter_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'Porter/Kresge Dining Hall'
-					 		  };
-					data.push(tmp);
-				}
-
-/*=========================================== C8 ================================================================*/
-
-				s1 = new Date(year, month - 1, day, c8_hour_start, c8_minute_start, second);
-				f1 = new Date(year, month - 1, day, c8_hour_end, c8_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)// sunday = 0 , monday = 1... sat = 6
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'College Eight/Oakes Dining Hall'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 0)
-					{
-						s1 = new Date(year, month - 1, day, 10, 0, second);
-						f1 = new Date(year, month - 1, day, c8_hour_end, c8_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': dining_img + 'College Eight/Oakes Dining Hall'
-					 		  	   };
-						data.push(tmp);
-					}
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, c8_hour_start, c8_minute_start, second);
-						f1 = new Date(year, month - 1, day, 20, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': dining_img + 'College Eight/Oakes Dining Hall)'
-					 		  	   };
-						data.push(tmp);
-					}
-					if(s1.getDay() == 6)
-					{
-						s1 = new Date(year, month - 1, day, 10, 0, second);
-						f1 = new Date(year, month - 1, day, 20, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': dining_img + 'College Eight/Oakes Dining Hall'
-					 		  	   };
-						data.push(tmp);
-					}
-				}		
-
-/*=========================================== C9 ================================================================*/
-
-				s1 = new Date(year, month - 1, day, c9_hour_start, c9_minute_start, second);
-				f1 = new Date(year, month - 1, day, c9_hour_end, c9_minute_end, second);
-				
-				if(s1.getDay() != 6 && s1.getDay() != 0)// sunday = 0 , monday = 1... sat = 6
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'College Nine/Ten Dining Hall'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					s1 = new Date(year, month - 1, day, 10, 0, second);
-					f1 = new Date(year, month - 1, day, c9_hour_end, c9_minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'College Nine/Ten Dining Hall'
-						  	   };
-					data.push(tmp);
-				}		
-
-/*=========================================== Crown ==========================================================*/
-				s1 = new Date(year, month - 1, day, crown_hour_start, crown_minute_start, second);
-				f1 = new Date(year, month - 1, day, crown_hour_end, crown_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'Crown/Merrill Dining Hall'
-					 		  };
-					data.push(tmp);
-				}
-
-/*=========================================== Stevenson ================================================================*/
-
-				s1 = new Date(year, month - 1, day, c9_hour_start, c9_minute_start, second);
-				f1 = new Date(year, month - 1, day, c9_hour_end, c9_minute_end, second);
-				
-				if(s1.getDay() != 6 && s1.getDay() != 0)// sunday = 0 , monday = 1... sat = 6
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'Cowell/Stevenson Dining Hall'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					s1 = new Date(year, month - 1, day, 10, 0, second);
-					f1 = new Date(year, month - 1, day, c9_hour_end, c9_minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': dining_img + 'Cowell/Stevenson Dining Hall'
-						  	   };
-					data.push(tmp);
-				}		
-
-
-/*=========================================== Banana Joes ==========================================================*/
-				s1 = new Date(year, month - 1, day, bananaJoes_hour_start, bananaJoes_minute_start, second);
-				f1 = new Date(year, month - 1, day, bananaJoes_hour_end, bananaJoes_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': bananaJoes_img + 'Banana Joe\'s Quick Mart'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, bananaJoes_hour_start, bananaJoes_minute_start, second);
-						f1 = new Date(year, month - 1, day, 15, bananaJoes_minute_end, second);
 						
 						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': bananaJoes_img + 'Crown/Merrill Dining Hall'
-					 		  	   };
+  							'start': s,
+  							'end':   f,  // end is optional
+  							'content': content,
+  							'distance' : distance,
+  							'className': availability,
+  							'name': location.name
+					 	};
+						
+						
+						
+						
 						data.push(tmp);
 						
-					}
-				}
-
-/*=========================================== Oakes Cafe ==========================================================*/
-				s1 = new Date(year, month - 1, day, oakesCafe_hour_start, oakesCafe_minute_start, second);
-				f1 = new Date(year, month - 1, day, oakesCafe_hour_end, oakesCafe_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': oakesCafe_img + 'Oakes Café'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, bananaJoes_hour_start, bananaJoes_minute_start, second);
-						f1 = new Date(year, month - 1, day, 15, bananaJoes_minute_end, second);
 						
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': oakesCafe_img + 'Oakes Café'
-					 		  	   };
-						data.push(tmp);
 						
+						_now.add("days", 1);
 					}
-				}
-
-/*=========================================== Bay Tree Express Store ==========================================================*/
-				s1 = new Date(year, month - 1, day, bayTreeExpressStore_hour_start, bayTreeExpressStore_minute_start, second);
-				f1 = new Date(year, month - 1, day, bayTreeExpressStore_hour_end, bayTreeExpressStore_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*bayTreeExpressStore_img +*/ 'Bay Tree Express Store'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 6)
-					{
-						s1 = new Date(year, month - 1, day, 10, 0, second);
-						f1 = new Date(year, month - 1, day, 16, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*bayTreeExpressStore_img +*/ 'Bay Tree Express Store'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-				
-
-/*=========================================== Owl's Nest Café ==========================================================*/
-				s1 = new Date(year, month - 1, day, owlsNest_hour_start, owlsNest_minute_start, second);
-				f1 = new Date(year, month - 1, day, owlsNest_hour_end, owlsNest_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': owlsNest_img + 'Owl\'s Nest Café'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-							s1 = new Date(year, month - 1, day, owlsNest_hour_start, owlsNest_minute_start, second);
-							f1 = new Date(year, month - 1, day, 17, 0, second);
-							var tmp = {
-  										'start': s1,
-  										'end':   f1,  // end is optional
-  										'content': owlsNest_img + 'Owl\'s Nest Café'
-					 				  };
-							data.push(tmp);
-					}
-				}
+					
+					_now = null;
 
 
-/*=========================================== College Eight Café ==========================================================*/
-				s1 = new Date(year, month - 1, day, collegeEightCafe_hour_start, collegeEightCafe_minute_start, second);
-				f1 = new Date(year, month - 1, day, collegeEightCafe_hour_end, collegeEightCafe_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*collegeEightCafe_img +*/ 'College Eight Café'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, collegeEightCafe_hour_start, collegeEightCafe_minute_start, second);
-						f1 = new Date(year, month - 1, day, collegeEightCafe_hour_end, collegeEightCafe_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*collegeEightCafe_img +*/ 'College Eight Café'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Perk Coffee @ Earth & Marine Sciences ==========================================================*/
-				s1 = new Date(year, month - 1, day, perkCoffeeEarthMarineSciences_hour_start, perkCoffeeEarthMarineSciences_minute_start, second);
-				f1 = new Date(year, month - 1, day, perkCoffeeEarthMarineSciences_hour_end, perkCoffeeEarthMarineSciences_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': perkCoffee_img + 'Perk Coffee @ Earth & Marine Sciences'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, perkCoffeeEarthMarineSciences_hour_start, perkCoffeeEarthMarineSciences_minute_start, second);
-						f1 = new Date(year, month - 1, day, 14, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': perkCoffee_img + 'Perk Coffee @ Earth & Marine Sciences'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Perk Coffee @ Baskin Engineering ==========================================================*/
-				s1 = new Date(year, month - 1, day, perkCoffeeBaskinEngineering_hour_start, perkCoffeeBaskinEngineering_minute_start, second);
-				f1 = new Date(year, month - 1, day, perkCoffeeBaskinEngineering_hour_end, perkCoffeeBaskinEngineering_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': perkCoffee_img + 'Perk Coffee @ Baskin Engineering'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, perkCoffeeBaskinEngineering_hour_start, perkCoffeeBaskinEngineering_minute_start, second);
-						f1 = new Date(year, month - 1, day, 14, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': perkCoffee_img + 'Perk Coffee @ Baskin Engineering'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Perk Coffee @ Physical Science Building  ==========================================================*/
-				s1 = new Date(year, month - 1, day, perkCoffeePhysicalScience_hour_start, perkCoffeePhysicalScience_minute_start, second);
-				f1 = new Date(year, month - 1, day, perkCoffeePhysicalScience_hour_end, perkCoffeePhysicalScience_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': perkCoffee_img + 'Perk Coffee @ Physical Science Building'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, perkCoffeePhysicalScience_hour_start, perkCoffeePhysicalScience_minute_start, second);
-						f1 = new Date(year, month - 1, day, 14, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': perkCoffee_img + 'Perk Coffee @ Physical Science Building'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Perk Coffee @ University Center  ==========================================================*/
-				s1 = new Date(year, month - 1, day, perkCoffeeUniversityCenter_hour_start, perkCoffeeUniversityCenter_minute_start, second);
-				f1 = new Date(year, month - 1, day, perkCoffeeUniversityCenter_hour_end, perkCoffeeUniversityCenter_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': perkCoffee_img + 'Perk Coffee @ University Center'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, perkCoffeeUniversityCenter_hour_start, perkCoffeeUniversityCenter_minute_start, second);
-						f1 = new Date(year, month - 1, day, 14, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': perkCoffee_img + 'Perk Coffee @ University Center'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Cowell Coffee Shop  ==========================================================*/
-				s1 = new Date(year, month - 1, day, cowellCoffeeShop_hour_start, cowellCoffeeShop_minute_start, second);
-				f1 = new Date(year, month - 1, day, cowellCoffeeShop_hour_end, cowellCoffeeShop_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*cowellCoffeeShop_img +*/ 'Cowell Coffee Shop'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, cowellCoffeeShop_hour_start, cowellCoffeeShop_minute_start, second);
-						f1 = new Date(year, month - 1, day, 16, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*cowellCoffeeShop_img +*/ 'Cowell Coffee Shop'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Porter Slug Grill and Cafe  ==========================================================*/
-				s1 = new Date(year, month - 1, day, porterSlugGrillAndCafe_hour_start, porterSlugGrillAndCafe_minute_start, second);
-				f1 = new Date(year, month - 1, day, porterSlugGrillAndCafe_hour_end, porterSlugGrillAndCafe_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*porterSlugGrillAndCafe_img +*/ 'Porter Slug Grill and Cafe'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, cowellCoffeeShop_hour_start, cowellCoffeeShop_minute_start, second);
-						f1 = new Date(year, month - 1, day, 16, porterSlugGrillAndCafe_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*porterSlugGrillAndCafe_img +*/ 'Porter Slug Grill and Cafe'
-					 		  	  };
-						data.push(tmp);
-					}
-					if(s1.getDay() == 0 || s1.getDay() == 6)
-					{
-						s1 = new Date(year, month - 1, day, cowellCoffeeShop_hour_start, porterSlugGrillAndCafe_minute_start, second);
-						f1 = new Date(year, month - 1, day, 22, porterSlugGrillAndCafe_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*porterSlugGrillAndCafe_img +*/ 'Porter Slug Grill and Cafe'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Global Village Café  ==========================================================*/
-				s1 = new Date(year, month - 1, day, globalVillageCafe_hour_start, globalVillageCafe_minute_start, second);
-				f1 = new Date(year, month - 1, day, globalVillageCafe_hour_end, globalVillageCafe_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*globalVillageCafe_img +*/ 'Global Village Café'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, globalVillageCafe_hour_start, globalVillageCafe_minute_start, second);
-						f1 = new Date(year, month - 1, day, 19, globalVillageCafe_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*globalVillageCafe_img +*/ 'Global Village Café'
-					 		  	  };
-						data.push(tmp);
-					}
-					if(s1.getDay() == 6)
-					{
-						s1 = new Date(year, month - 1, day, 11, globalVillageCafe_minute_start, second);
-						f1 = new Date(year, month - 1, day, 18, globalVillageCafe_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*globalVillageCafe_img +*/ 'Global Village Café'
-					 		  	  };
-						data.push(tmp);
-					}
-					if(s1.getDay() == 0)
-					{
-						s1 = new Date(year, month - 1, day, 10, globalVillageCafe_minute_start, second);
-						f1 = new Date(year, month - 1, day, 20, globalVillageCafe_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*globalVillageCafe_img +*/ 'Global Village Café'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Stevenson Coffee House  ==========================================================*/
-				s1 = new Date(year, month - 1, day, stevensonCoffeeHouse_hour_start, stevensonCoffeeHouse_minute_start, second);
-				f1 = new Date(year, month - 1, day, stevensonCoffeeHouse_hour_end, stevensonCoffeeHouse_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 5 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*globalVillageCafe_img +*/ 'Stevenson Coffee House'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 5)
-					{
-						s1 = new Date(year, month - 1, day, stevensonCoffeeHouse_hour_start, stevensonCoffeeHouse_minute_start, second);
-						f1 = new Date(year, month - 1, day, 17, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*globalVillageCafe_img +*/ 'Stevenson Coffee House'
-					 		  	  };
-						data.push(tmp);
-					}
-
-					if(s1.getDay() == 0)
-					{
-						s1 = new Date(year, month - 1, day, 8, 0, second);
-						f1 = new Date(year, month - 1, day, stevensonCoffeeHouse_hour_end, stevensonCoffeeHouse_minute_end, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*globalVillageCafe_img +*/ 'Stevenson Coffee House'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Joe's Pizza & Subs  ==========================================================*/
-				s1 = new Date(year, month - 1, day, joesPizzaAndSubs_hour_start, joesPizzaAndSubs_minute_start, second);
-				f1 = new Date(year, month - 1, day, joesPizzaAndSubs_hour_end, joesPizzaAndSubs_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*globalVillageCafe_img +*/ 'Joe\'s Pizza & Subs'
-					 		  };
-					data.push(tmp);
-				}
-				else
-				{
-					if(s1.getDay() == 6)
-					{
-						s1 = new Date(year, month - 1, day, 11, joesPizzaAndSubs_minute_start, second);
-						f1 = new Date(year, month - 1, day, 16, 0, second);
-						var tmp = {
-  									'start': s1,
-  									'end':   f1,  // end is optional
-  									'content': /*globalVillageCafe_img +*/ 'Joe\'s Pizza & Subs'
-					 		  	  };
-						data.push(tmp);
-					}
-				}
-
-/*=========================================== Terra Fresca Restaurant ==========================================================*/
-				s1 = new Date(year, month - 1, day, terraFrescaRestaurant_hour_start, terraFrescaRestaurant_minute_start, second);
-				f1 = new Date(year, month - 1, day, terraFrescaRestaurant_hour_end, terraFrescaRestaurant_minute_end, second);
-				
-				if(s1.getDay() != 0 && s1.getDay() != 6)
-				{
-					//s1 = new Date(year, month - 1, day, hour_start, minute_start, second);
-					//f1 = new Date(year, month - 1, day, hour_end, minute_end, second);
-					var tmp = {
-  								'start': s1,
-  								'end':   f1,  // end is optional
-  								'content': /*terraFrescaRestaurant_img +*/ 'Terra Fresca Restaurant'
-					 		  };
-					data.push(tmp);
-				}
-
-/*===================================================================================================================*/
-				day += 1;
-				if(day == 30)
-					if(month == 9 || month == 4 || month == 6 || month == 11)
-					{
-						day = 1;
-						month += 1;
-					}
-				if(day == 31)
-				{
-					day = 1;
-					month += 1;
 				}
 			}
-
 			
-			/*data.push({
-  						'start': new Date(2010, 7, 15),
-  						'end': new Date(2010, 8, 2),  // end is optional
-  						'content': 'Trajectory A'
- 						// Optional: a field 'group'
-  						// Optional: a field 'className'
- 	 					// Optional: a field 'editable'
-					});*/
-            
-            /*var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'start');
-            data.addColumn('datetime', 'end');
-            data.addColumn('string', 'content');
-
-            data.addRows([
-                [new Date(2010,7,23), , 'Conversation<br>' +
-                        '<img src="img/comments-icon.png" style="width:32px; height:32px;">'],
-                [new Date(2010,7,23,23,0,0), , 'Mail from boss<br>' +
-                        '<img src="img/mail-icon.png" style="width:32px; height:32px;">'],
-                [new Date(2010,7,24,16,0,0), , 'Report'],
-                [new Date(2010,7,26), new Date(2010,8,2), 'Traject A'],
-                [new Date(2010,7,28), , 'Memo<br>' +
-                        '<img src="img/notes-edit-icon.png" style="width:48px; height:48px;">'],
-                [new Date(2010,7,29), , 'Phone call<br>' +
-                        '<img src="img/Hardware-Mobile-Phone-icon.png" style="width:32px; height:32px;">'],
-                [new Date(2010,7,31), new Date(2010,8,3), 'Traject B'],
-                [new Date(2010,8,4,12,0,0), , 'Report<br>' +
-                        '<img src="img/attachment-icon.png" style="width:32px; height:32px;">']
-            ]);*/
-
-            // specify options
-			var s2 = new Date();
-			var f2 = new Date();
-			s2.setHours(5);
-			s2.setMinutes(0);
-			f2.setHours(23);
-			f2.setMinutes(59);
+			
+			// specify options
             var options = {
                 "width":  "100%",
                 "height": "100%",//previous value: "300px"
                 "style": "box",
-				'cluster': true,
-				"animateZoom": true,
+
+				"animateZoom": false,
+				zoomable: false,
 				height: "auto",
-				start: s2,
-                end: f2
+				axisOnTop: true,
+				selectable: true, 
+				customStackOrder: myStackOrder,
+				animate: false,
+				groupsOrder: false,
+                margin: "20px"
             };
+            
 
             // Instantiate our timeline object.
             timeline = new links.Timeline(document.getElementById('mytimeline'));
+            
+            links.events.addListener(timeline, 'select', onSelect);
+            
+            //reSort data object if geolocated, someone should make this sort happen
+            if(geolocationFlag){
+				
+				var newDataTable = [];
+				for(var i = 0; i < data.length; i++){
+					var array = [data[i], data[i].distance];
+					newDataTable.push(array);
+				}
+				newDataTable.sort(function(a, b) {return a[1] - b[1]});	
+				
+				data = [];
+				
+				for(var i = 0; i < newDataTable.length; i++){
+					data.push(newDataTable[i][0]);
+					//console.log(newDataTable[i][0].content);
+				}
+					
+			} 
 
             // Draw our timeline with the created data and options
             timeline.draw(data, options);
-        }
+
+            //Scale the timeline to start at 7:15am and end at 5:30pm.
+            var olddate = new Date();
+            var newdate = new Date();
+            olddate.setHours(7);
+			olddate.setMinutes(15);
+			newdate.setHours(17);
+			newdate.setMinutes(0);
+            timeline.setVisibleChartRange(olddate, newdate);
+			
+		}
+    
+		function onSelect(){
+			var sel = timeline.getSelection();
+			var item = timeline.getItem(sel[0].row);
+			
+			
+
+		}
+		
+		function myStackOrder(item1, item2){
+			
+		}
+    
+    
     </script>
-        
-        
-        
-        
+          
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-		    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-		      <div class="container">
-		        <div class="navbar-header">
+		<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+          <div class="navbar-custom">
+            
+            <!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
+            <a class="navbar-logo pull-left" href="index.html"><img src="images/dining-logo.png"></a> 
 
-		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		          </button>
+          <div class="container">
+            <div class="navbar-header"> 
+                  <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
 
-		          <a class="navbar-brand" href="index.html">Dining Services</a>
-		        </div>
-
-		        <!-- Collect the nav links, forms, and other content for toggling -->
-		        <div class="collapse navbar-collapse navbar-ex1-collapse">
-		          <ul class="nav navbar-nav">
-		            <li><a href="feedback.html">Feedback</a></li>
-		            <li><a href="#dininghome">Dining Home</a></li>
-		            <li><a href="#webportal">Web Portal</a></li>
-		          </ul>
-		        </div><!-- /.navbar-collapse -->
-		      </div><!-- /.container -->
-		    </nav>
+                                    
+             </div><!-- /.navbar-header -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                 <ul class="nav navbar-nav">
+                    <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="http://housing.ucsc.edu/dining">UCSC Dining Website</a></li>
+                <li><a href="http://mobile.ucsc.edu">Web Portal</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container -->
+          </div><!-- /.navbar-custom -->
+       </nav>
 		
 	    <div class="container">
 
@@ -909,23 +422,56 @@
 	          <h1 class="page-header">What's Open<small></small></h1>
 	        </div>
 	      </div>
+	      
+	      <p><b style="color:#1AA11A">Green</b> locations are <b>open</b></p>
+	      <p><b style="color:#F03030">Red</b> locations are <b>closed</b></p>
+	      <p>Scroll <b>up/down</b> on the sides and scroll <b>sideways</b> on timeline.</p>
+	      <p id="changeThis">Share your location to find the location closest to you.</p>
 
-<div id="mytimeline"></div>
 
+		  <div id="mytimeline" style="margin: 0px 20px;"></div>
 
     <footer>
-       <div class="row">
-          <div class="col-lg-12">
-            <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; Google+</p> -->
-            <p class=""><span class="small">&copy; 2014 Regents of the University of California </span>
-            &nbsp;
-            <a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
-            &middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
-            &middot; <i class="fa fa-google-plus"></i> 
-            </p>
-           </div>
-        </div>
-     </footer>
+	   <div class="row">
+	      <div class="col-lg-12">
+	        <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; instagram</p> -->
+			<p class="text-centered"><span class="small">&copy; 2014 Regents of the University of California </span>
+			&nbsp;
+			<a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
+			&middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
+			&middot; <a href="http://instagram.com/ucscdining"><i class="fa fa-instagram"></i> </a>
+			</p>
+	       </div>
+	    </div>
+	 </footer>
+
+	      </div> <!-- /.container -->
+
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/momentjs/moment.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-55091123-1');ga('send','pageview');
+        </script>
+
+        <!-- build:js scripts/main.js -->
+        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+        <!-- endbuild -->
 
 		
 </body>

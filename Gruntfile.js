@@ -12,29 +12,8 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
-	
-	grunt.loadNpmTasks('grunt-contrib-handlebars');
 
     grunt.initConfig({
-		handlebars: {
-		      compile: {
-		        files: {
-		          "temp/modules/compiled-templates.js": [
-		            "app/modules/*/templates/**/*.hbs"
-		          ]
-		        },
-		        options: {
-		          namespace: 'MyApp.Templates',
-		          wrapped: true, 
-		          processName: function(filename) {
-		            // funky name processing here
-		            return filename
-		                    .replace(/^app\/modules\//, '')
-		                    .replace(/\.hbs$/, '');
-		          }
-		        }
-		      }
-		    },
 			
         // configurable paths
         yeoman: {
@@ -42,12 +21,6 @@ module.exports = function (grunt) {
             dist: 'dist'
         },
         watch: {
-			handlebars: {
-			        files: [
-			          'app/modules/*/templates/*.hbs'
-			        ],
-			        tasks: 'handlebars reload'
-			      },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
@@ -115,7 +88,10 @@ module.exports = function (grunt) {
         },
         jshint: {
             options: {
-                jshintrc: '.jshintrc'
+                jshintrc: '.jshintrc',
+                ignores: ['<%= yeoman.app %>/scripts/timeline/{,*/}*.js', //psm added these 3 lines to keep Grunt grunting
+                        '<%= yeoman.app %>/scripts/modernizr.custom.24514.js',
+                        'Gruntfile.js']
             },
             all: [
                 'Gruntfile.js',
@@ -176,25 +152,25 @@ module.exports = function (grunt) {
         /*concat: {
             dist: {}
         },*/
-        requirejs: {
-            dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-                options: {
-                    // `name` and `out` is set by grunt-usemin
-                    baseUrl: '<%= yeoman.app %>/scripts',
-                    optimize: 'none',
-                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
-                    // https://github.com/yeoman/grunt-usemin/issues/30
-                    //generateSourceMaps: true,
-                    // required to support SourceMaps
-                    // http://requirejs.org/docs/errors.html#sourcemapcomments
-                    preserveLicenseComments: false,
-                    useStrict: true,
-                    wrap: true
-                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
-                }
-            }
-        },
+         requirejs: {
+             dist: {
+                 // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+                 options: {
+                     // `name` and `out` is set by grunt-usemin
+                     baseUrl: '<%= yeoman.app %>/scripts',
+                     optimize: 'none',
+                     // TODO: Figure out how to make sourcemaps work with grunt-usemin
+                     // https://github.com/yeoman/grunt-usemin/issues/30
+                     //generateSourceMaps: true,
+                     // required to support SourceMaps
+                     // http://requirejs.org/docs/errors.html#sourcemapcomments
+                     preserveLicenseComments: false,
+                     useStrict: true,
+                     wrap: true
+                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
+                 }
+             }
+         },
         rev: {
             dist: {
                 files: {
@@ -211,7 +187,7 @@ module.exports = function (grunt) {
             options: {
                 dest: '<%= yeoman.dist %>'
             },
-            html: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/map.html'],
+            html: ['<%= yeoman.app %>/index.html'],
         },
         usemin: {
             options: {
@@ -277,37 +253,62 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        // Put files not handled in other tasks here
-        // PSM added leaflet, leaflet-hash, leaflet-locatecontrol, bootstrap.min.css
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.dist %>',
-                    src: [
-                        '*.{ico,png,txt}',
-                        '.htaccess',
-                        'images/{,*/}*.{webp,gif}',
-                        'styles/fonts/{,*/}*.*',
-                        'bower_components/sass-bootstrap/fonts/*.*',
-                        'bower_components/sass-bootstrap/dist/css/bootstrap.min.css',
-                        'bower_components/leaflet/dist/*',
-                        'bower_components/leaflet/dist/images/*',
-                        'bower_components/leaflet-hash/leaflet-hash.js',
-                        'bower_components/leaflet-locatecontrol/src/images/*',
-                        'bower_components/leaflet-locatecontrol/src/*'
-                    ]
-                }]
-            },
+       
+    copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.dist %>',
+          src: [
+            '*.{ico,png,jpg,gif,txt}',
+            '.htaccess',
+            '*.html',
+            '*.php',
+            'views/{,*/}*.html',
+            'bower_components/{**}',
+            'images/{,*/}*.{webp}',
+            'fonts/*',
+          ],        
+        }, 
+        {
+          expand: true,
+          cwd: '.tmp/images',
+          dest: '<%= yeoman.dist %>/images',
+          src: ['generated/*']
+        },
+               // grunt copy:dist copies the data/*.json files
+	       {
+		   expand: true,
+		   cwd: '<%= yeoman.app %>/data',
+		   dest: '<%= yeoman.dist %>/data',
+		   src: ['**']
+	       },
+	       // grunt build copies the bower_components over too
+	       {
+		   expand: true,
+		   cwd: '<%= yeoman.app %>/bower_components',
+		   dest: '<%= yeoman.dist %>/bower_components',
+		   src: ['**']
+	       },
+	       // copy the /scripts/timeline folder over to dist
+	       {
+		       expand: true,
+               cwd: '<%= yeoman.app %>/scripts/timeline',
+               dest: '<%= yeoman.dist %>/scripts/timeline',
+		   src: ['**']
+	       }
+        ] // end files; trailing comma here???
+      },
             styles: {
                 expand: true,
                 dot: true,
                 cwd: '<%= yeoman.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
-            }
+            },
+            
         },
         modernizr: {
             devFile: '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
@@ -317,7 +318,7 @@ module.exports = function (grunt) {
                 '<%= yeoman.dist %>/styles/{,*/}*.css',
                 '!<%= yeoman.dist %>/scripts/vendor/*'
             ],
-            uglify: true
+            uglify: false
         },
         concurrent: {
             server: [
@@ -345,7 +346,8 @@ module.exports = function (grunt) {
         }
 			
     }); // end initConfig
-
+	
+	
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -377,7 +379,7 @@ module.exports = function (grunt) {
         'concat',
         'cssmin',
         'uglify',
-        'modernizr',
+        // 'modernizr',
         'copy:dist',
         'rev',
         'usemin'

@@ -1,20 +1,33 @@
 {
   "Bay Tree Express Store": {
-    
-  },
-  "Owl's Nest Restaurant": {
-    "Pastries": [
-      "Coffee and Espresso"
-    ],
-    "Lunch": [
-      "Salads",
-      "Crepes",
-      "Rice Bowls"
-    ],
-    "Dinner": [
-      "Burgers",
-      "Wraps"
+    "Convenience Items":[
+		"Teas",
+		"Coffees",
+		"Sandwhiches",
+		"Drinks",
+		"Snacks",
+		"Breakfast Foods",
+		"Pastries"
     ]
+  },
+  "College Eight Café":{
+	"Lunch":[
+		"Coffee",
+		"Smoothies",
+		"Croissants",
+		"Sandwiches",
+		"and more..."
+	]
+  },
+  "Porter Slug Grill":{
+	"Dining Options":[
+		"Sandwiches",
+		"Burgers",
+		"Burritos",
+		"Espresso Drinks",
+		"Shakes",
+		"and more..."
+	]
   },
   "Cruz N Gourmet": {
     "Lunch": [
@@ -45,19 +58,25 @@
     ]
   },
   "Stevenson Coffee House": {
-    "Coffee": [
-      "Coffee"
-    ],
-    "Baked Goods": [
-      "Baked Goods"
+    "Dining Options": [
+		"Ice Cream",
+		"Soups",
+		"Salads",
+		"Sandwiches",
+		"Coffee",
+		"Baked Goods",
+		"and more..."
     ]
   },
   "Cowell Coffee Shop": {
-    "Coffee": [
-      "Coffee"
-    ],
-    "Baked Goods": [
-      "Baked Goods"
+    "Cafe Items" : [
+		"Sandwiches",
+		"Snacks",
+		"Salads",
+		"Muffins",
+		"Bagels",
+		"Coffee",
+		"and more"
     ]
   },
   "Global Village Café": {
@@ -92,242 +111,66 @@
       "Cappuccino"
     ]
   },
-  "Crown/Merrill": {
-    "Breakfast": [
-      "Hard Cooked Cage Free Eggs",
-      "Sausage Links",
-      "Belgian Waffles",
-      "Cage Free Scrambled Eggs",
-      "Eggbeaters Scramble",
-      "Natural Bridges Tofu Scramble",
-      "Cake Donut",
-      "Lemon Poppyseed Muffin",
-      "Orange Crunch Muffin",
-      "Raspberry Cheese Ring",
-      "Cage Free Eggs Omelette Bar",
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine"
-    ],
-    "Lunch": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Baja Burger",
-      "Beef Bobotie",
-      "Mayzan Sharmoula",
-      "Moroccan Chicken Sharmoula",
-      "French Rolls",
-      "Lemon Bars",
-      "Peanut Butter Brownie",
-      "Indian Bar #1"
-    ],
-    "Dinner": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine",
-      "Orange Glazed Pork",
-      "Orange Glazed Seitan",
-      "Potato Curry",
-      "Sticky Rice",
-      "Indian Bar #1"
-    ]
-  },
-  "Cowell/Stevenson": {
-    "Breakfast": [
-      "Crispy Bacon",
-      "French Toast Sticks",
-      "Hard Cooked Cage Free Eggs",
-      "Cage Free Scrambled Eggs",
-      "Eggbeaters Scramble",
-      "Natural Bridges Tofu Scramble",
-      "Cake Donut",
-      "Lemon Poppyseed Muffin",
-      "Orange Crunch Muffin",
-      "Raspberry Cheese Ring",
-      "Cage Free Eggs Omelette Bar",
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine"
-    ],
-    "Lunch": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Baja Burger",
-      "Beef Bobotie",
-      "Mayzan Sharmoula",
-      "Moroccan Chicken Sharmoula",
-      "French Rolls",
-      "Lemon Bars",
-      "Peanut Butter Brownie",
-      "Indian Bar #1"
-    ],
-    "Dinner": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine",
-      "Orange Glazed Pork",
-      "Orange Glazed Seitan",
-      "Potato Curry",
-      "Sticky Rice",
-      "Indian Bar #1"
-    ]
-  },
-  "Porter/Kresge": {
-    "Breakfast": [
-      "Hard Cooked Cage Free Eggs",
-      "Sausage Links",
-      "Belgian Waffles",
-      "Cage Free Scrambled Eggs",
-      "Eggbeaters Scramble",
-      "Natural Bridges Tofu Scramble",
-      "Cake Donut",
-      "Lemon Poppyseed Muffin",
-      "Orange Crunch Muffin",
-      "Raspberry Cheese Ring",
-      "Cage Free Eggs Omelette Bar",
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine"
-    ],
-    "Lunch": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Baja Burger",
-      "Beef Bobotie",
-      "Mayzan Sharmoula",
-      "Moroccan Chicken Sharmoula",
-      "French Rolls",
-      "Lemon Bars",
-      "Peanut Butter Brownie",
-      "Indian Bar #1"
-    ],
-    "Dinner": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine",
-      "Orange Glazed Pork",
-      "Orange Glazed Seitan",
-      "Potato Curry",
-      "Sticky Rice",
-      "Indian Bar #1"
-    ]
-  },
-  "College Eight/Oakes": {
-    "Breakfast": [
-      "Hard Cooked Cage Free Eggs",
-      "Sausage Links",
-      "Belgian Waffles",
-      "Cage Free Scrambled Eggs",
-      "Eggbeaters Scramble",
-      "Natural Bridges Tofu Scramble",
-      "Cake Donut",
-      "Lemon Poppyseed Muffin",
-      "Orange Crunch Muffin",
-      "Raspberry Cheese Ring",
-      "Cage Free Eggs Omelette Bar",
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine"
-    ],
-    "Lunch": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Baja Burger",
-      "Beef Bobotie",
-      "Mayzan Sharmoula",
-      "Moroccan Chicken Sharmoula",
-      "French Rolls",
-      "Lemon Bars",
-      "Peanut Butter Brownie",
-      "Indian Bar #1"
-    ],
-    "Dinner": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine",
-      "Orange Glazed Pork",
-      "Orange Glazed Seitan",
-      "Potato Curry",
-      "Sticky Rice",
-      "Indian Bar #1"
-    ]
-  },
-  "Colleges Nine/Ten": {
-    "Breakfast": [
-      "Hard Cooked Cage Free Eggs",
-      "Sausage Links",
-      "Belgian Waffles",
-      "Cage Free Scrambled Eggs",
-      "Eggbeaters Scramble",
-      "Natural Bridges Tofu Scramble",
-      "Cake Donut",
-      "Lemon Poppyseed Muffin",
-      "Orange Crunch Muffin",
-      "Raspberry Cheese Ring",
-      "Cage Free Eggs Omelette Bar",
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine"
-    ],
-    "Lunch": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Baja Burger",
-      "Beef Bobotie",
-      "Mayzan Sharmoula",
-      "Moroccan Chicken Sharmoula",
-      "French Rolls",
-      "Lemon Bars",
-      "Peanut Butter Brownie",
-      "Indian Bar #1"
-    ],
-    "Dinner": [
-      "Cajun Lentil Soup",
-      "Chicken Tortilla Soup",
-      "Cheese Pizza",
-      "Moroccan Olive Chicken Tagine",
-      "Orange Glazed Pork",
-      "Orange Glazed Seitan",
-      "Potato Curry",
-      "Sticky Rice",
-      "Indian Bar #1"
-    ]
-  },
-  "Oakes Café": {
-    "Breakfast": [
-      "Natural Bridges",
-      "The Hook"
-    ],
-    "Lunch": [
-      "The Classic Burger",
-      "Chicken Tenders"
-    ],
-    "Dinner": [
-      "Tri-color Chesse Ravioli",
-      "Thai Spicy Peanut Noodle Bowl"
-    ]
-  },
-  "Banana Joe's Café": {
-    "Breakfast": [
-      "Big Wave Breakfast Burrito",
-      "Wild Tsunami Breakfast Burrito"
-    ],
-    "Lunch": [
-      "Big Island Rice Bowl",
-      "Chicken Taco Salad"
-    ],
-    "Dinner": [
-      "ABC Burger",
-      "Knockout Burger"
-    ]
+  "Joe's Pizza & Subs": {
+	"Burgers":[
+		"Burger",
+		"Cheese Burger",
+		"French Fries",
+		"Onion Rings"
+	],
+	"Pasta": [
+		"Spaghetti",
+		"Ravioli",
+		"Tortellini",
+		"Lasagna",
+		"Garlic Bread",
+		"Lentil Soup",
+		"Clam Chowder"
+	],
+	"Vegetarian":[
+		"Jumbo Spinach Calzone"
+	],
+	"Falafel":[
+		"Whole Falafel",
+		"Falafel Salad",
+		"Baba Ghanouj"
+	],
+	"Salads":[
+		"Small Salad",
+		"Large Salad",
+		"Potato Salad",
+		"Chicken Salad",
+		"Greek Salad",
+		"Chef Salad"
+	],
+	"Drinks":[
+		"Soda",
+		"Coffee",
+		"Iced Coffee"
+	],
+	"Pizza":[
+		"Joe's Special",
+		"Vegetarian",
+		"All-Meat",
+		"Hawaiian",
+		"Pizza Sub Sandwich",
+		"Calzone"
+	],
+	"Sandwiches":[
+		"Italian Sub",
+		"Roast Beef",
+		"Club Sandwich",
+		"Bacon",
+		"Turkey",
+		"Tuna",
+		"Ham",
+		"Pastrami",
+		"Meatball",
+		"Sausage",
+		"Vegetarian",
+		"Chicken Breast",
+		"Beef Shawarma",
+		"Philly Cheese Steak"
+	]
   }
 }

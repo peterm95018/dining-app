@@ -6,50 +6,79 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>dining test</title>
+        <title>UCSC Dining Services</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
         <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/main.css">
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+        <link rel="stylesheet" href="styles/customMain.css">
         <!-- endbuild -->
-		<!--<link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">-->
+
+        <!-- keep some css files out of concatenation build:css process -->
+        <link rel="stylesheet" href="bower_components/add-to-homescreen/style/addtohomescreen.css">
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+        <!-- end -->
+
+        <!-- keep some js files out of concatenation scripts/vendor.js process -->
+        <script src="bower_components/add-to-homescreen/src/addtohomescreen.min.js"></script>
+        <!-- end -->
+
         <!-- build:js scripts/vendor/modernizr.js --> 
-        <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
-		<script src="scripts/modernizr.custom.24514.js"></script>
+        <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+
+   		<!-- psm mods -->
+  		<!-- set a web app capable website -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-title" content="Dining App" />
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+		<link rel="apple-touch-icon" sizes="60x60" href="images/AppIcon60x60.png" />
+		<link rel="apple-touch-icon" sizes="120x120" href="images/AppIcon60x60@2x.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="images/AppIcon76x76.png" />
+		<link rel="apple-touch-icon" sizes="152x152" href="images/AppIcon76x76@2x.png" />
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-		    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+ 		    <!-- <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 		      <div class="container">
-		        <div class="navbar-header">
+		        <div class="navbar-header"> -->
 
-		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+
+         <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+          <div class="navbar-custom">
+          	
+          	<!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
+          	<a class="navbar-logo pull-left" href="index.html"><img src="images/dining-logo.png"></a> 
+
+		      <div class="container">
+		        <div class="navbar-header"> 
+                  <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
+		   	        <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
 		          </button>
 
-		          <a class="navbar-brand" href="index.html">Dining Services</a>
-		        </div>
-
+			                 		          
+             </div><!-- /.navbar-header -->
 		        <!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse navbar-ex1-collapse">
-		          <ul class="nav navbar-nav">
-
-		            <li><a href="feedback.html">Feedback</a></li>
-		            <li><a href="#dininghome">Dining Home</a></li>
-		            <li><a href="#webportal">Web Portal</a></li>
+                 <ul class="nav navbar-nav">
+                    <li><a href="feedback.html">Feedback</a></li>
+		            <li><a href="http://housing.ucsc.edu/dining">UCSC Dining Website</a></li>
+		            <li><a href="http://mobile.ucsc.edu">Web Portal</a></li>
 		          </ul>
 		        </div><!-- /.navbar-collapse -->
 		      </div><!-- /.container -->
-		    </nav>
+          </div><!-- /.navbar-custom -->
+		   </nav>
 		
 	    <div class="container">
 
@@ -61,13 +90,13 @@
 
 	      <div class="row">
 	        <div class="col-lg-7 col-md-7">
-	          <a href="locations_list.html"><img class="img-responsive" src="images/porter-dining-hall.jpg"></a>
+	          <a href="dining_locations.html"><img class="img-responsive" src="images/college-eight-oakes-dh-coll-night.jpg" alt="college night at college eight and oakes dining hall"></a>
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
-	          <h3>Dining Locations</h3>
+	          <h2><a href="dining_locations.html">Dining Locations</a></h2>
 	          <h4 class="muted-text">Dining Halls, Cafés and Restaurants</h4>
-	          <p>Menus, maps and information about campus and vendor provided dining locations. </p>
+	          <p>Menus, maps and information about campus dining locations. </p>
 	        </div><!-- /.col-lg5 col-md-5 -->
 	      </div> <!-- /.row -->
 
@@ -76,14 +105,14 @@
 
 	      <div class="row">
 	        <div class="col-lg-7 col-md-7">
-	          <a href="#"><img class="img-responsive" src="images/crown-dining-hall.jpg"></a>
+	          <a href="whats_open.html"><img class="img-responsive" src="images/food-event-del-fuego-2.jpg" alt="food event del fuego"></a>
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
-	          <h3>What's Open</h3>
+	          <h2><a href="whats_open.html">What's Open</a></h2>
 	          <h4>What's Open Near Me</h4>
 	          <p>List of the food locations that are currently open based on the current time and your location.</p>
-	          <p><a class="btn btn-success" href="whats_open.html" data-locationName="Dining">What's Open <span class="glyphicon glyphicon-eye-open"></span></a></p>
+	          <!--<p><a class="btn btn-success" href="whats_open.html" data-locationName="Dining">What's Open <span class="glyphicon glyphicon-eye-open"></span></a></p>-->
         </div><!-- /.col-lg5 col-md-5 -->
       </div> <!-- /.row -->
 
@@ -92,46 +121,27 @@
 
 	      <div class="row">
 	        <div class="col-lg-7 col-md-7">
-	          <a href="#"><img class="img-responsive" src="images/harvest_fest_banner.jpg"></a>
+	          <a href="food_events.html"><img class="img-responsive" src="images/food-events.jpg" alt="food events"></a>
 	        </div>
 
 	        <div class="col-lg-5 col-md-5">
-	          <h3>Food Events</h3>
+	          <h2><a href="food_events.html">Food Events</a></h3>
 	          <h4>Info for Foodies</h4>
 	          <p>Information about College Nights, Variety Meals and Special Events.</p>
         </div><!-- /.col-lg5 col-md-5 -->
       </div> <!-- /.row -->
 
-	      <hr>
-
-
-	      <div class="row">
-	        <div class="col-lg-7 col-md-7">
-	  
-	         </div>
-
-	        <div class="col-lg-5 col-md-5">
-	              <div class="btn-group btn-group-justified">
-	          
-	       
-	         </div>
-	          
-        </div><!-- /.col-lg5 col-md-5 -->
-      </div> <!-- /.row -->
-	      <hr>
+      <hr>
 	 
-	<!--Taylor (2/24/14) -->      
-	<!--Added footer class, with new sections for About and Feedback. -->
-	<!--About and Feedback currently link to made up html pages: about.html and feedback.html -->
 	<footer>
 	   <div class="row">
 	      <div class="col-lg-12">
-	        <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; Google+</p> -->
-			<p class=""><span class="small">&copy; 2014 Regents of the University of California </span>
+	        <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; instagram</p> -->
+			<p class="text-centered"><span class="small">&copy; 2014 Regents of the University of California </span>
 			&nbsp;
 			<a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
 			&middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
-			&middot; <i class="fa fa-google-plus"></i> 
+			&middot; <a href="http://instagram.com/ucscdining"><i class="fa fa-instagram"></i> </a>
 			</p>
 	       </div>
 	    </div>
@@ -147,8 +157,13 @@
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+
+
+
+<script> addToHomescreen();</script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -157,7 +172,7 @@
             e=o.createElement(i);r=o.getElementsByTagName(i)[0];
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
+            ga('create','UA-55091123-1');ga('send','pageview');
         </script>
 
         <!-- build:js scripts/main.js -->

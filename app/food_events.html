@@ -1,0 +1,204 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>UCSC Dining Services</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/customMain.css">
+        <!-- endbuild -->
+
+                 <!-- keep some css files out of concatenation build:css process -->
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+        <!-- end -->
+
+        <!-- build:js scripts/vendor/modernizr.js --> 
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+
+        <style type="text/css">
+        .locIsOpen dd {
+            background-color: green;
+        }
+        .locIsClosed dd {
+            background-color: red;
+        }
+        </style>
+        <script src="bower_components/Autolinker.js/dist/Autolinker.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+       <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+         <div class="navbar-custom">
+       	<!-- Below is the logo and brand. In order for them to format correctly, they have to remain outside the container div-->
+         	<a class="navbar-logo pull-left" href="index.html"><img src="images/dining-logo.png"></a> 
+
+		      <div class="container">
+		        <div class="navbar-header"> 
+                <button type="button" class="btn-custom navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		          <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+		          <span class="icon-bar"></span>
+		          <span class="icon-bar"></span>
+		          </button>
+			                 		          
+              </div><!-- /.navbar-header -->
+		        <!-- Collect the nav links, forms, and other content for toggling -->
+		        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                 <ul class="nav navbar-nav">
+                   <li><a href="feedback.html">Feedback</a></li>
+		             <li><a href="http://housing.ucsc.edu/dining">UCSC Dining Website</a></li>
+		             <li><a href="http://mobile.ucsc.edu">Web Portal</a></li>
+		           </ul>
+		        </div><!-- /.navbar-collapse -->
+		      </div><!-- /.container -->
+         </div><!-- /.navbar-custom -->
+		 </nav>
+
+	    <div class="container">
+
+	      <div class="row">
+	        <div class="col-lg-12">
+	          <h1 class="page-header">Food Events<small></small></h1>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="col-lg-12 col-md-8">
+	          <img class="img-responsive" src="images/food-event-del-fuego.jpg" alt="food event del fuego">
+	        </div>
+         </div>
+
+	      <div class="col-lg-12 col-md-8">
+	        <h3>What's Happening</h3>
+	          <p>Food events, college nights and more!</p>
+
+             <hr>
+
+             <div id="gcal-events"> <!-- This is where all the dynamic event data is shoved into -->
+             </div>
+
+	        
+
+         <hr>
+
+    <footer>
+	   <div class="row">
+	      <div class="col-lg-12">
+	        <!--<p>&copy; 2014 Regents of the University of California \n About &middot; Feedback &middot; Facebook &middot; Twitter &middot; instagram</p> -->
+			<p class="text-centered"><span class="small">&copy; 2014 Regents of the University of California </span>
+			&nbsp;
+			<a href="https://www.facebook.com/UcscDining"><i class="fa fa-facebook"></i></a>  
+			&middot; <a href="https://twitter.com/UCSCDining"><i class="fa fa-twitter"></i></a>
+			&middot; <a href="http://instagram.com/ucscdining"><i class="fa fa-instagram"></i> </a>
+			</p>
+	       </div>
+	    </div>
+	 </footer>
+
+			</div><!-- /.col-lg-12 col-md-8 -->
+	      </div> <!-- /.row -->
+
+
+</div> <!-- /.container -->
+
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+		    <script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <script type='text/javascript' src='http://datejs.googlecode.com/files/date.js'></script>
+
+   <script>
+  
+      //get UCSC Dining Calendar data for future events sorted returned to us in JSON
+        gcal_json_url = 'http://www.google.com/calendar/feeds/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&futureevents=true&max-results=10&alt=json';
+
+        // Get list of upcoming iCal events formatted in JSON
+        $.getJSON(gcal_json_url, function(data){
+           // Parse and render each event
+
+           if(data.feed.entry === undefined){//data.feed.entry will be undefined if no events in the next 2 weeks
+              $("#gcal-events").append("<dt>Looks like there's no events in the next 2 weeks. Check back later!</dt>");
+              return false;
+           }
+            $.each(data.feed.entry, function(i, item){
+                              
+                // event title
+                var event_title = item.title.$t;
+                
+                // event contents
+                var event_contents = $.trim(item.content.$t);
+
+                // psm addition
+                var event_contents = Autolinker.link(event_contents);
+
+                // make each separate line a new list item
+                // psm change below don't need new lines turning into li's
+                //event_contents = event_contents.replace(/\n/g,"</li><li>");
+
+                // event start date/time
+                var event_start_date = new Date(item.gd$when[0].startTime);
+                
+                // if event has a start time (as oppose to all day), format date with time
+                if(event_start_date.getHours() != 0 || event_start_date.getMinutes() != 0) {
+                    var event_start_str = event_start_date.toString("ddd MMM d, h:mm tt");
+                } else {
+                // otherwise format start as date only (without time)
+                    var event_start_str = event_start_date.toString("ddd MMM d");                
+                };
+                
+                // event location - if not null, surround with parens
+                var event_loc = item.gd$where[0].valueString;
+                if(event_loc!="") {
+                    event_loc = " (" + event_loc + ")";
+                };
+                
+                // Render the event
+                $("#gcal-events").append(
+                "<div><dl>"
+                    + "<dt>" + event_title + "</dt>"
+                    + "<dd>" + event_start_str + event_loc + "</dd>"
+                    + "<dd>" + event_contents + "</dd>"
+                    + "</dl></div>" + "<hr>"
+                );
+                
+            });
+         
+            $("#gcal-events hr:last").remove();//Removes the ugly last <hr> in the list of events
+
+         });
+    
+   </script>
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-55091123-1');ga('send','pageview');
+        </script>
+
+        <!-- build:js scripts/main.js -->
+        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+        <!-- endbuild -->
+		
+</body>
+</html>

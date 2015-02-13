@@ -1,0 +1,154 @@
+{
+	"Dining Halls" : {
+        "College Eight/Oakes": {
+			"location": {
+				"latitude" : "36.99164",
+				"longitude": "-122.06534"
+			}
+		},
+		"Colleges Nine/Ten": {
+			"location": {
+				"latitude" : "37.00074",
+				"longitude": "-122.05786"
+			}	
+		},
+        "Cowell/Stevenson": {
+			"location": {
+				"latitude" : "36.99688",
+				"longitude": "-122.05302"
+			}
+        },
+		"Porter/Kresge": {
+			"location": {
+				"latitude" : "36.99419",
+				"longitude": "-122.06585"
+			}
+		},
+		"Crown/Merrill": {
+			"location": {
+				"latitude" : "37.00015",
+				"longitude": "-122.05441"
+			}
+		}	
+	},
+	"Coffee Carts" : {
+        "Perk Coffee @ Baskin Engineering": {
+			"location": {
+				"latitude" : "37.00042",
+				"longitude": "-122.06301"
+			}
+		},
+		"Perk Coffee @ Earth & Marine Sciences": {
+			"location": {
+				"latitude" : "36.99775",
+				"longitude": "-122.05991"
+			}
+		},
+		"Perk Coffee @ Physical Sciences Building": {
+			"location": {
+				"latitude" : "36.99966",
+				"longitude": "-122.06177"
+			}
+		},
+		"Perk Coffee @ Science Library": {
+			"location": {
+				"latitude" : "36.99896",
+				"longitude": "-122.06087"
+			}
+		}, 
+		"Perk Coffee @ University Center": {
+			"location": {
+				"latitude" : "37.00074",
+				"longitude": "-122.0579"
+			}
+		}
+	},
+	"Cafes & Restaurants" : {
+		"Banana Joe's Café": {
+			"location": {
+				"latitude" : "37.0003",
+				"longitude": "-122.05444"
+			}
+		 },
+		"Bay Tree Express Store": {
+			"location": {
+				"latitude" : "36.99775",
+				"longitude": "-122.05564"
+			}
+		 },
+		"College Eight Café": {
+			"location": {
+				"latitude" : "36.9916",
+				"longitude": "-122.0643"
+			}
+		 },
+		"Cowell Coffee Shop": {
+			"location": {
+				"latitude" : "36.99727",
+				"longitude": "-122.05314"
+			}
+		 },
+		"Global Village Café": {
+			"location": {
+				"latitude" : "36.99541",
+				"longitude": "-122.05928"
+			}
+		 },
+		"Joe's Pizza & Subs": {
+			"location": {
+				"latitude" : "36.99808",
+				"longitude": "-122.0558"
+			}
+		 },
+		"Oakes Café": {
+			"location": {
+				"latitude" : "36.98934",
+				"longitude": "-122.0633"
+			}
+		 },	
+		 "Owl's Nest Restaurant": {
+			"location": {
+				"latitude" : "36.99881",
+				"longitude": "-122.06607"
+			}
+		 },
+		"Porter Slug Grill": {
+			"location": {
+				"latitude" : "36.99421",
+				"longitude": "-122.06581"
+			}
+		 },
+		 "Stevenson Coffee House": {
+			"location": {
+				"latitude" : "36.99732",
+				"longitude": "-122.05233"
+			}
+		 },
+		"Terra Fresca Restaurant": {
+			"location": {
+				"latitude" : "37.00074",
+				"longitude": "-122.0579"
+			}
+		 }	  
+	},
+	"Food Trucks" : {
+		"Cruz N Gourmet": {
+			"location": {
+				"latitude" : "37.0007",
+				"longitude": "-122.06235"
+			}
+		},
+		"Raymond's Catering": {
+			"location": {
+				"latitude" : "36.99916",
+				"longitude": "-122.06204"
+			}
+		},
+		"Zameen Mediterranean Cuisine": {
+			"location": {
+				"latitude" : "36.99359",
+				"longitude": "-122.06054"
+			}
+		}
+	}
+}

@@ -1,7 +1,6 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+$icon-font-path: "../bower_components/sass-bootstrap/fonts/"; /* note the ../ has to be there to work right psm */
 
 @import 'sass-bootstrap/lib/bootstrap';
-
 /* @fa-font-path '/bower_components/components-font-awesome/fonts/'; */
 
 .browsehappy {
@@ -23,6 +22,19 @@ body {
 .footer {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+footer{
+    text-align: center; /* I added this block to center the footer -Aiden Hoopes */
+}
+
+.modal-footer{ /*There was lots of ugly whitespace in the modal footers, so this fixes it. */
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.modal-body{
+    padding-top: 0px;
 }
 
 /* Custom page header */
@@ -94,12 +106,18 @@ body {
 /* Map */
 
 #map {
-	width:100%
+    width:100%
 }
 
-.map-wrap{
-	height:480px;
-	width: 98%;
+.map-wrap {
+padding-bottom: 9px;
+margin: 40px 0px ;
+margin-top: 50px;
+margin-right: 0px;
+margin-bottom: 10px;
+margin-left: 0px;
+/*border-bottom: 1px solid #eeeeee;*/
 }
+
 
 
