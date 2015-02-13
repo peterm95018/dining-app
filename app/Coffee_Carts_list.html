@@ -206,7 +206,7 @@
 					</ul>
 					
 					<!--Tabbed content-->
-					<div class="tab-content">
+					<div class="tab-content" id='myTabContent'>
 					  <div class="tab-pane active" style="padding-top:10px;" id="breakfast"></div>
 					  <div class="tab-pane" style="padding-top:10px;" id="lunch"></div>
 					  <div class="tab-pane" style="padding-top:10px;" id="dinner"></div>
@@ -220,157 +220,147 @@
 		  </div><!-- /.modal -->
 
 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-		<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
-		
-		<script>
-		$('.btn').click(function(e) {
-			//e.preventDefault();
-		   var locationName = $(this).attr('data-locationName'); //Editing this so every location is just "coffee" since all menus are the same.
-		   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
-		   var btnType = tempBtnType.substring(1); // strip off the #
-		   console.log(btnType);
-		   console.log(locationName);
-   
-		   if (btnType === 'myModalInfo') {
-			   myModalInfo(locationName);
-		   }
-   
-		   if (btnType === 'myModalMenu') {
-			   myModalMenu(locationName);
-		   }
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<script>
+	$('.btn').click(function(e) {
+		//e.preventDefault();
+	   var locationName = $(this).attr('data-locationName'); //Editing this so every location is just "coffee" since all menus are the same.
+	   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
+	   var btnType = tempBtnType.substring(1); // strip off the #
+	   console.log(btnType);
+	   console.log(locationName);
+
+	   if (btnType === 'myModalInfo') {
+		   myModalInfo(locationName);
+	   }
+
+	   if (btnType === 'myModalMenu') {
+		   myModalMenu(locationName);
+	   }
+	   
+	   if (btnType === 'map') {
 		   
-		   if (btnType === 'map') {
-			   
-		   }
+	   }
 
-		});
+	});
 
-		///// function def's //////
+	///// function def's //////
 
-		function myModalInfo(locationName) {
-		       $.getJSON("../data/location_hours.json", function(data) {
-				   var items = '';
-				   var tempLocationName = '';
-		   		var ourTableHead = '<table class=\'table table-striped\'><tr><th>Meal</th><th>Time</th><th>Day</th></tr>';
-		   		var ourTableTail = '</table>';
-				   console.log("Inside mymodalInfo: " + locationName);
-					// assign partial JSON to local variable
-					var tempLocationName = data[locationName];			
-					// open the table
-					items += ourTableHead;
-				   $.each(tempLocationName, function() {
-					   items += '<tr>';
-					   $.each(this, function(k, v) {
-						   // do stuff
-						   items += '<td>' + v + '</td>';
-					   }); // end inner loop
-				   }); // end outer loop
+	function myModalInfo(locationName) {
+       $.getJSON("../data/location_hours.json", function(data) {
+		   var items = '';
+		   var tempLocationName = '';
+   		var ourTableHead = '<table class=\'table table-striped\'><tr><th>Meal</th><th>Time</th><th>Day</th></tr>';
+   		var ourTableTail = '</table>';
+		   console.log("Inside mymodalInfo: " + locationName);
+			// assign partial JSON to local variable
+			var tempLocationName = data[locationName];			
+			// open the table
+			items += ourTableHead;
+		   $.each(tempLocationName, function() {
+			   items += '<tr>';
+			   $.each(this, function(k, v) {
+				   // do stuff
+				   items += '<td>' + v + '</td>';
+			   }); // end inner loop
+		   }); // end outer loop
+   
+		   // close the row
+		   items += '</tr>';
+		   // close the table
+		   items += ourTableTail;
 		   
-				   // close the row
-				   items += '</tr>';
-				   // close the table
-				   items += ourTableTail;
-				   
-				   // we use the empty() to make sure we don't get duplicate data
-				   $('#modal-body-info').empty().append(items);
-				   $('#myModalLabelInfo.modal-title').empty().append(locationName);
-				   
-			   });		   
-		}
+		   // we use the empty() to make sure we don't get duplicate data
+		   $('#modal-body-info').empty().append(items);
+		   $('#myModalLabelInfo.modal-title').empty().append(locationName);
+		   
+	   });		   
+	}
+	
+	function myModalMenu(locationName) {
+		//First empty tabs
+		$("#myTabs").empty();
+		$("#myTabContent").empty();
 		
-		function myModalMenu(locationName) {
-			//We have to empty the previous info
-			$("#breakfast").empty();
-			$("#lunch").empty();
-			$("#dinner").empty();
-
-			$('#myModalLabelMenu').text(locationName); //Put the title on the modal
-
-			 $.getJSON("../data/menu_examples.json", function(data) {
-				var loc = data["Coffee Cart"];
-				
-				if(loc["Breakfast"] !== undefined){
-					var breakfastHTML = "";
-					for(var a = 0; a < loc["Breakfast"].length; a++){
-						breakfastHTML += "<li style='margin-left: 10px;'>"+ loc["Breakfast"][a] +"</li>"
-					}
-				}
-				else{
-					$("#breakfastTab").attr('class', 'hidden');
-				}
-
-				if( loc["Lunch"] !== undefined) {
-					var lunchHTML = "";
-					for(var b = 0; b < loc["Lunch"].length; b++){
-						lunchHTML += "<li style='margin-left: 10px;'>"+ loc["Lunch"][b] +"</li>"
-					}
-				}
-				else{
-					$("#lunchTab").attr('class', 'hidden');
-				}
-
-				if( loc["Dinner"] !== undefined){
-					var dinnerHTML = "";
-					for(var c = 0; c < loc["Dinner"].length; c++){
-						dinnerHTML += "<li style='margin-left: 10px;'>"+ loc["Dinner"][c] +"</li>"
-					}		
-				}
-				else{
-					$("#dinnerTab").attr('class', 'hidden');
-				}
-				
-				$("#breakfast").append(breakfastHTML);
-				$("#lunch").append(lunchHTML);
-				$("#dinner").append(dinnerHTML);
-
-			 });
-
-			var currentTime = (new Date()).getHours();
-			$("#breakfastTab").removeClass("active");
-			$("#lunchTab").removeClass("active");
-			$("#dinnerTab").removeClass("active");
-			$("#breakfast").removeClass("active");
-			$("#lunch").removeClass("active");
-			$("#dinner").removeClass("active");
+		 //Not all categories in static menus are 'breakfast', 'lunch', and 'dinner'
+		 $.getJSON("data/menu_examples.json", function(data) {
+			var loc = data["Coffee Carts"];		
 			
-			if(currentTime < 11){
-				$("#breakfastTab").addClass("active");
-				$("#breakfast").addClass("active");
-				$("#breakfastTab a").tab('show');
-			}
-			if(currentTime > 10 && currentTime < 17){
-				$("#lunchTab").addClass("active");
-				$("#lunch").addClass("active");
-				$("#lunchTab a").tab('show');
-			}
-			if(currentTime > 16){
-				$("#dinnerTab").addClass("active");
-				$("#dinner").addClass("active");
-				$("#dinnerTab a").tab('show');
-			}
-		 }
+			var category;
+			var i = 0;
+			//loop through each category in loc
+			for(category in loc){
+				//create a spaceless category name
+				var noSpaceCat = category.replace(/ /g, "_");
+				//Create the tab elements
+				if(i === 0 ){
+					var $tabLabel = $("<li class='active'><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
+					var $tabContent = $("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
+				} else {
+					var $tabLabel = $("<li><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
+					var $tabContent = $("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
+				}
+				
+				$("#myTabs").append($tabLabel);
+				
+				$("#myTabContent").append($tabContent);
+				
+				var catHTML = "";
+				for(var a = 0; a < loc[category].length; a++){
+					catHTML += "<li style='margin-left: 10px;'>"+ loc[category][a] +"</li>";
+				}
+				console.log("final tab html: "+catHTML);
+				$tabContent.append(catHTML);
+				i++;
+			}		
+			
+		 });
+		var currentTime = (new Date()).getHours();
+		$("#breakfastTab").removeClass("active");
+		$("#lunchTab").removeClass("active");
+		$("#dinnerTab").removeClass("active");
+		$("#breakfast").removeClass("active");
+		$("#lunch").removeClass("active");
+		$("#dinner").removeClass("active");
 		
-		</script>
+		if(currentTime < 11){
+			$("#breakfastTab").addClass("active");
+			$("#breakfast").addClass("active");
+			$("#breakfastTab a").tab('show');
+		}
+		if(currentTime > 10 && currentTime < 17){
+			$("#lunchTab").addClass("active");
+			$("#lunch").addClass("active");
+			$("#lunchTab a").tab('show');
+		}
+		if(currentTime > 16){
+			$("#dinnerTab").addClass("active");
+			$("#dinner").addClass("active");
+			$("#dinnerTab a").tab('show');
+		}
+	 }
+	
+</script>
 
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-55091123-1');ga('send','pageview');
+</script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-55091123-1');ga('send','pageview');
-        </script>
-
-        <!-- build:js scripts/main.js -->
-        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
-        <!-- endbuild -->
+<!-- build:js scripts/main.js -->
+<script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+<!-- endbuild -->
 </body>
 </html>

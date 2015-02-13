@@ -112,65 +112,80 @@
     ]
   },
   "Joe's Pizza & Subs": {
-	"Burgers":[
-		"Burger",
-		"Cheese Burger",
-		"French Fries",
-		"Onion Rings"
-	],
-	"Pasta": [
-		"Spaghetti",
-		"Ravioli",
-		"Tortellini",
-		"Lasagna",
-		"Garlic Bread",
-		"Lentil Soup",
-		"Clam Chowder"
-	],
-	"Vegetarian":[
-		"Jumbo Spinach Calzone"
-	],
-	"Falafel":[
-		"Whole Falafel",
-		"Falafel Salad",
-		"Baba Ghanouj"
-	],
-	"Salads":[
-		"Small Salad",
-		"Large Salad",
-		"Potato Salad",
-		"Chicken Salad",
-		"Greek Salad",
-		"Chef Salad"
-	],
-	"Drinks":[
-		"Soda",
-		"Coffee",
-		"Iced Coffee"
-	],
-	"Pizza":[
-		"Joe's Special",
-		"Vegetarian",
-		"All-Meat",
-		"Hawaiian",
-		"Pizza Sub Sandwich",
-		"Calzone"
-	],
-	"Sandwiches":[
-		"Italian Sub",
-		"Roast Beef",
-		"Club Sandwich",
-		"Bacon",
-		"Turkey",
-		"Tuna",
-		"Ham",
-		"Pastrami",
-		"Meatball",
-		"Sausage",
-		"Vegetarian",
-		"Chicken Breast",
-		"Beef Shawarma",
-		"Philly Cheese Steak"
-	]
+  	"Burgers":[
+  		"Burger",
+  		"Cheese Burger",
+  		"French Fries",
+  		"Onion Rings"
+  	],
+  	"Pasta": [
+  		"Spaghetti",
+  		"Ravioli",
+  		"Tortellini",
+  		"Lasagna",
+  		"Garlic Bread",
+  		"Lentil Soup",
+  		"Clam Chowder"
+  	],
+  	"Vegetarian":[
+  		"Jumbo Spinach Calzone"
+  	],
+  	"Falafel":[
+  		"Whole Falafel",
+  		"Falafel Salad",
+  		"Baba Ghanouj"
+  	],
+  	"Salads":[
+  		"Small Salad",
+  		"Large Salad",
+  		"Potato Salad",
+  		"Chicken Salad",
+  		"Greek Salad",
+  		"Chef Salad"
+  	],
+  	"Drinks":[
+  		"Soda",
+  		"Coffee",
+  		"Iced Coffee"
+  	],
+  	"Pizza":[
+  		"Joe's Special",
+  		"Vegetarian",
+  		"All-Meat",
+  		"Hawaiian",
+  		"Pizza Sub Sandwich",
+  		"Calzone"
+  	],
+  	"Sandwiches":[
+  		"Italian Sub",
+  		"Roast Beef",
+  		"Club Sandwich",
+  		"Bacon",
+  		"Turkey",
+  		"Tuna",
+  		"Ham",
+  		"Pastrami",
+  		"Meatball",
+  		"Sausage",
+  		"Vegetarian",
+  		"Chicken Breast",
+  		"Beef Shawarma",
+  		"Philly Cheese Steak"
+  	]
+  },
+  "Coffee Carts": {
+    "Cafe Items" : [
+      "Sandwiches",
+      "Sushi",
+      "Salads",
+      "Muffins",
+      "Bagels",
+      "Pastries"
+    ],
+    "Drinks" : [
+      "100% Organic Coffee",
+      "Lattes",
+      "Mochas"
+    ]
   }
 }
