@@ -91,6 +91,7 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc',
                 ignores: ['<%= yeoman.app %>/scripts/timeline/{,*/}*.js', //psm added these 3 lines to keep Grunt grunting
                         '<%= yeoman.app %>/scripts/modernizr.custom.24514.js',
+                        '<%= yeoman.app %>/scripts/server/{,*/}*.js',
                         'Gruntfile.js']
             },
             all: [
@@ -298,7 +299,14 @@ module.exports = function (grunt) {
                cwd: '<%= yeoman.app %>/scripts/timeline',
                dest: '<%= yeoman.dist %>/scripts/timeline',
 		   src: ['**']
-	       }
+	       },
+           // copy the /scripts/server files to dist
+           {
+               expand: true,
+               cwd: '<%= yeoman.app %>/scripts/server',
+               dest: '<%= yeoman.dist %>/scripts/server',
+           src: ['**']
+           }
         ] // end files; trailing comma here???
       },
             styles: {
