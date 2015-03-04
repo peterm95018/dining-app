@@ -3,23 +3,16 @@ var MenuScript = function(locations){
 	//Locations is an object with a set of fields of 
 	//location id numbers to whether we look in our database or the dining dept's
 	//Ex: this.locations[id] === true
-
-	//Error check formatting of data
-	for(var id in locations){
-		if(typeof id !== "number"){
-			alert("MenuScript() declaration error: at least one id field is not an int!");
-			return;
-		}
-
-		if(typeof location[id] !== "boolean"){
-			alert("MenuScript() declaration error: at least one location flag is not a boolean!");
-			return;
-		}
-	}
-
+	
 	//Save the data
 	this.locations = locations;
 };
+
+MenuScript.prototype.getAndroidVersion = function(ua){//Stolen straight from http://stackoverflow.com/q/7184573
+	var ua = ua || navigator.userAgent; 
+	var match = ua.match(/Android\s([0-9\.]*)/);
+	return match ? match[1] : false;
+}
 
 
 MenuScript.prototype.getLocationInfo = function(id){
@@ -33,8 +26,8 @@ MenuScript.prototype.getLocationInfo = function(id){
 		if (this.responseText == undefined)
 			var jsonObj = [];
 		else 
-			var jsonObj = $.parseJSON(this.responseText, that.locations[id]);// The JSON grabbed from the php
-		that.updateModal(jsonObj);
+			var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
+		that.updateModal(jsonObj, that.locations[id]);
 	};
 
 	var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
@@ -44,11 +37,9 @@ MenuScript.prototype.getLocationInfo = function(id){
 
 MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
 
-	//This part creates the outer collapse accordion div
-	//We append stuff to it in the for loop
-	$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
-	$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
-	$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
+	//Clear the html content of the tabs and modal stuff
+	$("#myTabs").html("");
+	$("#myTabContent").html("");
 
 	//We need to make and format all of the categories in html
 
@@ -59,7 +50,7 @@ MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
 		for(var j = 0; j < jsonData.length; j++){
 			var row = jsonData[j];
 
-			if(! $.inArray(row.Category, categories){
+			if(! $.inArray(row.Category, categories)){
 				categories.push(row.Category);
 			}
 
@@ -68,19 +59,22 @@ MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
 
 	//now create the correct HTML
 	for(var i = 0; i < categories.length; i++){
+		//store IDs with _ instead of spaces
+		var noSpaceCat = categories[i].replace(/ /g, "_");
+
 		//Create tabs
 		var $tabs = $("#myTabs");
 		if(i === 0){
 			$tabs.append(
-				"<li class='active' id='" + categories[i] + "Tab'>"
-					+"<a style='outline:0' href='#"+categories[i]+"' role='tab' data-toggle='tab'>"
+				"<li class='active' id='" + noSpaceCat + "Tab'>"
+					+"<a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"
 						+categories[i]
 					+"</a>"
 				+"</li>");
 		} else {
 			$tabs.append(
-				"<li id='" + categories[i] + "Tab'>"
-					+"<a style='outline:0' href='#"+categories[i]+"' role='tab' data-toggle='tab'>"
+				"<li id='" + noSpaceCat + "Tab'>"
+					+"<a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"
 						+categories[i]
 					+"</a>"
 				+"</li>");
@@ -89,97 +83,68 @@ MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
 		//Create Tab Content
 		var $tabcontent = $("#myTabContent");
 		if(i === 0){
-			$tabcontent.append("<div class='tab-pane active' style='padding-top:10px;' id='"+categories[i]+"'></div>");
+			$tabcontent.append("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
 		} else {
-			$tabcontent.append("<div class='tab-pane' style='padding-top:10px;' id='"+categories[i]+"'></div>");
+			$tabcontent.append("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
 		}
 
 		//Push the accordion onto the tabcontent
-		$("#"+categories[i]).append('<div class="panel-group" id="'+categories[i]+'accordion"></div>');
+		$("#"+categories[i]).append('<div class="panel-group" id="'+noSpaceCat+'accordion"></div>');
 	}
 
-	/* This is all reference code
-
-	var androidversion = parseInt(getAndroidVersion());
-	//Now we can start appending the javascript data from myData into the right tabs
+	//Now we need to push food items into the correct accordions
 	for(var j = 0; j < jsonData.length; j++){
 		var row = jsonData[j];
 
-
-		
-
-
-
-
-		//One more sort to determine which meal goes where
-		var time = "";
-		switch(row.Meal_Number){
-			case "1": time = "breakfast";
-					   break;
-			case "2": time = "lunch";
-					   break;
-			case "3": time = "dinner";
-					   break;
+		//Obtain the correct category string of the food item, depending on the database being pulled from
+		var category = "";
+		if(isFoodPro){
+			switch(row.Meal_Number){
+				case "1": category = "breakfast";
+						  break;
+				case "2": category = "lunch";
+						  break;
+				case "3": category = "dinner";
+						  break;
+			}
+		} else {
+			category = row.Category.replace(/ /g, "_");
 		}
+
+		//Check for allergens
+		var allergenInfo = "No allergens";
+		if( row.Allergens.trim() ){
+			allergenInfo = "Allergens: " + row.Allergens.trim() + "<br>";
+		}
+
+		//Check for Android version, earlier Android versions can't render accordion data
+		var androidversion = parseInt(this.getAndroidVersion());
+
+		//Build up the menu_item, if on android, don't make it collapsible
 		var menu_item = "";
-		
-		if(androidversion < 3){//Use plain text if it's an older Android. No accordion.
-			menu_item  = "<p style='font-size:14px;padding-left:7px;'>";
-			menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
-			menu_item = menu_item + "</p>";
-		}
-		//Create a blank collapsable element (lots of divs)
-		else{
+		if(androidversion < 3){
+			menu_item = "<p style='font-size:14px;padding-left:7px;'>" + 
+							"&middot;" + row.Recipe_Print_As_Name; + 
+						"</p>";
+		} else {
 			menu_item = '<div class="panel panel-success">' +
-					'<div class="panel-heading">' +
-						'<p class="panel-title">' +
-							'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
-								row.Recipe_Print_As_Name + //Item title
-							'</a>' +
-						'</p>' +
+				'<div class="panel-heading">' +
+					'<p class="panel-title">' +
+						'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
+							row.Recipe_Print_As_Name + //Item title
+						'</a>' +
+					'</p>' +
+				'</div>' +
+				'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
+					'<div class="panel-body">' + 
+						allergenInfo +
 					'</div>' +
-					'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
-						'<div class="panel-body">' + //This is where the content gets appended
-						'</div>' +
-					'</div>' +
-				'</div>';
+				'</div>' +
+			'</div>';
 		}
-		//Push the items into the appropriate accordion
-		//Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
-		$("#"+time+"accordion").append(menu_item);
 
-		//Check if allergens/codes are blank, print only if non-blank.
-		if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append("Allergens: "+ row.Allergens.trim()+"<br>");}
-		else{$("#"+time+" .panel-body:last").append("No Allergens<br>");}
-
-		if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
-
-	}//End FOR loop	
-
-	var currentTime = (new Date()).getHours();
-	$("#breakfastTab").removeClass("active");
-	$("#lunchTab").removeClass("active");
-	$("#dinnerTab").removeClass("active");
-	$("#breakfast").removeClass("active");
-	$("#lunch").removeClass("active");
-	$("#dinner").removeClass("active");
-	
-	if(currentTime < 11){
-		$("#breakfastTab").addClass("active");
-		$("#breakfast").addClass("active");
-		$("#breakfastTab a").tab('show');
+		//Now write the menu item to the correct accordion
+		$("#"+category+"accordion").append(menu_item);
+		
 	}
-	if(currentTime > 10 && currentTime < 17){
-		$("#lunchTab").addClass("active");
-		$("#lunch").addClass("active");
-		$("#lunchTab a").tab('show');
-	}
-	if(currentTime > 16){
-		$("#dinnerTab").addClass("active");
-		$("#dinner").addClass("active");
-		$("#dinnerTab a").tab('show');
-	}	
-
-	*/
-
 }
