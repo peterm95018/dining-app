@@ -260,8 +260,48 @@
 		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+
+        <!--Our own script-->
+        <script src="scripts/MenuScript.js"></script>
 		
 		<script>
+
+		//Global MenuScript Object
+		var menuscript;
+		//locationToID
+		var locationToID = {};
+
+		//Initialize function, called on page load
+		function init(){
+			//
+			//Set up the Menuscript object
+			//
+
+			//First, set up our location dictionary, locations[id] = isFoodPro
+			//Also set up another dictionary for mapping location names to ids
+			var locations = {};
+			//Crown/Merrill
+			locations[20] = true;
+			locationToID["Crown/Merrill"] = 20;
+			//Cowell/Stevenson
+			locations[5] = true;
+			locationToID["Cowell/Stevenson"] = 5;
+			//Porter/Kresge
+			locations[25] = true;
+			locationToID["Porter/Kresge"] = 25;
+			//Nine/Ten
+			locations[40] = true;
+			locationToID["Colleges Nine/Ten"] = 40;
+			//Eight/Oakes
+			locations[30] = true;
+			locationToID["College Eight/Oakes"] = 30;
+
+			//Create our object
+			menuscript = new MenuScript(locations);
+
+		}
+
+
 		$('.btn').click(function(e) {
 			//e.preventDefault();
 		   var locationName = $(this).attr('data-locationName');
@@ -283,14 +323,6 @@
 		   }
 
 		});
-
-		///// function def's //////
-
-		function getAndroidVersion(ua){//Stolen straight from http://stackoverflow.com/q/7184573
-			var ua = ua || navigator.userAgent; 
-			var match = ua.match(/Android\s([0-9\.]*)/);
-			return match ? match[1] : false;
-		}
 
 		function myModalInfo(locationName) {
 			$.getJSON("data/whats-open-hours.json", function(data) {
@@ -363,140 +395,14 @@
 		
 		function myModalMenu(locationName) {
 
-			//We have to empty the previous info
-			$("#breakfast").empty();
-			$("#lunch").empty();
-			$("#dinner").empty();
-
-			$('#myModalLabelMenu').text(locationName); //Put the title on the modal
+			menuscript.getLocationInfo(locationToID[locationName]);
 			
-			//We want to get the right bundle of data before anything else,
-			//The below function is a placeholder until we can successfully 
-			//call the php function
-			
-			location_num = "";
-			switch(locationName){
-				case "College Eight/Oakes":
-					location_num = "30";
-					break;
-				case "Colleges Nine/Ten":
-					location_num = "40";
-					break;
-				case "Cowell/Stevenson":
-					location_num = "05";
-					break;
-				//We don't know what this number is, just return until we can find that data
-				case "Crown/Merrill":
-				location_num = "20";
-					break;
-				case "Porter/Kresge":
-					location_num = "25";
-					break;
-			}
-			
-			// XMLHttpRequest lets us send variables in the URL to the PHP
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'menu.php', true);
-			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
-			xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
-				console.log("Response text = " + this.responseText );
-				if(this.responseText == undefined){
-					console.log("Food database for " + locationName + " is empty.");
-					return false;
-				}
-				var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
-				onPHPLoad(jsonObj);//Do the parsing and placing of the JSON here.
-			};
-
-			var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
-			xhr.send('serve_date=' +today+ '&location_num=' + location_num);//Send the data over the URL
-			
-			//This is a big function that parses the JSON holding the menu items.
-			//It's only called from the xhr.onload listener. It puts items in the 3 menu modal tabs.
-			//It also checks if you're using an old android and will do plaintext if so.
-			function onPHPLoad(jsonData){			
-
-				//This part creates the outer collapse accordion div
-				//We append stuff to it in the for loop
-				$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
-				$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
-				$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
-
-				var androidversion = parseInt(getAndroidVersion());
-				//Now we can start appending the javascript data from myData into the right tabs
-				for(var j = 0; j < jsonData.length; j++){
-					var row = jsonData[j];
-					//One more sort to determine which meal goes where
-					var time = "";
-					switch(row.Meal_Number){
-						case "1": time = "breakfast";
-								   break;
-						case "2": time = "lunch";
-								   break;
-						case "3": time = "dinner";
-								   break;
-					}
-					var menu_item = "";
-					
-					if(androidversion < 3){//Use plain text if it's an older Android. No accordion.
-						menu_item  = "<p style='font-size:14px;padding-left:7px;'>";
-						menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
-						menu_item = menu_item + "</p>";
-					}
-					//Create a blank collapsable element (lots of divs)
-					else{
-						menu_item = '<div class="panel panel-success">' +
-								'<div class="panel-heading">' +
-									'<p class="panel-title">' +
-										'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
-											row.Recipe_Print_As_Name + //Item title
-										'</a>' +
-									'</p>' +
-								'</div>' +
-								'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
-									'<div class="panel-body">' + //This is where the content gets appended
-									'</div>' +
-								'</div>' +
-							'</div>';
-					}
-					//Push the items into the appropriate accordion
-					//Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
-					$("#"+time+"accordion").append(menu_item);
-
-					//Check if allergens/codes are blank, print only if non-blank.
-					if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append("Allergens: "+ row.Allergens.trim()+"<br>");}
-					else{$("#"+time+" .panel-body:last").append("No Allergens<br>");}
-
-					if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
-
-				}//End FOR loop		
-				
-				var currentTime = (new Date()).getHours();
-				$("#breakfastTab").removeClass("active");
-				$("#lunchTab").removeClass("active");
-				$("#dinnerTab").removeClass("active");
-				$("#breakfast").removeClass("active");
-				$("#lunch").removeClass("active");
-				$("#dinner").removeClass("active");
-				
-				if(currentTime < 11){
-					$("#breakfastTab").addClass("active");
-					$("#breakfast").addClass("active");
-					$("#breakfastTab a").tab('show');
-				}
-				if(currentTime > 10 && currentTime < 17){
-					$("#lunchTab").addClass("active");
-					$("#lunch").addClass("active");
-					$("#lunchTab a").tab('show');
-				}
-				if(currentTime > 16){
-					$("#dinnerTab").addClass("active");
-					$("#dinner").addClass("active");
-					$("#dinnerTab a").tab('show');
-				}
-			
-			}
 		}//End function
+
+		//Call initialize function once page has loaded
+		$(document).ready(function(){
+			init();
+		});
 	
 		</script>
 
