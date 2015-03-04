@@ -92,6 +92,7 @@ module.exports = function (grunt) {
                 ignores: ['<%= yeoman.app %>/scripts/timeline/{,*/}*.js', //psm added these 3 lines to keep Grunt grunting
                         '<%= yeoman.app %>/scripts/MenuScript.js',
                         '<%= yeoman.app %>/scripts/modernizr.custom.24514.js',
+                        '<%= yeoman.app %>/scripts/server/{,*/}*.js',
                         'Gruntfile.js']
             },
             all: [

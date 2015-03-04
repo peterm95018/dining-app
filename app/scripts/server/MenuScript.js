@@ -3,7 +3,7 @@ var MenuScript = function(locations){
 	//Locations is an object with a set of fields of 
 	//location id numbers to whether we look in our database or the dining dept's
 	//Ex: this.locations[id] === true
-
+	
 	//Save the data
 	this.locations = locations;
 };
@@ -35,7 +35,7 @@ MenuScript.prototype.getLocationInfo = function(id){
 
 };
 
-MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
+MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
 
 	//Clear the html content of the tabs and modal stuff
 	$("#myTabs").html("");
