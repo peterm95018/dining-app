@@ -23,6 +23,11 @@ MenuScript.prototype.getLocationInfo = function(id){
 	xhr.open('POST', 'menu.php', true);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
 	xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
+		//In case the json data is empty, do this first
+		//Clear the html content of the tabs and modal stuff
+		$("#myTabs").html("");
+		$("#myTabContent").html("");
+
 		if (this.responseText == undefined)
 			var jsonObj = [];
 		else 
@@ -36,11 +41,6 @@ MenuScript.prototype.getLocationInfo = function(id){
 };
 
 MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
-
-	//Clear the html content of the tabs and modal stuff
-	$("#myTabs").html("");
-	$("#myTabContent").html("");
-
 	//We need to make and format all of the categories in html
 
 	//First gather all relevant categories
@@ -130,7 +130,7 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 			menu_item = '<div class="panel panel-success">' +
 				'<div class="panel-heading">' +
 					'<p class="panel-title">' +
-						'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
+						'<a data-toggle="collapse" data-parent="#'+category+'accordion" href="#collapse' + j + '">' +
 							row.Recipe_Print_As_Name + //Item title
 						'</a>' +
 					'</p>' +

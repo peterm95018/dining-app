@@ -23,6 +23,7 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+        <script src="bower_components/momentjs/moment.js"></script>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -210,9 +211,41 @@
 		<script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+
+        <!--Our own script-->
+		<script src="scripts/MenuScript.js"></script>
 		
 		<script>
-		$('.btn').click(function(e) {
+
+		//Global MenuScript Object
+		var menuscript;
+		//locationToID
+		var locationToID = {};
+
+		//Initialize function, called on page load
+		function init(){
+			//
+			//Set up the Menuscript object
+			//
+
+			//First, set up our location dictionary, locations[id] = isFoodPro
+			//Also set up another dictionary for mapping location names to ids
+			var locations = {};
+			//Cruz N Gourmet
+			locations[108] = false;
+			locationToID["Cruz N Gourmet"] = 108;
+			//Raymond's Catering
+			locations[109] = false;
+			locationToID["Raymond's Catering"] = 109;
+			//Zameen Mediterranean Cuisine
+			locations[110] = false;
+			locationToID["Zameen Mediterranean Cuisine"] = 110;
+
+			//Create our object
+			menuscript = new MenuScript(locations);
+		}
+
+		$('.btn-group-md .btn').click(function(e) {
 			//e.preventDefault();
 		   var locationName = $(this).attr('data-locationName');
 		   var tempBtnType = $(this).attr('data-target').toString(); // returns #myModalInfo or #myModalMenu
@@ -268,43 +301,16 @@
 		}
 		
 		function myModalMenu(locationName) {
+
+			menuscript.getLocationInfo(locationToID[locationName]);
 			
-			 //First empty tabs
-			 $("#myTabs").empty();
-			 $("#myTabContent").empty();
-			
-			 //Not all categories in static menus are 'breakfast', 'lunch', and 'dinner'
-			 $.getJSON("data/menu_examples.json", function(data) {
-				var loc = data[locationName];		
-				
-				var category;
-				var i = 0;
-				//loop through each category in loc
-				for(category in loc){
-					//create a spaceless category name
-					var noSpaceCat = category.replace(/ /g, "_");
-					//Create the tab elements
-					if(i === 0 ){
-						var $tabLabel = $("<li class='active'><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
-						var $tabContent = $("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
-					} else {
-						var $tabLabel = $("<li><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
-						var $tabContent = $("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
-					}
-					
-					$("#myTabs").append($tabLabel);
-					
-					$("#myTabContent").append($tabContent);
-					
-					var catHTML = "";
-					for(var a = 0; a < loc[category].length; a++){
-						catHTML += "<li style='margin-left: 10px;'>"+ loc[category][a] +"</li>";
-					}
-					$tabContent.append(catHTML);
-					i++;
-				}
-			 }); 
-		}
+		}//End function
+
+		//Call initialize function once page has loaded
+		$(document).ready(function(){
+			init();
+		});
+		
 		</script>
 
 
