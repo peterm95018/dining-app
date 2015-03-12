@@ -99,7 +99,8 @@ module.exports = function (grunt) {
                 '<%= yeoman.app %>/scripts/{,*/}*.js',
                 '!<%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
-            ]
+            ],
+            files: ["<%= yeoman.app %>/scripts/server/MenuScript.js"]
         },
         mocha: {
             all: {
@@ -151,8 +152,14 @@ module.exports = function (grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
         /*concat: {
-            dist: {}
-        },*/
+            options:{
+                separator: ";"
+            },
+            dist: {
+                src: ["scripts/server/*.js"],
+                dest: 'dist/ServerScripts.js'
+            }
+        }*/
          requirejs: {
              dist: {
                  // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
