@@ -35,7 +35,7 @@ MenuScript.prototype.getLocationInfo = function(id){
 
 };
 
-MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
+MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 
 	//Clear the html content of the tabs and modal stuff
 	$("#myTabs").html("");
@@ -130,7 +130,7 @@ MenuScript.prototype.updateModal = function(menuInfo, isFoodPro){
 			menu_item = '<div class="panel panel-success">' +
 				'<div class="panel-heading">' +
 					'<p class="panel-title">' +
-						'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
+						'<a data-toggle="collapse" data-parent="#'+category+'accordion" href="#collapse' + j + '">' +
 							row.Recipe_Print_As_Name + //Item title
 						'</a>' +
 					'</p>' +

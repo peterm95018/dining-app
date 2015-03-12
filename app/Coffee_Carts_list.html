@@ -23,6 +23,7 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+        <script src="bower_components/momentjs/moment.js"></script>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -228,8 +229,41 @@
 <!-- endbower -->
 <!-- endbuild -->
 
+<!--Our own script-->
+<script src="scripts/MenuScript.js"></script>
+
 <script>
-	$('.btn').click(function(e) {
+
+	//Global MenuScript Object
+	var menuscript;
+	//locationToID
+	var locationToID = {};
+
+	//Initialize function, called on page load
+	function init(){
+		//
+		//Set up the Menuscript object
+		//
+
+		//First, set up our location dictionary, locations[id] = isFoodPro
+		//Also set up another dictionary for mapping location names to ids
+		var locations = {};
+		//Perk Coffee @ Earth &amp; Marine Sciences
+		locations[22] = true;
+		locationToID["Perk Coffee @ Earth &amp; Marine Sciences"] = 22;
+		//Perk Coffee @ Baskin Engineering
+		locationToID["Perk Coffee @ Baskin Engineering"] = 22;
+		//Perk Coffee @ Physical Sciences
+		locationToID["Perk Coffee @ Physical Sciences"] = 22;
+		//Perk Coffee @ University Center
+		locationToID["Perk Coffee @ University Center"] = 22;
+
+		//Create our object
+		menuscript = new MenuScript(locations);
+
+	}
+
+	$('.btn-group-md  .btn').click(function(e) {
 		//e.preventDefault();
 	   var locationName = $(this).attr('data-locationName'); //Editing this so every location is just "coffee" since all menus are the same.
 	   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
@@ -285,67 +319,15 @@
 	}
 	
 	function myModalMenu(locationName) {
-		//First empty tabs
-		$("#myTabs").empty();
-		$("#myTabContent").empty();
+
+		menuscript.getLocationInfo(locationToID[locationName]);
 		
-		 //Not all categories in static menus are 'breakfast', 'lunch', and 'dinner'
-		 $.getJSON("data/menu_examples.json", function(data) {
-			var loc = data["Coffee Carts"];		
-			
-			var category;
-			var i = 0;
-			//loop through each category in loc
-			for(category in loc){
-				//create a spaceless category name
-				var noSpaceCat = category.replace(/ /g, "_");
-				//Create the tab elements
-				if(i === 0 ){
-					var $tabLabel = $("<li class='active'><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
-					var $tabContent = $("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
-				} else {
-					var $tabLabel = $("<li><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
-					var $tabContent = $("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
-				}
-				
-				$("#myTabs").append($tabLabel);
-				
-				$("#myTabContent").append($tabContent);
-				
-				var catHTML = "";
-				for(var a = 0; a < loc[category].length; a++){
-					catHTML += "<li style='margin-left: 10px;'>"+ loc[category][a] +"</li>";
-				}
-				console.log("final tab html: "+catHTML);
-				$tabContent.append(catHTML);
-				i++;
-			}		
-			
-		 });
-		var currentTime = (new Date()).getHours();
-		$("#breakfastTab").removeClass("active");
-		$("#lunchTab").removeClass("active");
-		$("#dinnerTab").removeClass("active");
-		$("#breakfast").removeClass("active");
-		$("#lunch").removeClass("active");
-		$("#dinner").removeClass("active");
-		
-		if(currentTime < 11){
-			$("#breakfastTab").addClass("active");
-			$("#breakfast").addClass("active");
-			$("#breakfastTab a").tab('show');
-		}
-		if(currentTime > 10 && currentTime < 17){
-			$("#lunchTab").addClass("active");
-			$("#lunch").addClass("active");
-			$("#lunchTab a").tab('show');
-		}
-		if(currentTime > 16){
-			$("#dinnerTab").addClass("active");
-			$("#dinner").addClass("active");
-			$("#dinnerTab a").tab('show');
-		}
-	 }
+	}//End function
+
+	//Call initialize function once page has loaded
+	$(document).ready(function(){
+		init();
+	});
 	
 </script>
 

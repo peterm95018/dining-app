@@ -24,6 +24,7 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+    <script src="bower_components/momentjs/moment.js"></script>
 </head>
 <body>
     <!--[if lt IE 10]>
@@ -355,12 +356,69 @@
 <script src="bower_components/jquery/jquery.js"></script>
 <script src="bower_components/sass-bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="bower_components/momentjs/moment.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
+<!--Our own script-->
+<script src="scripts/MenuScript.js"></script>
+
+
 <script>
-	$('.btn').click(function(e) {
+
+  //Global MenuScript Object
+  var menuscript;
+  //locationToID
+  var locationToID = {};
+
+  //Initialize function, called on page load
+  function init(){
+    //
+    //Set up the Menuscript object
+    //
+
+    //First, set up our location dictionary, locations[id] = isFoodPro
+    //Also set up another dictionary for mapping location names to ids
+    var locations = {};
+    //Banana Joe's Café
+    locations[21] = true;
+    locationToID["Banana Joe's Café"] = 21;
+    //Bay Tree Express Store
+    locations[101] = false;
+    locationToID["Bay Tree Express Store"] = 101;
+    //College Eight Café
+    locations[46] = true;
+    locationToID["College Eight Café"] = 46;
+    //Cowell Coffee Shop
+    locations[102] = false;
+    locationToID["Cowell Coffee Shop"] = 102;
+    //Global Village Café
+    locations[103] = false;
+    locationToID["Global Village Café"] = 103;
+    //Joe's Pizza &amp; Subs
+    locations[104] = false;
+    locationToID["Joe's Pizza &amp; Subs"] = 104;
+    //Oakes Café
+    locations[23] = true;
+    locationToID["Oakes Café"] = 23;
+    //Owl's Nest Restaurant
+    locations[24] = true;
+    locationToID["Owl's Nest Restaurant"] = 24;
+    //Porter Slug Grill
+    locations[105] = false;
+    locationToID["Porter Slug Grill"] = 105;
+    //Stevenson Coffee House
+    locations[106] = false;
+    locationToID["Stevenson Coffee House"] = 106;
+    //Terra Fresca Restaurant
+    locations[107] = false;
+    locationToID["Terra Fresca Restaurant"] = 107;
+
+    //Create our object
+    menuscript = new MenuScript(locations);
+
+  }
+
+	$('.btn-group-md .btn').click(function(e) {
 		//e.preventDefault();
 	   var locationName = $(this).attr('data-locationName');
 	   var tempBtnType = $(this).attr('data-target').toString(); // returns #myModalInfo or #myModalMenu
@@ -416,181 +474,13 @@
 	}
 
 	function myModalMenu(locationName) {
-		
-		//We have to empty the previous info
-		$("#breakfast").empty();
-		$("#lunch").empty();
-		$("#dinner").empty();
-		
-		$('#myModalLabelMenu').text(locationName); //Put the title on the modal
-
-		var location_num = "0";
-		switch(locationName){
-			case "Banana Joe's Café":
-				location_num = "30"; //fill out correct location_num later
-				break;
-			case "Oakes Café":
-				location_num = "40"; //fill out correct location_num later
-				break;
-			case "Owl's Nest Restaurant": //fill out correct location_num later
-				location_num = "05";
-				break;
-			case "Terra Fresca Restaurant": //fill out correct location_num later
-				location_num = "25";
-				break;
-		}
-		
-		if(location_num === "0"){
-			//First empty tabs
-			$("#myTabs").empty();
-			$("#myTabContent").empty();
-			
-			 //Not all categories in static menus are 'breakfast', 'lunch', and 'dinner'
-			 $.getJSON("data/menu_examples.json", function(data) {
-				var loc = data[locationName];		
-				
-				var category;
-				var i = 0;
-				//loop through each category in loc
-				for(category in loc){
-					//create a spaceless category name
-					var noSpaceCat = category.replace(/ /g, "_");
-					//Create the tab elements
-					if(i === 0 ){
-						var $tabLabel = $("<li class='active'><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
-						var $tabContent = $("<div class='tab-pane active' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
-					} else {
-						var $tabLabel = $("<li><a style='outline:0' href='#"+noSpaceCat+"' role='tab' data-toggle='tab'>"+category+"</a></li>");
-						var $tabContent = $("<div class='tab-pane' style='padding-top:10px;' id='"+noSpaceCat+"'></div>");
-					}
-					
-					$("#myTabs").append($tabLabel);
-					
-					$("#myTabContent").append($tabContent);
-					
-					var catHTML = "";
-					for(var a = 0; a < loc[category].length; a++){
-						catHTML += "<li style='margin-left: 10px;'>"+ loc[category][a] +"</li>";
-					}
-					$tabContent.append(catHTML);
-					i++;
-				}		
-				
-			 });
-		 } else {
-			 
-			//First, refill tab content
-			$("#myTabs").empty();
-			$("#myTabs").append("<li class='active' id='breakfastTab'><a style='outline:0' href='#breakfast' role='tab' data-toggle='tab'>Breakfast</a></li>"
-				               +"<li id='lunchTab'><a style='outline:0' href='#lunch' role='tab' data-toggle='tab'>Lunch</a></li>"
-				               +"<li id='dinnerTab'><a style='outline:0' href='#dinner' role='tab' data-toggle='tab'>Dinner</a></li>");
-			$("#myTabContent").empty();
-			$("#myTabContent").append("<div class='tab-pane active' style='padding-top:10px;' id='breakfast'></div>"
-									 +"<div class='tab-pane' style='padding-top:10px;' id='lunch'></div>"
-									 +"<div class='tab-pane' style='padding-top:10px;' id='dinner'></div>");
-			
-		 
-			// XMLHttpRequest lets us send variables in the URL to the PHP
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'menu.php', true);
-			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
-			xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
-				if (this.responseText == undefined)
-					return;
-				var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
-				onPHPLoad(jsonObj);//Do the parsing and placing of the JSON here.
-			};
-
-			var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
-			xhr.send('serve_date=' +today+ '&location_num=' + location_num);//Send the data over the URL
-			
-			//This is a big function that parses the JSON holding the menu items.
-			//It's only called from the xhr.onload listener. It puts items in the 3 menu modal tabs.
-			//It also checks if you're using an old android and will do plaintext if so.
-			function onPHPLoad(jsonData){			
-
-				//This part creates the outer collapse accordion div
-				//We append stuff to it in the for loop
-				$("#breakfast").append('<div class="panel-group" id="breakfastaccordion"></div>');
-				$("#lunch").append('<div class="panel-group" id="lunchaccordion"></div>');
-				$("#dinner").append('<div class="panel-group" id="dinneraccordion"></div>');
-
-				var androidversion = parseInt(getAndroidVersion());
-				//Now we can start appending the javascript data from myData into the right tabs
-				for(var j = 0; j < jsonData.length; j++){
-					var row = jsonData[j];
-					//One more sort to determine which meal goes where
-					var time = "";
-					switch(row.Meal_Number){
-						case "1": time = "breakfast";
-								   break;
-						case "2": time = "lunch";
-								   break;
-						case "3": time = "dinner";
-								   break;
-					}
-					var menu_item = "";
-					
-					if(androidversion < 3){//Use plain text if it's an older Android. No accordion.
-						menu_item  = "<p style='font-size:14px;padding-left:7px;'>";
-						menu_item = menu_item + "&middot;"+ row.Recipe_Print_As_Name;
-						menu_item = menu_item + "</p>";
-					}
-					//Create a blank collapsable element (lots of divs)
-					else{
-						menu_item = '<div class="panel panel-success">' +
-								'<div class="panel-heading">' +
-									'<p class="panel-title">' +
-										'<a data-toggle="collapse" data-parent="#'+time+'accordion" href="#collapse' + j + '">' +
-											row.Recipe_Print_As_Name + //Item title
-										'</a>' +
-									'</p>' +
-								'</div>' +
-								'<div id="collapse' +j+ '" class="panel-collapse collapse">' +
-									'<div class="panel-body">' + //This is where the content gets appended
-									'</div>' +
-								'</div>' +
-							'</div>';
-					}
-					//Push the items into the appropriate accordion
-					//Eg: $("#breakfastaccordion").append(menu_item); Adds item to breakfast menu.
-					$("#"+time+"accordion").append(menu_item);
-
-					//Check if allergens/codes are blank, print only if non-blank.
-					if( row.Allergens.trim() ){$("#"+time+" .panel-body:last").append("Allergens: "+ row.Allergens.trim()+"<br>");}
-					else{$("#"+time+" .panel-body:last").append("No Allergens<br>");}
-
-					if( row.Recipe_Web_Codes.trim() ){$("#"+time+" .panel-body:last").append(row.Recipe_Web_Codes.trim());}
-
-				}//End FOR loop		
-
-			}
-		
-			var currentTime = (new Date()).getHours();
-			$("#breakfastTab").removeClass("active");
-			$("#lunchTab").removeClass("active");
-			$("#dinnerTab").removeClass("active");
-			$("#breakfast").removeClass("active");
-			$("#lunch").removeClass("active");
-			$("#dinner").removeClass("active");
-			
-			if(currentTime < 11){
-				$("#breakfastTab").addClass("active");
-				$("#breakfast").addClass("active");
-				$("#breakfastTab a").tab('show');
-			}
-			if(currentTime > 10 && currentTime < 17){
-				$("#lunchTab").addClass("active");
-				$("#lunch").addClass("active");
-				$("#lunchTab a").tab('show');
-			}
-			if(currentTime > 16){
-				$("#dinnerTab").addClass("active");
-				$("#dinner").addClass("active");
-				$("#dinnerTab a").tab('show');
-			}
-		}
+		menuscript.getLocationInfo(locationToID[locationName]);
 	}//End function
+
+  //Call initialize function once page has loaded
+  $(document).ready(function(){
+    init();
+  });
 
 </script>
 

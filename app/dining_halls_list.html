@@ -262,7 +262,8 @@
         <!-- endbuild -->
 
         <!--Our own script-->
-        <script src="scripts/server/MenuScript.js"></script>
+        <script src="scripts/MenuScript.js"></script>
+        
 		
 		<script>
 
@@ -302,7 +303,7 @@
 		}
 
 
-		$('.btn').click(function(e) {
+		$('.btn-group-md .btn').click(function(e) {
 			//e.preventDefault();
 		   var locationName = $(this).attr('data-locationName');
 		   var tempBtnType = $(this).attr('data-target').toString(); // returns #myModalInfo or #myModalMenu
