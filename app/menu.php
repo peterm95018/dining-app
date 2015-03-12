@@ -26,7 +26,7 @@
 
      catch( PDOException $e ) {
         print_r($e);
-        die( "Error connecting to SQL Server" );
+        die( "Error connecting to FoodProDB SQL Server" );
      }
      
      //Long query that sorts by date and location

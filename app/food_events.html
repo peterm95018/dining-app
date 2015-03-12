@@ -123,15 +123,41 @@
 
         <script type='text/javascript' src='http://datejs.googlecode.com/files/date.js'></script>
 
-   <script>
-  
-      //get UCSC Dining Calendar data for future events sorted returned to us in JSON
-        gcal_json_url = 'http://www.google.com/calendar/feeds/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&futureevents=true&max-results=10&alt=json';
+    <script>
+    $.getJSON("https://www.googleapis.com/calendar/v3/calendars/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/events?maxResults=10&key=AIzaSyA_64uaj9TEDDxo-gcBPfapWUQfcDqRnjY", function(data) {
 
+       if(data.items === undefined){//data.feed.entry is undef if no events in 2 weeks
+          $("#gcal-events").append("<dt>Looks like there's no events in the next 2 weeks. Check back later!</dt>");
+          return false;
+       }
+
+       $.each(data.items, function(i, item){
+          var event_title = item.summary;
+          var event_contents = $.trim(item.description);
+          event_contents = Autolinker.link(event_contents);
+          var event_start_date = new Date(item.start.date);
+
+          $("#gcal-events").append(
+              "<div><dl>"
+                  + "<dt>" + event_title + "</dt>"
+                  + "<dd>" + event_start_date + "</dd>"
+                  + "<dd>" + event_contents + "</dd>"
+                  + "</dl></div>" + "<hr>"
+          );
+       });
+       
+       $("#gcal-events hr:last").remove();//Removes the ugly last <hr> in the list of events
+    });
+    </script>
+
+   <script>
+   /* //I'm keeping the old code here in case we ever need it again. We can remove it anytime though
+      //get UCSC Dining Calendar data for future events sorted returned to us in JSON
+        gcal_json_url = 'http://www.google.com/calendar/feeds/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&futureevents=true&max-results=10&alt=json&callback=?';   
+        
         // Get list of upcoming iCal events formatted in JSON
         $.getJSON(gcal_json_url, function(data){
            // Parse and render each event
-
            if(data.feed.entry === undefined){//data.feed.entry will be undefined if no events in the next 2 weeks
               $("#gcal-events").append("<dt>Looks like there's no events in the next 2 weeks. Check back later!</dt>");
               return false;
@@ -182,7 +208,7 @@
             $("#gcal-events hr:last").remove();//Removes the ugly last <hr> in the list of events
 
          });
-    
+   */ 
    </script>
 
 
