@@ -48,6 +48,7 @@
      $conn = null;
    }
 
+   //Here we use our own DataBase if not using FoodProDB
    else{
       $serverName = 'localhost';
       $database = 'menus';
@@ -64,7 +65,7 @@
          die( "Error connecting to MySQL Server" );
       }
 
-      $query = "SELECT * FROM menu WHERE location_number=$location_number AND Serve_Date=$serve_date";
+      $query = "SELECT * FROM menu WHERE location_number=$location_number";// AND Serve_Date=$serve_date;
 
       $stmt = $conn->query( $query );
 
