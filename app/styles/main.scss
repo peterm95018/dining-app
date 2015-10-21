@@ -28,14 +28,16 @@ footer{
     text-align: center; /* I added this block to center the footer -Aiden Hoopes */
 }
 
-.modal-footer{ /*There was lots of ugly whitespace in the modal footers, so this fixes it. */
-    margin-top: 0px;
-    padding-top: 0px;
+/* There was lots of ugly whitespace in the modal footers, so this fixes it. */
+.modal-footer{ 
+    margin-top: px;
+    padding-top: 5px;
 }
 
 /* psm add some space between header bottom border and tabs */
 .modal-body{
     padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 /* Custom page header */
