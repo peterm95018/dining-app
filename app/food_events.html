@@ -124,7 +124,14 @@
         <script type='text/javascript' src='http://datejs.googlecode.com/files/date.js'></script>
 
     <script>
-    $.getJSON("https://www.googleapis.com/calendar/v3/calendars/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/events?maxResults=10&key=AIzaSyA_64uaj9TEDDxo-gcBPfapWUQfcDqRnjY", function(data) {
+    /*
+    October 2015 Google Calendar API v3 forced some changes. It requires a timeMin, timeMax startTime and orderBy to get just the data we want. Also note use API key restricts use to a few UCSC domain based web servers.
+    */
+
+    var startSearch = moment().format("YYYY-MM-DDTHH:mm:ssZ");
+    var endSearch = moment(startSearch).add(30, 'days').format("YYYY-MM-DDTHH:mm:ssZ");
+
+    $.getJSON('https://www.googleapis.com/calendar/v3/calendars/ucsc.edu_t59u0f85lnvamgj30m22e3fmgo%40group.calendar.google.com/events?maxResults=10&timeMin=' + startSearch + '&timeMax=' + endSearch + '&singleEvents=true&orderBy=startTime&key=AIzaSyA_64uaj9TEDDxo-gcBPfapWUQfcDqRnjY', function(data) {
 
        if(data.items === undefined){//data.feed.entry is undef if no events in 2 weeks
           $("#gcal-events").append("<dt>Looks like there's no events in the next 2 weeks. Check back later!</dt>");
@@ -135,7 +142,8 @@
           var event_title = item.summary;
           var event_contents = $.trim(item.description);
           event_contents = Autolinker.link(event_contents);
-          var event_start_date = new Date(item.start.date);
+          //var event_start_date = new Date(item.start.date);
+          var event_start_date = moment(item.start.date).format("dddd MMM Do YYYY");
 
           $("#gcal-events").append(
               "<div><dl>"
