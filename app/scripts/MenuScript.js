@@ -92,7 +92,8 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 		$("#"+categories[i]).append('<div class="panel-group" id="'+noSpaceCat+'accordion"></div>');
 	}
 
-	//Now we need to push food items into the correct accordions
+	//Now we need to push food items retrieved from DB query into the correct accordions
+	// jsonData is an array of objects 
 	for(var j = 0; j < jsonData.length; j++){
 		var row = jsonData[j];
 
