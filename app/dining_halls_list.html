@@ -317,6 +317,9 @@
    
 		   if (btnType === 'myModalMenu') {
 			   myModalMenu(locationName);
+			   // grab the date to use in Menu Label
+			   today = moment().format('dddd, MMM Do YYYY');
+			   $('#myModalLabelMenu').replaceWith('<h4>Menu for ' + today +'</h4');
 		   }
 		   
 		   if (btnType === 'map') {

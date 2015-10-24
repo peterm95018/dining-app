@@ -57,6 +57,15 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 		}
 	}
 
+
+	// For our Perk Coffee carts we want to change the tabs
+	// and then we'll fill items with the DISTINCT query results from
+	// menu2.php
+	if(isFoodPro && this.locations[22] === true) {
+		var categories = ["items", "lunch", "dinner"];
+	}
+	
+
 	//now create the correct HTML
 	for(var i = 0; i < categories.length; i++){
 		//store IDs with _ instead of spaces
@@ -93,11 +102,12 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 	}
 
 	//Now we need to push food items retrieved from DB query into the correct accordions
-	// jsonData is an array of objects 
+	// jsonData is an array of objects returned from the FoodPro system
 	for(var j = 0; j < jsonData.length; j++){
 		var row = jsonData[j];
 
-		//Obtain the correct category string of the food item, depending on the database being pulled from
+		//Obtain the correct category string of the food item, depending on the database being pulled from.
+		// Remember that we have a MySQL db and the FoodPro DB.
 		var category = "";
 		if(isFoodPro){
 			switch(row.Meal_Number){
