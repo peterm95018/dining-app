@@ -8,66 +8,73 @@ var MenuScript = function(locations){
 	this.locations = locations;
 };
 
-MenuScript.prototype.getAndroidVersion = function(ua){//Stolen straight from http://stackoverflow.com/q/7184573
+MenuScript.prototype.getAndroidVersion = function(ua) {//Stolen straight from http://stackoverflow.com/q/7184573
 	var ua = ua || navigator.userAgent; 
 	var match = ua.match(/Android\s([0-9\.]*)/);
 	return match ? match[1] : false;
 }
 
 
-MenuScript.prototype.getLocationInfo = function(id){
+MenuScript.prototype.getLocationInfo = function(id) {
 	var that = this;
 
-	// XMLHttpRequest lets us send variables in the URL to the PHP
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', 'menu.php', true);
-	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
-	xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
-		//In case the json data is empty, do this first
-		//Clear the html content of the tabs and modal stuff
-		$("#myTabs").html("");
-		$("#myTabContent").html("");
+	// wrap the call to menu and menu2.php in a conditional
+	// if(locations[22] === true) {
+		// call menu2.php and run DISTINCT query
+		// XMLHttpRequest lets us send variables in the URL to the PHP
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'menu2.php', true);
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
+		xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
+			//In case the json data is empty, do this first
+			//Clear the html content of the tabs and modal stuff
+			$("#myTabs").html("");
+			$("#myTabContent").html("");
 
-		if (this.responseText == undefined)
-			var jsonObj = [];
-		else 
-			var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
-		that.updateModal(jsonObj, that.locations[id]);
+			if (this.responseText == undefined)
+				var jsonObj = [];
+			else 
+				var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
+				that.updateModal(jsonObj, that.locations[id]);
 	};
 
 	var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
 	xhr.send('serve_date=' +today+ '&location_num=' + id + '&foodproDB=' + this.locations[id]);//Send the data over the URL
 
+
+	
 };
 
-MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
+MenuScript.prototype.updateModal = function(jsonData, isFoodPro) {
 	//We need to make and format all of the categories in html
 
 	//First gather all relevant categories
-	if(isFoodPro) var categories = ["breakfast", "lunch", "dinner"];
+	if(isFoodPro) {
+		var categories = ["breakfast", "lunch", "dinner"];
+	}
 	else {
 		var categories = [];
-		for(var j = 0; j < jsonData.length; j++){
+		for(var j = 0; j < jsonData.length; j++) {
 			var row = jsonData[j];
 
-			if(! $.inArray(row.Category, categories)){
+			if(! $.inArray(row.Category, categories)) {
 				categories.push(row.Category);
 			}
-
 		}
 	}
+
 
 
 	// For our Perk Coffee carts we want to change the tabs
 	// and then we'll fill items with the DISTINCT query results from
 	// menu2.php
-	if(isFoodPro && this.locations[22] === true) {
-		var categories = ["items", "lunch", "dinner"];
-	}
+	// if(isFoodPro && this.locations[22] === true) {
+	// 	var categories = ["items", "lunch", "dinner"];
+	// }
 	
 
 	//now create the correct HTML
-	for(var i = 0; i < categories.length; i++){
+	for(var i = 0; i < categories.length; i++) {
 		//store IDs with _ instead of spaces
 		var noSpaceCat = categories[i].replace(/ /g, "_");
 
@@ -99,18 +106,18 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 
 		//Push the accordion onto the tabcontent
 		$("#"+categories[i]).append('<div class="panel-group" id="'+noSpaceCat+'accordion"></div>');
-	}
+	} // end categories.length
 
 	//Now we need to push food items retrieved from DB query into the correct accordions
 	// jsonData is an array of objects returned from the FoodPro system
-	for(var j = 0; j < jsonData.length; j++){
+	for(var j = 0; j < jsonData.length; j++) {
 		var row = jsonData[j];
 
 		//Obtain the correct category string of the food item, depending on the database being pulled from.
 		// Remember that we have a MySQL db and the FoodPro DB.
 		var category = "";
-		if(isFoodPro){
-			switch(row.Meal_Number){
+		if(isFoodPro) {
+			switch(row.Meal_Number) {
 				case "1": category = "breakfast";
 						  break;
 				case "2": category = "lunch";
@@ -124,7 +131,7 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 
 		//Check for allergens
 		var allergenInfo = "No allergens";
-		if( row.Allergens.trim() ){
+		if( row.Allergens.trim() ) {
 			allergenInfo = "Allergens: " + row.Allergens.trim() + "<br>";
 		}
 
@@ -133,7 +140,7 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 
 		//Build up the menu_item, if on android, don't make it collapsible
 		var menu_item = "";
-		if(androidversion < 3){
+		if(androidversion < 3) {
 			menu_item = "<p style='font-size:14px;padding-left:7px;'>" + 
 							"&middot;" + row.Recipe_Print_As_Name; + 
 						"</p>";
@@ -157,5 +164,5 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro){
 		//Now write the menu item to the correct accordion
 		$("#"+category+"accordion").append(menu_item);
 		
-	}
-}
+	} // end jsonData.length
+} // end updateModal()
