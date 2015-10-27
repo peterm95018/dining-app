@@ -19,11 +19,11 @@ MenuScript.prototype.getLocationInfo = function(id) {
 	var that = this;
 
 	// wrap the call to menu and menu2.php in a conditional
-	// if(locations[22] === true) {
+	 if(locations[22] === true) {
 		// call menu2.php and run DISTINCT query
 		// XMLHttpRequest lets us send variables in the URL to the PHP
 		var xhr = new XMLHttpRequest();
-		xhr.open('POST', 'menu2.php', true);
+		xhr.open('POST', 'menu.php', true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
 		xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
 			//In case the json data is empty, do this first
@@ -41,7 +41,28 @@ MenuScript.prototype.getLocationInfo = function(id) {
 	var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
 	xhr.send('serve_date=' +today+ '&location_num=' + id + '&foodproDB=' + this.locations[id]);//Send the data over the URL
 
+		} else {
+				// XMLHttpRequest lets us send variables in the URL to the PHP
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'menu2.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
+				xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
+					//In case the json data is empty, do this first
+					//Clear the html content of the tabs and modal stuff
+					$("#myTabs").html("");
+					$("#myTabContent").html("");
 
+					if (this.responseText == undefined)
+						var jsonObj = [];
+					else 
+						var jsonObj = $.parseJSON(this.responseText);// The JSON grabbed from the php
+						that.updateModal(jsonObj, that.locations[id]);
+			};
+
+			var today = moment().format("MM/DD/YYYY"); //Eg: 07/24/2014
+			xhr.send('serve_date=' +today+ '&location_num=' + id + '&foodproDB=' + this.locations[id]);//Send the data over the URL
+
+		}
 	
 };
 

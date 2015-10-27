@@ -260,8 +260,6 @@
 
 		//Create our object
 		menuscript = new MenuScript(locations);
-		console.dir(locations);
-		console.log('locationToID ' + locationToID);
 
 	}
 
@@ -281,8 +279,8 @@
 		   myModalMenu(locationName);
 		   // grab the date to use in Menu Label
 			today = moment().format('dddd, MMM Do YYYY');
-			$('#myModalLabelMenu').replaceWith('<h4>Menu for ' + today +'</h4');
-			$('li#breakfastTab.active a').replaceWith('items');
+			$('#myModalLabelMenu').replaceWith('<h4>Menu for ' + today + '</h4>');
+			//$('li#breakfastTab.active a').replaceWith('items');
 	   }
 	   
 	   if (btnType === 'map') {
