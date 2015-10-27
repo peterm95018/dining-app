@@ -19,11 +19,11 @@ MenuScript.prototype.getLocationInfo = function(id) {
 	var that = this;
 
 	// wrap the call to menu and menu2.php in a conditional
-	 if(locations[22] === true) {
+	 if(this.locations[22] === true) {
 		// call menu2.php and run DISTINCT query
 		// XMLHttpRequest lets us send variables in the URL to the PHP
 		var xhr = new XMLHttpRequest();
-		xhr.open('POST', 'menu.php', true);
+		xhr.open('POST', 'menu2.php', true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
 		xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
 			//In case the json data is empty, do this first
@@ -44,7 +44,7 @@ MenuScript.prototype.getLocationInfo = function(id) {
 		} else {
 				// XMLHttpRequest lets us send variables in the URL to the PHP
 				var xhr = new XMLHttpRequest();
-				xhr.open('POST', 'menu2.php', true);
+				xhr.open('POST', 'menu.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//Supports old browsers
 				xhr.onload = function () { //Listener that waits for XmlHttp request, then it gets JSON from php once loaded
 					//In case the json data is empty, do this first
