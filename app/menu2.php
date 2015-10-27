@@ -36,13 +36,14 @@
      //      and Location_Number = " . $location_number . "
      //      order by Meal_Number";
 
-      $query = "select DISTINCT Recipe_Print_As_Name, ID, Serve_Date, Meal_Number, Location_Name, Recipe_Web_Codes
-          from FoodPro.dbo.ForecastedRecipes
-          where Serve_Date = N'" . $serve_date . "' 
-          and Location_Number = " . $location_number . "
-          and Meal_Number = 1
-          and Recipe_Print_As_Name != ''
-          order by Recipe_Print_As_Name";
+      $query = "SELECT Recipe_Print_As_Name, Meal_Number, COUNT(*), Max(ID) AS dupes
+      from FoodPro.dbo.ForecastedRecipes
+      where Serve_Date = N'" . $serve_date . "'
+      and Location_Number = " . $location_number . "
+      and Meal_Number = 1
+      and Recipe_Print_As_Name != ''
+      GROUP BY Recipe_Print_As_Name, Meal_Number
+      HAVING (COUNT(*) > 1)";
 
      $stmt = $conn->query( $query );
      while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
