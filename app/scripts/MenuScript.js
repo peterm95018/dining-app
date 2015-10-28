@@ -18,6 +18,7 @@ MenuScript.prototype.getAndroidVersion = function(ua) {//Stolen straight from ht
 MenuScript.prototype.getLocationInfo = function(id) {
 	var that = this;
 
+
 	// wrap the call to menu and menu2.php in a conditional
 	 if(this.locations[22] === true) {
 		// call menu2.php and run DISTINCT query
@@ -151,10 +152,12 @@ MenuScript.prototype.updateModal = function(jsonData, isFoodPro) {
 		}
 
 		//Check for allergens
+		if(!this.locations === 22) {
 		var allergenInfo = "No allergens";
 		if( row.Allergens.trim() ) {
 			allergenInfo = "Allergens: " + row.Allergens.trim() + "<br>";
 		}
+	}
 
 		//Check for Android version, earlier Android versions can't render accordion data
 		var androidversion = parseInt(this.getAndroidVersion());

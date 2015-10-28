@@ -90,7 +90,9 @@
   	      <hr>			
 
 	      <!--  ////// EARTH & MARINE SCIENCES ////// -->
+
   	      <div class="row">
+        
   	        <div class="col-lg-7 col-md-7">
   	          <a href="#"><img class="img-responsive" src="images/perk-earth-and-marine.jpg" alt="perk earth and marine sciences"></a>
   	        </div>
@@ -106,7 +108,7 @@
   			  </div>
   	        </div>
   	      </div>
-  	      <hr>	  
+  	      <hr>
 		  
 	      <!--  ////// PHYSICAL SCIENCES ////// -->  
   	      <div class="row">
@@ -250,13 +252,16 @@
 		var locations = {};
 		//Perk Coffee @ Earth &amp; Marine Sciences
 		locations[22] = true;
-		locationToID["Perk Coffee @ Earth &amp; Marine Sciences"] = 22;
+
+		// locationToID["Marine Sciences"] = 22;
 		//Perk Coffee @ Baskin Engineering
 		locationToID["Perk Coffee @ Baskin Engineering"] = 22;
 		//Perk Coffee @ Physical Sciences
 		locationToID["Perk Coffee @ Physical Sciences"] = 22;
 		//Perk Coffee @ University Center
 		locationToID["Perk Coffee @ University Center"] = 22;
+
+		locationToID['Marine Sciences'] = 22;
 
 		//Create our object
 		menuscript = new MenuScript(locations);
@@ -269,7 +274,6 @@
 	   var tempBtnType = $(this).attr('data-target'); // returns #myModalInfo or #myModalMenu
 	   var btnType = tempBtnType.substring(1); // strip off the #
 	   console.log(btnType);
-	   console.log(locationName);
 
 	   if (btnType === 'myModalInfo') {
 		   myModalInfo(locationName);
